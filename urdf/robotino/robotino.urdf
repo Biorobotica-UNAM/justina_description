@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<robot name="robotino">
+<!-- ***************************** Main Body ******************************************* -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+  
+<!-- ***************************** Wheel 0 - Mesh ************************************** --> 
+  <link name="wheel0_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+<!-- ========== Wheel 0 - Joint ========== --> 
+  <joint name="wheel0_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel0_link"/>
+    <origin xyz="-0.1825 -0.0001 0.059154" rpy="0 0 1.570796"/>
+    <!--origin xyz="-0.0001 0.1825 0.059154" rpy="0 0 0"/-->
+    <axis xyz="0 1 0" rpy="0 0 0"/>	
+  </joint>
+
+<!-- ***************************** Wheel 1 - Mesh ************************************** --> 
+  <link name="wheel1_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+<!-- ========== Wheel 1 - Joint ========== --> 
+  <joint name="wheel1_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel1_link"/>
+    <origin xyz="0.090625 -0.157067 0.059154" rpy="0 0 3.665191"/>
+    <!--origin xyz="-0.157067 -0.090625 0.059154" rpy="0 0 2.094395102393195"/-->
+    <axis xyz="0 1 0" rpy="0 0 0"/>	
+  </joint>
+
+<!-- ***************************** Wheel 2 - Mesh ************************************** -->  
+  <link name="wheel2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+<!-- ========== Wheel 2 - Joint ========== --> 
+  <joint name="wheel2_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel2_link"/>
+    <origin xyz="0.090625 0.156867 0.059154" rpy="0 0 -0.523599"/>
+    <!--origin xyz="0.156867 -0.090625 0.059154" rpy="0 0 -2.094395102393195"/-->
+    <axis xyz="0 1 0" rpy="0 0 0"/>	
+  </joint>  
+
+<!-- ***************************** Platform(Tower) - Mesh ****************************** -->  
+  <link name="tower_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_Platform.dae" scale="0.009 0.009 0.009"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robotino_description/model/Robotino3_Platform.dae" scale="0.009 0.009 0.009"/>
+      </geometry>
+    </collision>
+  </link>
+<!-- =========== Tower - Joint ============ --> 
+  <joint name="tower_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="tower_link"/>
+    <origin xyz="0 0 0.06" rpy="0 0 1.5707"/>
+    <axis xyz="0 0 0" rpy="0 0 0"/>	
+  </joint>
+
+<!-- ========== Platform - Joint ========== --> 
+  <link name="platform_link">
+  </link>
+
+  <joint name="platform_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="platform_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.76"/>
+  </joint>
+
+<!-- ***************************** END ***************************** -->  
+
+<!-- ***************************** Sensors  ******************************************* -->
+<!-- ***************************** Hokuyo - Mesh ************************************** -->  
+  <link name="laser_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/sensors/hokuyo.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <origin xyz="0 0 -0.055" rpy="0 0 1.57"/>
+    </visual>
+  </link>
+<!-- =========== Hokuyo - Joint ============ --> 
+  <joint name="base_to_hokuyo" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+    <origin rpy="0 0 0" xyz="0.07 0.0 0.28"/>
+  </joint>
+
+<!-- **************************** Kinect - Mesh ************************************** -->  
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/sensors/kinect.dae" scale="1 1 1"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 1.57"/>
+    </visual>
+  </link>
+
+<!-- =========== Kinect - Joint ============ --> 
+ <joint name="platform_to_kinect" type="fixed">
+    <parent link="platform_link"/>
+    <child link="camera_link"/>
+    <origin rpy="0 0.35 0" xyz=" 0.17 0 0.025"/>
+  </joint>
+
+ <material name="grey">
+    <color rgba="0.0 0.0 0.0 1.0"/>  <!-- Negro completamente opaco -->
+  </material>
+
+  <!-- AxisX -->
+  <link name="AxisX_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/AxisX.stl" scale="0.001 0.001 0.001"/>  
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/AxisX.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+    </collision>
+  </link>
+  
+  <!-- AxisY-->
+  <link name="AxisY_link">
+    <visual> 
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/AxisY.stl" scale="0.001 0.001 0.001"/>  
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/AxisY.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+    </collision>
+  </link>
+  
+  <!-- AxisZ-->
+  <link name="AxisZ_link">
+    <visual> 
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/AxisZ.stl" scale="0.001 0.001 0.001"/>  
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/AxisZ.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+    </collision>
+  </link>
+
+    
+  <!-- Claw-->
+  <link name="MovingPlate_link">
+    <visual> 
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/MovingPlate.stl" scale="0.001 0.001 0.001"/>  
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://manipulator_description/meshes/MovingPlate.stl" scale="0.001 0.001 0.001"/> 
+      </geometry>
+    </collision>
+  </link>
+
+  <!--Joints-->
+  <joint name="AxisX_joint" type="fixed">
+    <parent link="platform_link"/>
+    <child link="AxisX_link"/>
+    <origin xyz="0.160 -0.115 0.0015" rpy="0 0 1.570796" />
+  </joint>
+
+  <joint name="AxisY_joint" type="prismatic">
+    <parent link="AxisX_link"/>
+    <child link="AxisY_link"/>
+    <origin xyz="-0.01 0.308 0.0225" rpy="1.5708 0 0" />  <!-- 1.5708 rad = 90° -->
+    <axis xyz="0 0 1"/>
+    <limit lower="0" upper="0.234" effort="0.1" velocity="0.1"/>
+  </joint>
+ 
+  <joint name="AxisZ_joint" type="prismatic">
+    <parent link="AxisY_link"/>
+    <child link="AxisZ_link"/>
+    <origin xyz="0.039 0.08 0.006" rpy="-1.5708 0 0" /> 
+    <axis xyz="1 0 0"/>
+    <limit lower="0" upper="0.105" effort="0.1" velocity="0.1"/>
+  </joint>
+
+  <joint name="MovingPlate_joint" type="prismatic">
+    <parent link="AxisZ_link"/>
+    <child link="MovingPlate_link"/>
+    <origin xyz="-0.032 -0.076 0.38" rpy="-1.5708 3.1415 0" /> 
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="0.18" effort="0.1" velocity="0.1"/>
+  </joint>
+
+<!-- ***************************** iPhone - Mesh ************************************** -->  
+<!--  <link name="iphone_link">
+    <visual>
+      <geometry>
+        <box size="0.16 0.08 0.01"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+  </link> -->
+<!-- =========== iPhone - Joint ============ --> 
+<!-- <joint name="base_to_iphone" type="fixed">
+    <parent link="base_link"/>
+    <child link="iphone_link"/>
+    <origin rpy="0 0 0" xyz="-0.06 0.0 1.25"/>
+  </joint> -->
+
+</robot>
+

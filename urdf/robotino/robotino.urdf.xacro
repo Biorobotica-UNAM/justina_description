@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robotino3">
+  <!-- ==================== Properties ==================== -->
+  <xacro:property name="mesh_scale"   value="0.01 0.01 0.01"/>
+  <xacro:property name="wheel_mesh"   value="package://robotino_description/model/Robotino3_SplitWheel.dae"/>
+  <xacro:property name="body_mesh"    value="package://robotino_description/model/Robotino3_SplitMain_NoCamera.dae"/>
+  <xacro:property name="tower_mesh"   value="package://robotino_description/model/Robotino3_Platform.dae"/>
+  <xacro:property name="hokuyo_mesh"  value="package://robotino_description/meshes/sensors/hokuyo.dae"/>
+  <xacro:property name="kinect_mesh"  value="package://robotino_description/meshes/sensors/kinect.dae"/>
+
+  <!-- ==================== Macros ==================== -->
+  <xacro:macro name="wheel_link" params="index xyz rpy">
+    <link name="wheel${index}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${wheel_mesh}" scale="${mesh_scale}"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${wheel_mesh}" scale="${mesh_scale}"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="wheel${index}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="wheel${index}_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- ==================== Base ==================== -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="${body_mesh}" scale="${mesh_scale}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="${body_mesh}" scale="${mesh_scale}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== Wheels ==================== -->
+  <xacro:wheel_link index="0" xyz="-0.1825 -0.0001 0.059154" rpy="0 0 1.570796"/>
+  <xacro:wheel_link index="1" xyz="0.090625 -0.157067 0.059154" rpy="0 0 3.665191"/>
+  <xacro:wheel_link index="2" xyz="0.090625 0.156867 0.059154" rpy="0 0 -0.523599"/>
+
+  <!-- ==================== Tower (Platform) ==================== -->
+  <link name="platform_link">
+    <visual>
+      <origin xyz="0 0 -0.70" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="${tower_mesh}" scale="0.009 0.009 0.009"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.70" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="${tower_mesh}" scale="0.009 0.009 0.009"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="platform_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="platform_link"/>
+    <origin xyz="0 0 0.76" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ==================== Hokuyo Sensor ==================== -->
+  <link name="laser_link">
+    <visual>
+      <origin xyz="0 0 -0.055" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="${hokuyo_mesh}" scale="${mesh_scale}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.055" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="${hokuyo_mesh}" scale="${mesh_scale}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_to_hokuyo" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+    <origin xyz="0.07 0.0 0.28" rpy="0 0 0"/>
+  </joint>
+</robot>

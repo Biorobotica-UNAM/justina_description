@@ -2,12 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robotino3">
   <!-- ==================== Properties ==================== -->
   <xacro:property name="mesh_scale"   value="0.01 0.01 0.01"/>
-  <xacro:property name="wheel_mesh"   value="package://justina_descritpion/model/robotino/Robotino3_SplitWheel.dae"/>
-  <xacro:property name="body_mesh"    value="package://justina_descritpion/model/robotino/Robotino3_SplitMain_NoCamera.dae"/>
-  <xacro:property name="tower_mesh"   value="package://justina_descritpion/model/robotino/Robotino3_Platform.dae"/>
-  <xacro:property name="hokuyo_mesh"  value="package://justina_descritpion/meshes/robotino/sensors/hokuyo.dae"/>
-  <xacro:property name="kinect_mesh"  value="package://justina_descritpion/meshes/robotino/sensors/kinect.dae"/>
-
+  <xacro:property name="wheel_mesh"   value="package://justina_description/model/robotino/Robotino3_SplitWheel.dae"/>
+  <xacro:property name="body_mesh"    value="package://justina_description/model/robotino/Robotino3_SplitMain_NoCamera.dae"/>
+  <xacro:property name="tower_mesh"   value="package://justina_description/model/robotino/Robotino3_Platform.dae"/>
+  <xacro:property name="hokuyo_mesh"  value="package://justina_description/meshes/robotino/sensors/hokuyo.dae"/>
+  <xacro:property name="kinect_mesh"  value="package://justina_description/meshes/robotino/sensors/kinect.dae"/>
   <!-- ==================== Macros ==================== -->
   <xacro:macro name="wheel_link" params="index xyz rpy">
     <link name="wheel${index}_link">

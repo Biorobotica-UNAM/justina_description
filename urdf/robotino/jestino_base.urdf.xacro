@@ -7,12 +7,12 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://justina_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+          <mesh filename="package://justina_description/model/robotino/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://justina_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+          <mesh filename="package://justina_description/model/robotino/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
         </geometry>
       </collision>
     </link>
@@ -29,13 +29,13 @@
     <visual>
       <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
       <geometry>
-        <mesh filename="package://justina_description/model/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://justina_description/model/robotino/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
       <geometry>
-        <mesh filename="package://justina_description/model/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://justina_description/model/robotino/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
   </link>
@@ -108,13 +108,13 @@
   <link name="laser_link">
     <visual>
       <geometry>
-        <mesh filename="package://robotino_description/meshes/sensors/hokuyo.dae" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://justina_description/meshes/robotino/sensors/hokuyo.dae" scale="0.01 0.01 0.01"/>
       </geometry>
       <origin xyz="0 0 -0.055" rpy="0 0 1.57"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://robotino_description/meshes/sensors/hokuyo.dae" scale="0.01 0.01 0.01"/>
+        <mesh filename="package://justina_description/meshes/robotino/sensors/hokuyo.dae" scale="0.01 0.01 0.01"/>
       </geometry>
       <origin xyz="0 0 -0.055" rpy="0 0 1.57"/>
     </collision>

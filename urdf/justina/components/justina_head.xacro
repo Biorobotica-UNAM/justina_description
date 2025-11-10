@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <robot name="justina_head" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find justina_description)/urdf/components/justina_head.gazebo"/>
+  <xacro:include filename="$(find justina_description)/urdf/justina/components/justina_head.gazebo"/>
 
   <!--HEAD LINKS AND JOINTS-->
   <link name="head_link1">
     <visual>
       <origin xyz= "-0.01 0 0.03" rpy="0 0 -1.5707"/>
-      <geometry><mesh filename="package://justina_description/meshes/servos/Mx64.dae"/></geometry>
+      <geometry><mesh filename="package://justina_description/meshes/justina/servos/Mx64.dae"/></geometry>
       <material name="blue"/>
     </visual>
     <collision>
@@ -24,7 +24,7 @@
     <visual>
       <origin xyz= "-0.01 0.0 0.06" rpy="1.5707 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/servos/Mx64.dae"/>    
+        <mesh filename="package://justina_description/meshes/justina/servos/Mx64.dae"/>    
       </geometry>
       <material name="orange"/>
     </visual>
@@ -55,7 +55,7 @@
       <origin xyz="0 0 -0.125" rpy="0 0 0"/>
       <geometry>
         <!--box size="0.02 0.02 0.02"/-->
-        <mesh filename="package://justina_description/meshes/head/careta.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/head/careta.dae"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -86,7 +86,7 @@
       <origin xyz="0 0 0" rpy="0 0 1.5707"/>
       <geometry>
         <!--box size=" 0.029 0.103 0.02"/-->
-        <mesh filename="package://robotino_description/meshes/sensors/kinect.dae" scale="1 1 1"/>
+        <mesh filename="package://justina_description/meshes/robotino/sensors/kinect.dae" scale="1 1 1"/>
       </geometry>
       <material name="gray"/>
     </visual>

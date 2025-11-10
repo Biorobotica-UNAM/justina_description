@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <robot name="justina_left_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <!--xacro:include filename="$(find justina_description)/urdf/components/justina_left_arm.gazebo"/-->
+  <!--xacro:include filename="$(find justina_description)/urdf/justina/components/justina_left_arm.gazebo"/-->
   
   <!-- LEFT ARM LINKS -->
   <link name="shoulders_left_link">
     <visual>
       <origin xyz="0 -0.01 0.02" rpy = "0 3.1415 0"/>
       <geometry> 
-        <mesh filename="package://justina_description/meshes/servos/Mx106-2.dae"/> 
+        <mesh filename="package://justina_description/meshes/justina/servos/Mx106-2.dae"/> 
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 -0.01 0.02" rpy = "0 3.1415 0"/>
       <geometry> 
-        <mesh filename="package://justina_description/meshes/servos/Mx106-2.dae"/> 
+        <mesh filename="package://justina_description/meshes/justina/servos/Mx106-2.dae"/> 
       </geometry>
     </collision>
     <inertial>
@@ -30,14 +30,14 @@
     <visual>
       <origin xyz="0 -0.01 0.01" rpy="0 0 -1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/arm/shoulder_frame.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/arm/shoulder_frame.dae"/>
       </geometry>
       <material name = "la_material"><color rgba="1.0 0.5 0 1"/></material>
     </visual>
     <collision>
       <origin xyz="0 -0.01 0.01" rpy="0 0 -1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/arm/shoulder_frame.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/arm/shoulder_frame.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -54,25 +54,25 @@
     <visual>
       <origin xyz="0 0 -0.02" rpy="0 0 6.2822"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/servos/Mx64.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/servos/Mx64.dae"/>
       </geometry>
     </visual>
     <visual>
       <origin xyz="0 0 -0.216" rpy="0 3.1416 1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/arm/arm.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/arm/arm.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 -0.02" rpy="0 0 6.2822"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/servos/Mx64.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/servos/Mx64.dae"/>
       </geometry>
     </collision>
     <collision>
       <origin xyz="0 0 -0.216" rpy="0 3.1416 1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/arm/arm.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/arm/arm.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -89,37 +89,37 @@
     <visual>
       <origin xyz="0 0 0" rpy="1.5707 0 0"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/servos/Mx106.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/servos/Mx106.dae"/>
       </geometry>
     </visual>
     <visual>
       <origin xyz="0 0 -0.12" rpy="0 0 1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/arm/forearm.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/arm/forearm.dae"/>
       </geometry>
     </visual>
     <visual>
       <origin xyz="0.009 0.001 -0.21" rpy="0 0 -1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/servos/Mx64.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/servos/Mx64.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/servos/Mx106.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/servos/Mx106.dae"/>
       </geometry>
     </collision>
     <collision>
       <origin xyz="0 0 -0.12" rpy="0 0 1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/arm/forearm.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/arm/forearm.dae"/>
       </geometry>
     </collision>
     <collision>
       <origin xyz="0.009 0.001 -0.21" rpy="0 0 -1.5707"/>
       <geometry>
-       <mesh filename="package://justina_description/meshes/servos/Mx64.dae"/>
+       <mesh filename="package://justina_description/meshes/justina/servos/Mx64.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -136,13 +136,13 @@
     <visual>
       <origin xyz="0 -0.004 0" rpy="1.5707 -1.5707 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/servos/Mx28-2.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/servos/Mx28-2.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 -0.004 0" rpy="1.5707 -1.5707 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/servos/Mx28-2.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/servos/Mx28-2.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -159,13 +159,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 1.5707 3.1416"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/arm/gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/gripper.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 1.5707 3.1416"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/arm/gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/gripper.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -182,13 +182,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 1.5707 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/arm/gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/gripper.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/arm/gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/gripper.dae"/>
       </geometry>
     </collision>
     <inertial>

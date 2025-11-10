@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<robot name="robotino" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ***************************** Macros ******************************************* -->
+  <xacro:macro name="wheel" params="name x y z rpy">
+    <link name="${name}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://justina_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://justina_description/model/Robotino3_SplitWheel.dae" scale="0.01 0.01 0.01"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${name}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 ${rpy}"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- ***************************** Main Body ******************************************* -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/model/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.035" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/model/Robotino3_SplitMain_NoCamera.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ***************************** Wheels ******************************************* -->
+  <xacro:wheel name="wheel0" x="-0.1825" y="-0.0001" z="0.059154" rpy="1.570796"/>
+  <xacro:wheel name="wheel1" x="0.090625" y="-0.157067" z="0.059154" rpy="3.665191"/>
+  <xacro:wheel name="wheel2" x="0.090625" y="0.156867" z="0.059154" rpy="-0.523599"/>
+
+  <!-- ***************************** Tower ******************************************* -->
+<link name="tower_link">
+  <!-- aluminium axis -->
+  <visual>
+    <origin xyz="0 0 0.41" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.045 0.045 0.585"/>
+    </geometry>
+    <material name="aluminium">
+      <color rgba="0.8 0.8 0.8 1"/>
+    </material>
+  </visual>
+
+  <visual>
+    <origin xyz="0 0 0.705" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.075" length="0.005"/>
+    </geometry>
+    <material name="aluminium"/>
+  </visual>
+
+  <!-- aluminium axis -->
+  <collision>
+    <origin xyz="0 0 0.41" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.045 0.045 0.585"/>
+    </geometry>
+  </collision>
+
+  <collision>
+    <origin xyz="0 0 0.705" rpy="0 0 0"/>
+    <geometry>
+      <cylinder radius="0.075" length="0.005"/>
+    </geometry>
+  </collision>
+
+  <!-- Laptop -->
+  <collision>
+    <origin xyz="-0.04 0.0 0.30" rpy="0 0 0"/>
+    <geometry>
+      <box size = "0.03 0.35 0.20"/> 
+    </geometry>
+  </collision>
+</link>
+
+<joint name="tower_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="tower_link"/>
+  <origin xyz="0 0 0.06" rpy="0 0 0"/>
+</joint>
+
+  <!-- ***************************** Platform ***************************************** -->
+  <link name="platform_link"/>
+  <joint name="platform_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="platform_link"/>
+    <origin xyz="0 0 0.76" rpy="0 0 1.5707"/>
+  </joint>
+
+  <!-- ***************************** Sensors ***************************************** -->
+  <link name="laser_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/sensors/hokuyo.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <origin xyz="0 0 -0.055" rpy="0 0 1.57"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robotino_description/meshes/sensors/hokuyo.dae" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <origin xyz="0 0 -0.055" rpy="0 0 1.57"/>
+    </collision>
+  </link>
+  <joint name="base_to_hokuyo" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+    <origin xyz="0.07 0.0 0.28" rpy="0 0 0"/>
+  </joint>
+
+</robot>

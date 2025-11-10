@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="justina_torso" xmlns:xacro="http://www.ros.org/wiki/xacro">
-<!--xacro:include filename="$(find justina_description)/urdf/justina_torso.gazebo"/-->
+<!--xacro:include filename="$(find justina_description)/urdf/justina/justina_torso.gazebo"/-->
   
   <xacro:macro name="box_inertia" params="m x y z">
     <inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0" iyy="${m*(x*x+z*z)/12}" iyz = "0" izz="${m*(x*x+z*z)/12}"/>
@@ -15,14 +15,14 @@
     <collision>
       <origin xyz= "0.0 0.0 -0.1" rpy="0 0 0"/>
       <geometry>
-	    <mesh filename="package://justina_description/meshes/torso/justina_chest.dae"/>
+	    <mesh filename="package://justina_description/meshes/justina/torso/justina_chest.dae"/>
       </geometry>
     </collision>
     <visual>
       <origin xyz= "0.0 0.0 -0.1" rpy="0 0 0"/>
       <!--origin xyz= "0.04 -0.097 -0.55" rpy="0 0 0"/-->
       <geometry>
-	    <mesh filename="package://justina_description/meshes/torso/justina_chest.dae"/>
+	    <mesh filename="package://justina_description/meshes/justina/torso/justina_chest.dae"/>
       </geometry>
       <material name="black_gray"><color rgba="0.2 0.2 0.2 1"/></material>
     </visual>

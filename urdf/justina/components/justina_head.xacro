@@ -83,7 +83,7 @@
   
   <link name="camera_link">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 1.5707"/>
+      <origin xyz="0 0 0" rpy="-1.5707 0 3.1415"/>
       <geometry>
         <!--box size=" 0.029 0.103 0.02"/-->
         <mesh filename="package://justina_description/meshes/robotino/sensors/kinect.dae" scale="1 1 1"/>
@@ -104,7 +104,7 @@
   </link>
   
   <joint name="camera_link_connect" type="fixed">
-    <origin xyz="0 0 0.065" rpy="0 0 0"/>
+    <origin xyz="0 0 0.065" rpy="-1.5707 0 -1.5707"/>
     <parent link="neck_link"/>
     <child link="camera_link"/>
   </joint>

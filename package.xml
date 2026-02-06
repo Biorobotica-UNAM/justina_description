@@ -3,18 +3,27 @@
 <package format="3">
   <name>justina_description</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Robot description for Justina robot</description>
   <maintainer email="joshuayz@comunidad.unam.mx">joshua</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <build_depend>rosidl_default_generators</build_depend>
-  <exec_depend>rosidl_default_runtime</exec_depend>
-  <exec_depend>rviz2</exec_depend>
-  <exec_depend>joint_state_publisher_gui</exec_depend>
-  <exec_depend>joint_state_publisher</exec_depend>
-  <exec_depend>xacro</exec_depend>
   
+  <!-- ROS 2 dependencies -->
+  <depend>rosidl_default_generators</depend>
+  <depend>rosidl_default_runtime</depend>
+  
+  <!-- Robot description dependencies -->
+  <depend>xacro</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>joint_state_publisher_gui</depend>
+  <depend>rviz2</depend>
+  
+  <!-- Gazebo/Simulation dependencies -->
+  <depend>ros_gz</depend>
+  
+  <!-- Test dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 

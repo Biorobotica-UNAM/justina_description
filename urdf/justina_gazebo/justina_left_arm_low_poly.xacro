@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<robot name="justina_left_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--xacro:include filename="$(find justina_description)/urdf/justina/components/justina_left_arm.gazebo"/-->
+
+  <!-- LEFT ARM LINKS -->
+  <link name="shoulders_left_link">
+    <inertial>
+      <origin xyz="0 -0.01 0.02" rpy = "0 0 0"/>
+      <mass value="0.125"/>
+      <inertia ixx="0.0015" ixy="0.0" ixz="0.0" iyy="0.002175" iyz="0.0" izz="0.003075"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 -0.01 0.02" rpy = "0 3.1415 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.01 0.02" rpy = "0 3.1415 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_shoulder_frame">
+    <inertial>
+      <origin xyz="0 -0.01 0.01" rpy = "0 0 -1.5707"/>
+      <mass value="0.08146"/>
+      <inertia ixx="0.0000813217" ixy="0.0" ixz="0.0" iyy="0.000196" iyz="0.0" izz="0.0001282"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 -0.01 0.01" rpy="0 0 -1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.01 0.01" rpy="0 0 -1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_arm">
+    <inertial>
+      <origin xyz="0 0 0" rpy = "0 0 0"/>
+      <mass value="0.155"/>
+      <inertia ixx="0.0015" ixy="0.0" ixz="0.0" iyy="0.002175" iyz="0.0" izz="0.003075"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 -0.02" rpy="0 0 6.2822"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.02" rpy="0 0 6.2822"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 -0.216" rpy="0 3.1416 1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.216" rpy="0 3.1416 1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_forearm">
+    <inertial>
+      <origin xyz="0 0 0" rpy = "0 0 0"/>
+      <mass value="0.155"/>
+      <inertia ixx="0.0015" ixy="0.0" ixz="0.0" iyy="0.002175" iyz="0.0" izz="0.003075"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 -0.12" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.12" rpy="0 0 1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_LowPoly.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0.009 0.001 -0.21" rpy="0 0 -1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.009 0.001 -0.21" rpy="0 0 -1.5707"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_gripper_motors">
+    <inertial>
+      <origin xyz="0 0 0" rpy = "0 0 0"/>
+      <mass value="0.155"/>
+      <inertia ixx="0.0015" ixy="0.0" ixz="0.0" iyy="0.002175" iyz="0.0" izz="0.003075"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 -0.004 0" rpy="1.5707 -1.5707 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.004 0" rpy="1.5707 -1.5707 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_right_jaw">
+    <inertial>
+      <origin xyz="0 0 0" rpy = "0 0 0"/>
+      <mass value="0.155"/>
+      <inertia ixx="0.0015" ixy="0.0" ixz="0.0" iyy="0.002175" iyz="0.0" izz="0.003075"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5707 3.1416"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 3.1416"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="left_left_jaw">
+    <inertial>
+      <origin xyz="0 0 0" rpy = "0 0 0"/>
+      <mass value="0.155"/>
+      <inertia ixx="0.0015" ixy="0.0" ixz="0.0" iyy="0.002175" iyz="0.0" izz="0.003075"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.5707 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.5707 0"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- LEFT ARM JOINTS -->
+  <joint name="left_torso_shoulder" type="revolute">
+    <origin xyz="0 0 0.01" rpy="0 0 0"/>
+    <parent link="shoulders_left_link"/>
+    <child link="left_shoulder_frame"/>
+    <axis xyz="0 -1 0" />
+    <dynamics damping ="0.1" />
+    <limit effort="16.0" velocity="3.0" lower="-1.7" upper="1.7"/>
+  </joint>
+
+  <joint name="left_shoulder_arm_motor" type="revolute">
+    <origin xyz="0 -0.009 -0.028" rpy="0 0 0"/>
+    <parent link="left_shoulder_frame"/>
+    <child link="left_arm"/>
+    <axis xyz="0 0 -1" />
+    <dynamics damping ="0.1" />
+    <limit effort="16.0" velocity="3.0" lower="-1.7" upper="1.7"/>
+  </joint>
+
+  <joint name="left_elbow" type="revolute">
+    <origin xyz="0 0.002 -0.216" rpy="0 0 0"/>
+    <parent link="left_arm"/>
+    <child link="left_forearm"/>
+    <axis xyz="0 -1 0" />
+    <dynamics damping ="0.1" />
+    <limit effort="16.0" velocity="3.0" lower="-1.7" upper="1.7"/>
+  </joint>
+
+  <joint name="left_wrist" type="revolute">
+    <origin xyz="0.009 0.001 -0.25" rpy="0 0 0"/>
+    <parent link="left_forearm"/>
+    <child link="left_gripper_motors"/>
+    <axis xyz="0 0 -1" />
+    <dynamics damping ="0.1" />
+    <limit effort="16.0" velocity="3.0" lower="-1.7" upper="1.7"/>
+  </joint>
+
+  <joint name="left_right_jaw_joint" type="revolute">
+    <origin xyz="0 -0.04 0" rpy="0 0 0"/>
+    <parent link="left_gripper_motors"/>
+    <child link="left_right_jaw"/>
+    <axis xyz="-1 0 0" />
+    <dynamics damping ="0.1" />
+    <limit effort="16.0" velocity="3.0" lower="-1.7" upper="1.7"/>
+  </joint>
+
+  <joint name="left_left_jaw_joint" type="revolute">
+    <origin xyz="0 0.04 0" rpy="0 0 0"/>
+    <parent link="left_gripper_motors"/>
+    <child link="left_left_jaw"/>
+    <axis xyz="-1 0 0" />
+    <dynamics damping ="0.1" />
+    <limit effort="16.0" velocity="3.0" lower="-1.7" upper="1.7"/>
+  </joint>
+</robot>

@@ -1,25 +1,26 @@
 <?xml version="1.0"?>
 <robot name="robotino" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:property name="M_PI" value="3.1415926535897931" />
+    
+    <!-- NOTE Wheels have 0.01 offset from ground to match with visual texture floor in LAB world -->
 
     <!-- Base Robotino -->
     <link name="base_link">
         <inertial>
             <mass value="10.0"/>
             <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
-            <origin xyz="0 0 0.035" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
         </inertial>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}"/>
+            <origin xyz="0 0 -0.03" rpy="0 0 0"/>
             <geometry>
                 <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_LowPoly.dae" scale="1 1 1"/>
             </geometry>
         </visual>
         <collision>
-            <origin xyz="0 0 0.085" rpy="0 0 0"/>
+            <origin xyz="0 0 -0.03" rpy="0 0 0"/>
             <geometry>
-                <cylinder radius="0.234" length="0.2"/>
+                <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Collider_LowPoly.dae" scale="1 1 1"/>
             </geometry>
         </collision>
     </link>
@@ -86,7 +87,7 @@
             </geometry>
         </visual>
         <collision>
-            <origin xyz="0 0 0.035" rpy="0 0 0"/>
+            <origin xyz="0 0 0.0" rpy="0 0 0"/>
             <geometry>
                 <box size="0.05 0.05 0.07"/>
             </geometry>
@@ -108,23 +109,24 @@
         </inertial>
 
         <visual>
-            <origin xyz="0 0 0.0" rpy="0 0 ${M_PI/2}"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
                 <mesh filename="package://justina_description/meshes/robotino_low_poly/Justina_Platform_LowPoly.dae" scale="1 1 1"/>
             </geometry>
         </visual>
         <collision>
-            <origin xyz="0 0 0.413" rpy="0 0 0"/>
+            <origin xyz="0 0 0.49" rpy="0 0 0"/>
             <geometry>
                 <cylinder radius="0.075" length="0.59"/>
             </geometry>
         </collision>
     </link>
 
+    <!-- tower have an offset of 0.06 -->
     <joint name="tower_joint" type="fixed">
         <parent link="base_link"/>
         <child link="tower_link"/>
-        <origin xyz="0 0 0.06" rpy="0 0 0"/>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
     </joint>
 
 </robot>

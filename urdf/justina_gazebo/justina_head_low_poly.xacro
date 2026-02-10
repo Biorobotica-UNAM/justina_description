@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="justina">
   <!-- <xacro:include filename="$(find justina_description)/urdf/justina/components/justina_head.gazebo"/> -->
-
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  
   <!--HEAD LINKS AND JOINTS-->
   <link name="head_link1">
     <inertial>
@@ -11,39 +12,43 @@
     </inertial>
 
     <visual>
-      <origin xyz= "-0.01 0 0.03" rpy="0 0 -1.5707"/>
-      <geometry><mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/></geometry>
+      <origin xyz= "0.0 0 0.01" rpy="0 0 -${M_PI/2}"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
     </visual>
     <collision>
-      <origin xyz= "-0.01 0 0.03" rpy="0 0 -1.5707"/>
-      <geometry><mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/></geometry>
+      <origin xyz= "0.0 0 0.01" rpy="0 0 -${M_PI/2}"/>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
     </collision>
   </link>
   
   <link name="head_link2">
     <inertial>
-      <origin xyz="0.0 0 0.0" rpy = "0 0 0"/>
+      <origin xyz="0.0 0 0.0" rpy = "0 0 0"/>z
       <mass value = "0.15" />
       <inertia ixx = "0.00003125" iyy = "0.00003125" izz = "0.00003125" ixy = "0" ixz = "0" iyz = "0" />
     </inertial>
 
     <visual>
-      <origin xyz= "-0.01 0.0 0.06" rpy="1.5707 0 0"/>
+      <origin xyz= "0 0.0 0.06" rpy="${M_PI/2} 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz= "-0.01 0.0 0.06" rpy="1.5707 0 0"/>
+      <origin xyz= "0 0.0 0.06" rpy="${M_PI/2} 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </collision>
 
   </link>
   
   <joint name="head_pan" type="revolute">
-    <origin xyz="0.0 0 0.05" rpy="0 0 0" />
+    <origin xyz="0.0 0 0.035" rpy="0 0 0" />
     <parent link="head_link1"/>
     <child link="head_link2"/>
     <axis xyz="0 0 1" />
@@ -89,21 +94,21 @@
     </inertial>
 
     <visual>
-      <origin xyz="0 0 0" rpy="-1.5707 0 3.1415"/>
-      <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/kinect_LowPoly.dae" scale="1 1 1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>camera_link
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/kinect_LowPoly_B.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz= "0 0 0" rpy="-1.5707 0 3.1415"/>
+      <origin xyz= "0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/kinect_Collider.dae" scale="1 1 1"/>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/kinect_Collider_B.dae" scale="1 1 1"/>
       </geometry>
     </collision>
   </link>
   
   <joint name="camera_link_connect" type="fixed">
-    <origin xyz="0 0 0.065" rpy="-1.5707 0 -1.5707"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="neck_link"/>
     <child link="camera_link"/>
   </joint>

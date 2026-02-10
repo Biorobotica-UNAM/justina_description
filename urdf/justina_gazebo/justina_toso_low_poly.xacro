@@ -12,27 +12,27 @@
     <link name="torso_link">
         <inertial>
             <mass value="${torso_mass}"/>
-            <origin xyz= "0 0 -0.55" rpy="0 0 0"/>
+            <origin xyz= "0 0 -0.1" rpy="0 0 0"/>
             <xacro:box_inertia m="${torso_mass}" x="0.07" y="0.09" z="0.05"/>
         </inertial>
 
         <visual>
-            <origin xyz= "0.0 0.0 -0.1" rpy="0 0 0"/>
+            <origin xyz= "0.0 0.0 0.0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://justina_description/meshes/justina/torso/Justina_Torso_LowPoly.dae"/>
+                <mesh filename="package://justina_description/meshes/justina/torso/Justina_Torso_LowPoly.dae" scale="1 1 1"/>
             </geometry>
         </visual>
         <collision>
-            <origin xyz= "0.0 0.0 -0.1" rpy="0 0 0"/>
+            <origin xyz= "0.0 0.0 0.0" rpy="0 0 0"/>
             <geometry>
-                <mesh filename="package://justina_description/meshes/justina/torso/Justina_Torso_LowPoly.dae"/>
+                <mesh filename="package://justina_description/meshes/justina/torso/Justina_Torso_LowPoly.dae" scale="1 1 1"/>
             </geometry>
         </collision>
     </link>
 
     <joint name="spine_connect" type="fixed">
         <origin xyz= "0.0 0 0.35" rpy="0 0 0"/>
-        <parent link="torso_link"/>
+        <parent link="torso_link"/>5
         <child link="spine_link"/>
     </joint>
 

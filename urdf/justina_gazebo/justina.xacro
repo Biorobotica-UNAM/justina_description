@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot name="justina" xmlns:xacro="http://www.ros.org/wiki/xacro">
   
+  <!-- NOTE Wheels have 0.01 offset from ground to match with visual texture floor in LAB world -->
+
   <xacro:include filename="$(find justina_description)/urdf/justina_gazebo/festina_base_low_poly.xacro" />
   <xacro:include filename="$(find justina_description)/urdf/justina_gazebo/justina_toso_low_poly.xacro" />
   <xacro:include filename="$(find justina_description)/urdf/justina_gazebo/justina_left_arm_low_poly.xacro" />
@@ -8,25 +10,25 @@
   <xacro:include filename="$(find justina_description)/urdf/justina_gazebo/justina_head_low_poly.xacro" />
 
   <joint name="torso_connect" type="fixed">
-    <origin xyz= "0.0 0.0 0.80" rpy="0 0 0"/>
+    <origin xyz= "0.0 0.0 0.73" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="torso_link"/>
   </joint>
 
   <joint name="shoulder_left_connect" type="fixed">
-    <origin xyz="0 0.225 -0.08" rpy="0 0 0"/>
+    <origin xyz="0 0.225 -0.045" rpy="0 0 0"/>
     <parent link="spine_link"/>
-    <child link="shoulders_left_link"/>
+    <child link="left_shoulder_link"/>
   </joint>
   
   <joint name="shoulder_right_connect" type="fixed">
-    <origin xyz="0 -0.225 -0.08" rpy="0 0 0"/>
+    <origin xyz="0 -0.225 -0.045" rpy="0 0 0"/>
     <parent link="spine_link"/>
-    <child link="shoulders_right_link"/>
+    <child link="right_shoulder_link"/>
   </joint> 
 
   <joint name="spine_head_connect" type="fixed">
-    <origin xyz="0 0 0.13" rpy="0 0 0"/>
+    <origin xyz="0 0 0.2" rpy="0 0 0"/>
     <parent link="spine_link"/>
     <child link="head_link1"/>
   </joint>

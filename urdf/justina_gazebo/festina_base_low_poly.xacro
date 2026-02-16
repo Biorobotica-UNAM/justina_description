@@ -41,9 +41,9 @@
                 </geometry>
             </visual>
             <collision>
-                <origin xyz="0 0 0" rpy="1.570796 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <cylinder radius="0.062" length="0.058"/>
+                    <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae" scale="1 1 1"/>
                 </geometry>
             </collision>
         </link>
@@ -81,7 +81,7 @@
         </inertial>
 
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 1.57"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
                 <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae" scale="1 1 1"/>
             </geometry>

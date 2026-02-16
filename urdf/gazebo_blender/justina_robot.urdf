@@ -1,0 +1,752 @@
+<?xml version="1.0"?>
+
+<robot name="Justina">
+  <!-- ***************************** Main Body ******************************************* -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.02" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Collider_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="10" />
+      <inertia ixx="0.142313" ixy="-0.00005" ixz="0.01563" iyy="0.113564" iyz="-0.000009" izz="0.200483" />
+    </inertial>
+  </link>
+
+  <link name="wheel0_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <inertia ixx="0.001103" ixy="0" ixz="0" iyy="0.001788" iyz="0" izz="0.001103" />
+    </inertial>
+  </link>
+
+  <link name="wheel1_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <inertia ixx="0.001103" ixy="0" ixz="0" iyy="0.001788" iyz="0" izz="0.001103" />
+    </inertial>
+  </link>
+  
+  <link name="wheel2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <inertia ixx="0.001103" ixy="0" ixz="0" iyy="0.001788" iyz="0" izz="0.001103" />
+    </inertial>
+  </link>
+
+  <link name="tower_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/Justina_Platform_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.48" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="0.612616" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2" />
+      <inertia ixx="0.065362" ixy="0" ixz="0" iyy="0.065362" iyz="0" izz="0.005625" />
+    </inertial>
+  </link>
+
+  <link name="laser_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 .035" rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05455 0.07" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.3" />
+      <inertia ixx="0.000197" ixy="0" ixz="0" iyy="0.000185" iyz="0" izz="0.000137" />
+    </inertial>
+  </link>
+
+  <!-- ***************************** Torso ***************************************** -->
+  <link name="torso_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/torso/Justina_Torso_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/torso/Justina_Torso_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.6" />
+      <inertia ixx="0.025104" ixy="0" ixz="-0.000033" iyy="0.007076" iyz="0.000031" izz="0.019383" />
+    </inertial>
+  </link>
+
+  <link name="spine_link">
+    <inertial>
+      <mass value="0.1" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+  </link>
+
+  <!-- ***************************** Left Arm ***************************************** -->
+  <link name="left_shoulder_link">
+    <visual>
+      <origin xyz="0 0.000011 -0.049168" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.000011 -0.049168" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.125" />
+      <inertia ixx="0.000162" ixy="0" ixz="0" iyy="0.000046" iyz="0" izz="0.000134" />
+    </inertial>
+  </link>
+
+  <link name="left_motor_frame_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.08146" />
+      <inertia ixx="0.000123" ixy="0" ixz="0" iyy="0.000016" iyz="0" izz="0.000124" />
+    </inertial>
+  </link>
+
+  <link name="left_arm_link">
+    <visual>
+      <origin xyz="0 0 -0.02" rpy="0 0 1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.214537" rpy="0 0 1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 -0.02" rpy="0 0 1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.214537" rpy="0 0 1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.3" />
+      <inertia ixx="0.000071" ixy="0" ixz="0" iyy="0.000123" iyz="0" izz="0.000101" />
+    </inertial>
+  </link>
+  
+  <link name="left_forearm_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.12" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.21" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.12" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.21" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.3" />
+      <inertia ixx="0.000143" ixy="0" ixz="0" iyy="0.000111" iyz="0" izz="0.000078" />
+    </inertial>
+  </link>
+
+  <link name="left_wrist_link">
+    <visual>
+      <origin xyz="0 0 -0.021676" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.021676" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.115" />
+      <inertia ixx="0.000125" ixy="0" ixz="0" iyy="0.000022" iyz="0" izz="0.00013" />
+    </inertial>
+  </link>
+
+  <link name="left_griper_R_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05" />
+      <inertia ixx="0.000067" ixy="0" ixz="-0.000003" iyy="0.000052" iyz="0" izz="0.00002" />
+    </inertial>
+  </link>
+
+  <link name="left_griper_L_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 -3.141593" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 -3.141593" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05" />
+      <inertia ixx="0.000067" ixy="0" ixz="-0.000003" iyy="0.000052" iyz="0" izz="0.00002" />
+    </inertial>
+  </link>
+
+  <!-- ***************************** Right Arm ***************************************** -->
+  <link name="right_shoulder_link">
+    <visual>
+      <origin xyz="0 0.000011 -0.049168" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.000011 -0.049168" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.125" />
+      <inertia ixx="0.000162" ixy="0" ixz="0" iyy="0.000046" iyz="0" izz="0.000134" />
+    </inertial>
+  </link>
+
+  <link name="right_motor_frame_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.08146" />
+      <inertia ixx="0.000123" ixy="0" ixz="0" iyy="0.000016" iyz="0" izz="0.000124" />
+    </inertial>
+  </link>
+
+  <link name="right_arm_link">
+    <visual>
+      <origin xyz="0 0 -0.02" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.214537" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 -0.02" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.214537" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.3" />
+      <inertia ixx="0.000071" ixy="0" ixz="0" iyy="0.000123" iyz="0" izz="0.000101" />
+    </inertial>
+  </link>
+
+  <link name="right_forearm_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.12" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.21" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.12" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 -0.21" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.3" />
+      <inertia ixx="0.000143" ixy="0" ixz="0" iyy="0.000111" iyz="0" izz="0.000078" />
+    </inertial>
+  </link>
+
+  <link name="right_wrist_link">
+    <visual>
+      <origin xyz="0 0 -0.021676" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.021676" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.115" />
+      <inertia ixx="0.000125" ixy="0" ixz="0" iyy="0.000022" iyz="0" izz="0.00013" />
+    </inertial>
+  </link>
+
+  <link name="right_griper_L_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05" />
+      <inertia ixx="0.000067" ixy="0" ixz="-0.000003" iyy="0.000052" iyz="0" izz="0.00002" />
+    </inertial>
+  </link>
+  
+  <link name="right_griper_R_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 -1.570796" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05" />
+      <inertia ixx="0.000067" ixy="0" ixz="-0.000003" iyy="0.000052" iyz="0" izz="0.00002" />
+    </inertial>
+  </link>
+
+  <!-- ***************************** Head ***************************************** -->
+  <link name="neck_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.15" />
+      <inertia ixx="0.000035" ixy="0" ixz="0" iyy="0.000062" iyz="0" izz="0.00005" />
+    </inertial>
+  </link>
+
+  <link name="head_link">
+    <visual>
+      <origin xyz="0 0 0.0581" rpy="1.570796 -1.570796 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0581" rpy="1.570796 -1.570796 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.15" />
+      <inertia ixx="0.000035" ixy="0" ixz="0" iyy="0.000062" iyz="0" izz="0.00005" />
+    </inertial>
+  </link>
+
+  <link name="mask_link">
+    <visual>
+      <origin xyz="0 0 -0.1" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/head/FaceMask_LowPoly.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.1" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/justina/head/FaceMask_Collider_Low.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2" />
+      <inertia ixx="0.000821" ixy="0" ixz="-0.00005" iyy="0.000476" iyz="0" izz="0.000722" />
+    </inertial>
+  </link>
+
+  <link name="camera_link">
+    <visual>
+      <origin xyz="0 0 -0.082763" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/kinect_LowPoly_B.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.082763" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/kinect_Collider_B.dae" scale="1 1 1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <inertia ixx="0.005164" ixy="0" ixz="-0.000004" iyy="0.000667" iyz="0" izz="0.005066" />
+    </inertial>
+  </link>
+
+
+  <!-- Joints -->
+  <!-- Base Joints -->
+  <joint name="wheel0_joint" type="continuous">
+    <origin xyz="-0.165 0 0.063899" rpy="0 0 1.570796" />
+    <parent link="base_link" />
+    <child link="wheel0_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="10" velocity="1" />
+  </joint>
+
+  <joint name="wheel1_joint" type="continuous">
+    <origin xyz="0.0825 -0.142894 0.063899" rpy="0 0 -2.617994" />
+    <parent link="base_link" />
+    <child link="wheel1_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="10" velocity="1" />
+  </joint>
+
+  <joint name="wheel2_joint" type="continuous">
+    <origin xyz="0.0825 0.142894 0.063899" rpy="0 0 -0.523599" />
+    <parent link="base_link" />
+    <child link="wheel2_link" />
+    <axis xyz="0 1 0" />
+    <limit effort="10" velocity="1" />
+  </joint>
+
+  <joint name="tower_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="tower_link" />
+  </joint>
+
+  <joint name="laser_joint" type="fixed">
+    <origin xyz="0.06 0 0.2" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="laser_link" />
+  </joint>
+
+  <!-- Torso Joints -->
+  <joint name="torso_joint" type="fixed">
+    <origin xyz="0 0 0.785" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="torso_link" />
+  </joint>
+
+  <joint name="spine_joint" type="fixed">
+    <origin xyz="0 0 0.420914" rpy="0 0 0" />
+    <parent link="torso_link" />
+    <child link="spine_link" />
+  </joint>
+
+  <!-- Left arm Joints -->
+  <joint name="left_shoulder_joint" type="fixed">
+    <origin xyz="0 0.212526 -0.044976" rpy="0 0 0" />
+    <parent link="spine_link" />
+    <child link="left_shoulder_link" />
+  </joint>
+
+  <joint name="left_motor_frame_joint" type="revolute">
+    <origin xyz="0 0 -0.060551" rpy="0 0 0" />
+    <parent link="left_shoulder_link" />
+    <child link="left_motor_frame_link" />
+    <axis xyz="0 -1 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="left_arm_joint" type="revolute">
+    <origin xyz="0 0 -0.034581" rpy="0 0 0" />
+    <parent link="left_motor_frame_link" />
+    <child link="left_arm_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="left_elbow_joint" type="revolute">
+    <origin xyz="0 0 -0.216002" rpy="0 0 0" />
+    <parent link="left_arm_link" />
+    <child link="left_forearm_link" />
+    <axis xyz="0 -1 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="left_wrist_joint" type="revolute">
+    <origin xyz="0 0 -0.2305" rpy="0 0 0" />
+    <parent link="left_forearm_link" />
+    <child link="left_wrist_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="left_griper_R_joint" type="revolute">
+    <origin xyz="0 -0.0405 -0.021675" rpy="0 0 0" />
+    <parent link="left_wrist_link" />
+    <child link="left_griper_R_link" />
+    <axis xyz="-1 0 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="left_griper_L_joint" type="revolute">
+    <origin xyz="0 0.0405 -0.0217" rpy="0 0 -1.570796" />
+    <parent link="left_wrist_link" />
+    <child link="left_griper_L_link" />
+    <axis xyz="0 -1 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <!-- Right arm Joints -->
+  <joint name="right_shoulder_joint" type="fixed">
+    <origin xyz="0 -0.212526 -0.04498" rpy="0 0 0" />
+    <parent link="spine_link" />
+    <child link="right_shoulder_link" />
+  </joint>
+
+  <joint name="right_motor_frame_joint" type="revolute">
+    <origin xyz="0 0 -0.06055" rpy="0 0 0" />
+    <parent link="right_shoulder_link" />
+    <child link="right_motor_frame_link" />
+    <axis xyz="0 -1 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="right_arm_joint" type="revolute">
+    <origin xyz="0 0 -0.03458" rpy="0 0 0" />
+    <parent link="right_motor_frame_link" />
+    <child link="right_arm_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="right_elbow_joint" type="revolute">
+    <origin xyz="0 0 -0.216" rpy="0 0 0" />
+    <parent link="right_arm_link" />
+    <child link="right_forearm_link" />
+    <axis xyz="0 -1 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="right_wrist_joint" type="revolute">
+    <origin xyz="0 0 -0.2305" rpy="0 0 0" />
+    <parent link="right_forearm_link" />
+    <child link="right_wrist_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="right_griper_L_joint" type="revolute">
+    <origin xyz="0 0.0405 -0.0217" rpy="0 0 0" />
+    <parent link="right_wrist_link" />
+    <child link="right_griper_L_link" />
+    <axis xyz="-1 0 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="right_griper_R_joint" type="revolute">
+    <origin xyz="0 -0.0405 -0.0217" rpy="0 0 0" />
+    <parent link="right_wrist_link" />
+    <child link="right_griper_R_link" />
+    <axis xyz="-1 0 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <!-- Head Joints -->
+  <joint name="neck_joint" type="fixed">
+    <origin xyz="0 0 0.140425" rpy="0 0 0" />
+    <parent link="spine_link" />
+    <child link="neck_link" />
+  </joint>
+
+  <joint name="head_pan_joint" type="revolute">
+    <origin xyz="0 0 0.0205" rpy="0 0 0" />
+    <parent link="neck_link" />
+    <child link="head_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="16" velocity="3" lower="-1.78" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="head_tilt_joint" type="revolute">
+    <origin xyz="0 0 0.05852" rpy="0 0 0" />
+    <parent link="head_link" />
+    <child link="mask_link" />
+    <axis xyz="0 -1 0" />
+    <limit effort="16" velocity="3" lower="-1.7" upper="1.7" />
+    <dynamics damping="0.1" friction="0" />
+  </joint>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0 0 0.083435" rpy="0 0 0" />
+    <parent link="mask_link" />
+    <child link="camera_link" />
+  </joint>
+
+</robot>

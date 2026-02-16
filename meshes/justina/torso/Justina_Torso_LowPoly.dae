@@ -5,13 +5,13 @@
       <author>Blender User</author>
       <authoring_tool>Blender 3.6.23 commit date:2025-06-16, commit time:11:52, hash:e467db79ca8c</authoring_tool>
     </contributor>
-    <created>2026-02-09T13:59:21</created>
-    <modified>2026-02-09T13:59:21</modified>
+    <created>2026-02-11T22:27:38</created>
+    <modified>2026-02-11T22:27:38</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="Material_aluminium_001-effect">
+    <effect id="Base_Aluminium_Material-effect">
       <profile_COMMON>
         <technique sid="common">
           <lambert>
@@ -19,13 +19,13 @@
               <color sid="emission">0 0 0 1</color>
             </emission>
             <diffuse>
-              <color sid="diffuse">0.5271116 0.5271156 0.5271153 1</color>
+              <color sid="diffuse">0.4200204 0.4200204 0.4200204 1</color>
             </diffuse>
             <reflectivity>
               <float sid="specular">1</float>
             </reflectivity>
             <index_of_refraction>
-              <float sid="ior">1.5</float>
+              <float sid="ior">1.45</float>
             </index_of_refraction>
           </lambert>
         </technique>
@@ -51,8 +51,8 @@
   </library_effects>
   <library_images/>
   <library_materials>
-    <material id="Material_aluminium_001-material" name="Material.aluminium.001">
-      <instance_effect url="#Material_aluminium_001-effect"/>
+    <material id="Base_Aluminium_Material-material" name="Base_Aluminium_Material">
+      <instance_effect url="#Base_Aluminium_Material-effect"/>
     </material>
     <material id="MaPlastikBlack-material" name="MaPlastikBlack">
       <instance_effect url="#MaPlastikBlack-effect"/>
@@ -104,7 +104,7 @@
         <vertices id="Justina_torso-mesh-vertices">
           <input semantic="POSITION" source="#Justina_torso-mesh-positions"/>
         </vertices>
-        <triangles material="Material_aluminium_001-material" count="208">
+        <triangles material="Base_Aluminium_Material-material" count="208">
           <input semantic="VERTEX" source="#Justina_torso-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#Justina_torso-mesh-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#Justina_torso-mesh-map-0" offset="2" set="0"/>
@@ -128,7 +128,7 @@
         <instance_geometry url="#Justina_torso-mesh" name="Justina_torso">
           <bind_material>
             <technique_common>
-              <instance_material symbol="Material_aluminium_001-material" target="#Material_aluminium_001-material">
+              <instance_material symbol="Base_Aluminium_Material-material" target="#Base_Aluminium_Material-material">
                 <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
               </instance_material>
               <instance_material symbol="MaPlastikBlack-material" target="#MaPlastikBlack-material">

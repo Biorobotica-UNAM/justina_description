@@ -11,13 +11,13 @@
     </inertial>
 
     <visual>
-      <origin xyz="0 -0.01 0.02" rpy = "0 3.1415 0"/>
+      <origin xyz="0 -0.01 0.02" rpy = "0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 -0.01 0.02" rpy = "0 3.1415 0"/>
+      <origin xyz="0 -0.01 0.02" rpy = "0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106-2_LowPoly.dae" scale="1 1 1"/>
       </geometry>
@@ -32,13 +32,13 @@
     </inertial>
 
     <visual>
-      <origin xyz="0 -0.01 0.01" rpy="0 0 -1.5707"/>
+      <origin xyz="0 -0.01 0.0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 -0.01 0.01" rpy="0 0 -1.5707"/>
+      <origin xyz="0 -0.01 0.0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Shoulder_Frame_LowPoly.dae" scale="1 1 1"/>
       </geometry>
@@ -53,26 +53,26 @@
     </inertial>
 
     <visual>
-      <origin xyz="0 0 -0.02" rpy="0 0 3.1416"/>
+      <origin xyz="0 0 -0.02" rpy="0 0 -1.5707"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 -0.02" rpy="0 0 3.1416"/>
+      <origin xyz="0 0 -0.02" rpy="0 0 -1.5707"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0 0 -0.216" rpy="0 3.1416 -1.5707"/>
+      <origin xyz="0 0 -0.216" rpy="0 0 -1.5707"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 -0.216" rpy="0 3.1416 -1.5707"/>
+      <origin xyz="0 0 -0.216" rpy="0 0 -1.5707"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Arm_LowPoly.dae" scale="1 1 1"/>
       </geometry>
@@ -87,20 +87,20 @@
     </inertial>
 
     <visual>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx106_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0 0 -0.12" rpy="0 0 1.5707"/>
+      <origin xyz="0 0 -0.12" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Forearm_LowPoly.dae" scale="1 1 1"/>
       </geometry>
@@ -113,13 +113,13 @@
     </collision>
 
     <visual>
-      <origin xyz="0.009 0.001 -0.21" rpy="0 0 -1.5707"/>
+      <origin xyz="0.009 0.001 -0.21" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0.009 0.001 -0.21" rpy="0 0 -1.5707"/>
+      <origin xyz="0.009 0.001 -0.21" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
@@ -134,13 +134,13 @@
     </inertial>
       
     <visual>
-      <origin xyz="0 -0.004 0" rpy="1.5707 -1.5707 0"/>
+      <origin xyz="0 -0.004 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 -0.004 0" rpy="1.5707 -1.5707 0"/>
+      <origin xyz="0 -0.004 0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx28-2_LowPoly.dae" scale="1 1 1"/>
       </geometry>
@@ -155,13 +155,13 @@
     </inertial>
 
     <visual>
-      <origin xyz="0 0 0" rpy="0 1.5707 3.1416"/>
+      <origin xyz="0 0 0" rpy="0 0 -1.5708"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 1.5707 3.1416"/>
+      <origin xyz="0 0 0" rpy="0 0 -1.5708"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
       </geometry>
@@ -176,13 +176,13 @@
     </inertial>
         
     <visual>
-      <origin xyz="0 0 0" rpy="0 1.5707 0"/>
+      <origin xyz="0 0 0" rpy="0 0 1.5708"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 1.5707 0"/>
+      <origin xyz="0 0 0" rpy="0 0 1.5708"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Clean.dae" scale="1 1 1"/>
       </geometry>
@@ -193,7 +193,7 @@
 
   <!-- RIGHT ARM JOINTS -->
   <joint name="right_torso_shoulder" type="revolute">
-    <origin xyz="0 0 0.01" rpy="0 0 0"/>
+    <origin xyz="0 0 0.015" rpy="0 0 0"/>
     <parent link="right_shoulder_link"/>
     <child link="right_shoulder_frame"/>
     <axis xyz="0 -1 0" />
@@ -202,7 +202,7 @@
   </joint>
 
   <joint name="right_shoulder_arm_motor" type="revolute">
-    <origin xyz="0 -0.009 -0.028" rpy="0 0 0"/>
+    <origin xyz="0 -0.009 -0.038" rpy="0 0 0"/>
     <parent link="right_shoulder_frame"/>
     <child link="right_arm"/>
     <axis xyz="0 0 -1" />

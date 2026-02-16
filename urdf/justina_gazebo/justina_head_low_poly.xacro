@@ -12,13 +12,13 @@
     </inertial>
 
     <visual>
-      <origin xyz= "0.0 0 0.01" rpy="0 0 -${M_PI/2}"/>
+      <origin xyz= "0.0 0 0.01" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz= "0.0 0 0.01" rpy="0 0 -${M_PI/2}"/>
+      <origin xyz= "0.0 0 0.01" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
@@ -33,13 +33,13 @@
     </inertial>
 
     <visual>
-      <origin xyz= "0 0.0 0.06" rpy="${M_PI/2} 0 0"/>
+      <origin xyz= "0 0.0 0.06" rpy="${M_PI/2} -${M_PI/2} 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
-      <origin xyz= "0 0.0 0.06" rpy="${M_PI/2} 0 0"/>
+      <origin xyz= "0 0.0 0.06" rpy="${M_PI/2} -${M_PI/2} 0"/>
       <geometry>
         <mesh filename="package://justina_description/meshes/justina/servos/Servo_Mx64_LowPoly.dae" scale="1 1 1"/>
       </geometry>

@@ -19,6 +19,11 @@
   <depend>joint_state_publisher</depend>
   <depend>joint_state_publisher_gui</depend>
   <depend>rviz2</depend>
+
+  <depend>webots_ros2_driver</depend>
+  <depend>pluginlib</depend>
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
   
   <!-- Gazebo/Simulation dependencies -->
   <depend>ros_gz</depend>
@@ -31,3 +36,5 @@
     <build_type>ament_cmake</build_type>
   </export>
 </package>
+
+

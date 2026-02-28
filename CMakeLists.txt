@@ -28,14 +28,6 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/meshes)
   )
 endif()
 
-# Install materials directory (if it exists)
-# if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/materials)
-#   install(
-#     DIRECTORY materials/
-#     DESTINATION share/${PROJECT_NAME}/materials
-#   )
-# endif()
-
 # Install rviz configuration (if it exists)
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/rviz)
   install(
@@ -44,14 +36,15 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/rviz)
   )
 endif()
 
-# Install model directory (if it exists)
-# if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/model)
-#   install(
-#     DIRECTORY model/
-#     DESTINATION share/${PROJECT_NAME}/model
-#   )
-# endif()
-
+# Install webots_env subdirectory (controllers, protos, worlds, launch)
+install(DIRECTORY
+  webots_env/controllers
+  webots_env/protos
+  webots_env/worlds
+  webots_env/launch
+  webots_env/models          # <-- add this line
+  DESTINATION share/${PROJECT_NAME}/webots_env
+)
 
 # Finalize package
 ament_package()

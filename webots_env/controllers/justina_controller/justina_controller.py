@@ -70,7 +70,7 @@ class JustinaController(Node):
         dt = (now - self.last_time).nanoseconds * 1e-9
         self.last_time = now
 
-        # 3-wheel omni kinematics
+        # 3-wheel omni kinematics (inverted)
         # v0 = (-math.sin(math.pi) * self.Vx + math.cos(math.pi) * self.Vy + self.L * self.w) / self.wheel_radius
         # v1 = (-math.sin(-math.pi/3) * self.Vx + math.cos(-math.pi/3) * self.Vy + self.L * self.w) / self.wheel_radius
         # v2 = (-math.sin(math.pi/3) * self.Vx + math.cos(math.pi/3) * self.Vy + self.L * self.w) / self.wheel_radius

@@ -46,5 +46,12 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}/webots_env
 )
 
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/model)
+  install(
+    DIRECTORY model/
+    DESTINATION share/${PROJECT_NAME}/model
+  )
+endif()
+
 # Finalize package
 ament_package()

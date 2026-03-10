@@ -36,13 +36,15 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/rviz)
   )
 endif()
 
-# Install webots_env subdirectory (controllers, protos, worlds, launch)
+# Install webots_env subdirectory (controllers, protos, worlds, launch ...)
 install(DIRECTORY
   webots_env/controllers
-  webots_env/protos
-  webots_env/worlds
   webots_env/launch
-  webots_env/models          # <-- add this line
+  webots_env/models
+  webots_env/protos
+  webots_env/rviz
+  webots_env/urdf
+  webots_env/worlds
   DESTINATION share/${PROJECT_NAME}/webots_env
 )
 

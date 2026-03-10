@@ -1,60 +1,111 @@
+#!/usr/bin/env python3
 # justina_controller.py
 from controller import Robot
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist, TransformStamped
 from nav_msgs.msg import Odometry
-from sensor_msgs.msg import JointState
+from sensor_msgs.msg import JointState, LaserScan
 from tf2_ros import TransformBroadcaster
+from builtin_interfaces.msg import Time
+from rosgraph_msgs.msg import Clock
 import math
 
 class JustinaController(Node):
     """
     ROS2 controller for 3-wheel omnidirectional base.
     TF: odom -> base_footprint -> base_link
+    Publishes /odom, /joint_states, /hardware/base/scan (LaserScan), and /clock.
     """
 
     def __init__(self, robot: Robot):
         super().__init__('justina_controller')
+        # Use simulation time
+        self.set_parameters([rclpy.parameter.Parameter('use_sim_time', rclpy.Parameter.Type.BOOL, True)])
 
         self.robot = robot
         self.time_step = int(robot.getBasicTimeStep())
 
-        # Geometry
-        self.wheel_radius = 0.06  # corrected radius 6cm
-        self.L = 0.165  # distance from center to wheel
-
-        # Wheel motors
-        self.wheels = [
-            robot.getDevice('wheel0_joint'),
-            robot.getDevice('wheel1_joint'),
-            robot.getDevice('wheel2_joint')
-        ]
-        for i, wheel in enumerate(self.wheels):
-            if wheel is None:
-                self.get_logger().error(f"Wheel {i} motor not found!")
-            else:
-                self.get_logger().info(f"Wheel {i} motor found: {wheel.getName()}")
-                wheel.setPosition(float('inf'))
-                wheel.setVelocity(0.0)
-
-        # State
+        # ---------------------------
+        # Geometry & odometry state
+        # ---------------------------
+        self.wheel_radius = 0.06
+        self.L = 0.165
         self.Vx = 0.0
         self.Vy = 0.0
         self.w = 0.0
         self.x = 0.0
-        self.y = 1.0  # robot spawn at Y=1
+        self.y = 1.0      # robot spawn at Y=1 (from your world)
         self.theta = 0.0
-        self.last_time = self.get_clock().now()
+        self.last_sim_time = None
 
-        # ROS2 interfaces
+        # ---------------------------
+        # Wheel motors and position sensors
+        # ---------------------------
+        self.wheels = []
+        self.wheel_sensors = []
+        wheel_names = ['wheel0_joint', 'wheel1_joint', 'wheel2_joint']
+        for name in wheel_names:
+            motor = robot.getDevice(name)
+            if motor:
+                motor.setPosition(float('inf'))
+                motor.setVelocity(0.0)
+                self.wheels.append(motor)
+                sensor = robot.getPositionSensor(name + "_sensor")
+                if sensor:
+                    sensor.enable(self.time_step)
+                    self.wheel_sensors.append(sensor)
+                else:
+                    self.wheel_sensors.append(None)
+                    self.get_logger().warn(f"No position sensor for {name}")
+            else:
+                self.get_logger().error(f"Motor {name} not found!")
+
+        # ---------------------------
+        # All movable joints (for joint_states)
+        # ---------------------------
+        self.joint_names = [
+            'wheel0_joint', 'wheel1_joint', 'wheel2_joint',
+            'head_pan_joint', 'head_tilt_joint',
+            'left_motor_frame_joint', 'left_arm_joint', 'left_elbow_joint',
+            'left_wrist_joint', 'left_griper_R_joint', 'left_griper_L_joint',
+            'right_motor_frame_joint', 'right_arm_joint', 'right_elbow_joint',
+            'right_wrist_joint', 'right_griper_R_joint', 'right_griper_L_joint'
+        ]
+
+        # store motor devices for later control
+        self.other_motors = {}
+        for name in self.joint_names[3:]:
+            motor = robot.getDevice(name)
+            if motor:
+                self.other_motors[name] = motor
+
+        # ---------------------------
+        # ROS publishers & subscribers
+        # ---------------------------
         self.create_subscription(Twist, '/cmd_vel', self.cmd_callback, 10)
         self.odom_pub = self.create_publisher(Odometry, '/odom', 10)
         self.joint_pub = self.create_publisher(JointState, '/joint_states', 10)
         self.tf_broadcaster = TransformBroadcaster(self)
 
-        # Additional actuated joints
-        self.actuated_joints = {}
+        # LaserScan publisher (topic matches your real robot)
+        self.laser_pub = self.create_publisher(LaserScan, '/hardware/base/scan', 10)
+
+        # Clock publisher for simulation time
+        self.clock_pub = self.create_publisher(Clock, '/clock', 10)
+
+        # ---------------------------
+        # Lidar initialization
+        # ---------------------------
+        self.lidar = robot.getDevice('hokuyo_urg_04lx')
+        if self.lidar:
+            self.lidar.enable(self.time_step)
+            self.lidar.enablePointCloud()   # optional, for Webots point cloud view
+            self.get_logger().info("Hokuyo URG-04LX lidar initialized.")
+        else:
+            self.get_logger().error("Could not find lidar device 'hokuyo_urg_04lx'!")
+
+        self.get_logger().info("Controller initialized.")
 
     def cmd_callback(self, msg: Twist):
         self.Vx = msg.linear.x
@@ -65,50 +116,59 @@ class JustinaController(Node):
         if self.robot.step(self.time_step) == -1:
             return False
 
-        # Time delta
-        now = self.get_clock().now()
-        dt = (now - self.last_time).nanoseconds * 1e-9
-        self.last_time = now
+        # Get simulation time from Webots (seconds)
+        sim_time_sec = self.robot.getTime()
+        sec = int(sim_time_sec)
+        nanosec = int((sim_time_sec - sec) * 1e9)
+        current_time = Time(sec=sec, nanosec=nanosec)
 
-        # 3-wheel omni kinematics (inverted)
-        # v0 = (-math.sin(math.pi) * self.Vx + math.cos(math.pi) * self.Vy + self.L * self.w) / self.wheel_radius
-        # v1 = (-math.sin(-math.pi/3) * self.Vx + math.cos(-math.pi/3) * self.Vy + self.L * self.w) / self.wheel_radius
-        # v2 = (-math.sin(math.pi/3) * self.Vx + math.cos(math.pi/3) * self.Vy + self.L * self.w) / self.wheel_radius
+        # Publish /clock for other nodes
+        clock_msg = Clock(clock=current_time)
+        self.clock_pub.publish(clock_msg)
 
-        sin60 = math.sin(math.pi/3)   # 0.8660254
-        cos60 = math.cos(math.pi/3)   # 0.5
+        # Compute dt using simulation time
+        if self.last_sim_time is None:
+            dt = 0.0
+        else:
+            dt = sim_time_sec - self.last_sim_time
+        self.last_sim_time = sim_time_sec
+
+        # 3‑wheel omni inverse kinematics
+        sin60 = math.sin(math.pi/3)
+        cos60 = math.cos(math.pi/3)
 
         v0 = ( self.Vy + self.L * self.w ) / self.wheel_radius
         v1 = ( -sin60 * self.Vx - cos60 * self.Vy + self.L * self.w ) / self.wheel_radius
         v2 = (  sin60 * self.Vx - cos60 * self.Vy + self.L * self.w ) / self.wheel_radius
 
-        self.wheels[0].setVelocity(v0)
-        self.wheels[1].setVelocity(v1)
-        self.wheels[2].setVelocity(v2)
+        if len(self.wheels) == 3:
+            self.wheels[0].setVelocity(v0)
+            self.wheels[1].setVelocity(v1)
+            self.wheels[2].setVelocity(v2)
 
-        # Integrate odometry (simplified)
+        # Integrate odometry
         dx = (self.Vx * math.cos(self.theta) - self.Vy * math.sin(self.theta)) * dt
         dy = (self.Vx * math.sin(self.theta) + self.Vy * math.cos(self.theta)) * dt
-        dtheta = self.w * dt
+        dtheta = -self.w * dt
 
         self.x += dx
         self.y += dy
         self.theta += dtheta
 
-        self.get_logger().info(f"cmd_vel: Vx={self.Vx}, Vy={self.Vy}, w={self.w} -> v0={v0}, v1={v1}, v2={v2}")
-        
-        # Publish ROS2 messages
-        self.publish_odometry(now)
-        self.publish_joint_states(now)
+        # Publish ROS2 messages with simulation timestamp
+        self.publish_odometry(current_time)
+        self.publish_joint_states(current_time)
+        self.publish_laser_scan(current_time)
+
         rclpy.spin_once(self, timeout_sec=0.0)
         return True
 
-    def publish_odometry(self, now):
+    def publish_odometry(self, stamp):
         qz = math.sin(self.theta / 2.0)
         qw = math.cos(self.theta / 2.0)
 
         odom = Odometry()
-        odom.header.stamp = now.to_msg()
+        odom.header.stamp = stamp
         odom.header.frame_id = "odom"
         odom.child_frame_id = "base_footprint"
         odom.pose.pose.position.x = self.x
@@ -119,7 +179,7 @@ class JustinaController(Node):
 
         # TF: odom -> base_footprint
         t_odom = TransformStamped()
-        t_odom.header.stamp = now.to_msg()
+        t_odom.header.stamp = stamp
         t_odom.header.frame_id = "odom"
         t_odom.child_frame_id = "base_footprint"
         t_odom.transform.translation.x = self.x
@@ -130,27 +190,64 @@ class JustinaController(Node):
 
         # TF: base_footprint -> base_link
         t_base = TransformStamped()
-        t_base.header.stamp = now.to_msg()
+        t_base.header.stamp = stamp
         t_base.header.frame_id = "base_footprint"
         t_base.child_frame_id = "base_link"
         t_base.transform.translation.z = 0.06
         t_base.transform.rotation.w = 1.0
         self.tf_broadcaster.sendTransform(t_base)
 
-    def publish_joint_states(self, now):
+    def publish_joint_states(self, stamp):
         js = JointState()
-        js.header.stamp = now.to_msg()
-        js.name = ['wheel0_joint', 'wheel1_joint', 'wheel2_joint']
-        js.position = [w.getTargetPosition() for w in self.wheels]
+        js.header.stamp = stamp
+        js.name = self.joint_names
+        js.position = []
 
-        for joint_name, device in self.actuated_joints.items():
-            js.name.append(joint_name)
-            js.position.append(device.getTargetPosition() if device else 0.0)
+        # Wheel positions (from sensors)
+        for i, wheel in enumerate(self.wheels):
+            if self.wheel_sensors[i] is not None:
+                pos = self.wheel_sensors[i].getValue()
+            else:
+                pos = wheel.getTargetPosition()
+                if math.isnan(pos):
+                    pos = 0.0
+            js.position.append(pos)
+
+        # Other joints – publish 0.0 for now
+        for name in self.joint_names[3:]:
+            js.position.append(0.0)
 
         self.joint_pub.publish(js)
 
-    def add_joint(self, joint_name: str, device):
-        self.actuated_joints[joint_name] = device
+    def publish_laser_scan(self, stamp):
+        if not self.lidar:
+            return
+
+        # Get the range image (list of floats, one per step)
+        ranges = self.lidar.getRangeImage()
+        if not ranges:
+            self.get_logger().warn("Lidar range image is empty.")
+            return
+
+        # Create LaserScan message
+        scan = LaserScan()
+        scan.header.stamp = stamp
+        scan.header.frame_id = "laser_link"   # must match URDF frame
+
+        # Fixed parameters from URG-04LX specs
+        scan.angle_min = -2.094395    # -120 degrees
+        scan.angle_max = 2.094395     # +120 degrees
+        scan.angle_increment = (scan.angle_max - scan.angle_min) / (len(ranges) - 1)
+        scan.time_increment = (1.0 / 10.0) / len(ranges)   # 10 Hz scan
+        scan.scan_time = 0.1
+        scan.range_min = 0.06
+        scan.range_max = 4.1
+
+        # Reverse the order to match ROS convention (angle_min to angle_max)
+        scan.ranges = list(reversed([r if r <= scan.range_max else float('inf') for r in ranges]))
+
+        # Publish
+        self.laser_pub.publish(scan)
 
 def main():
     rclpy.init()

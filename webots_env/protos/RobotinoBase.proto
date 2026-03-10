@@ -1142,6 +1142,15 @@ PROTO RobotinoBase [
       DEF laser_link Solid {
         translation 0.06 0 0.1975
         children [
+          Lidar {
+            translation 0 0 0.058
+            name "hokuyo_urg_04lx"
+            fieldOfView 4.18879
+            numberOfLayers 1
+            minRange 0.06
+            maxRange 4.1
+            noise 0.003
+          }          
           DEF laser_link_visual CadShape {
             url [
               "../../meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae"

@@ -7,9 +7,9 @@ WorldInfo {
   basicTimeStep 4
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation -0.16125213744818476 -0.00913647549344488 0.9868709505218753 2.815841858420187
-  position 2.3677939523775478 0.608173847947926 1.3574559724353987
-  follow "lab_walls"
+  orientation -0.09429413823722034 -0.17024198647852534 0.9808803604588815 5.205768361480268
+  position -0.4907501236170791 1.8897230385442128 1.5129574445331504
+  follow "robot:laser_link"
 }
 TexturedBackground {
   texture "noon_building_overcast"
@@ -520,1145 +520,17 @@ DEF BioRoboticsLab_Mesh Group {
   ]
 }
 DEF Justina Robot {
-  translation 0 1 0.01
+  translation 0 1 0.0601035
   children [
-    DEF torso_link Solid {
-      translation 0 0 0.785
+    DEF reference Solid {
+      translation -0.02 0 0
       children [
-        DEF spine_link Solid {
-          translation 0 0 0.420914
-          children [
-            DEF right_shoulder_link Solid {
-              translation 0 -0.212537 -0.044976
-              children [
-                HingeJoint {
-                  jointParameters HingeJointParameters {
-                    position 3.907816210188423e-08
-                    axis 0 -1 0
-                    anchor 0 0 -0.060551
-                    dampingConstant 0.1
-                  }
-                  device [
-                    DEF right_motor_frame_joint RotationalMotor {
-                      name "right_motor_frame_joint"
-                      maxVelocity 3
-                      minPosition -1.7
-                      maxPosition 1.7
-                      maxTorque 16
-                    }
-                    DEF right_motor_frame_joint_sensor PositionSensor {
-                      name "right_motor_frame_joint_sensor"
-                    }
-                  ]
-                  endPoint DEF right_motor_frame_link Solid {
-                    translation 0 0 -0.060551
-                    rotation 0 -0.9999999999999999 0 4.2146848510894035e-08
-                    children [
-                      HingeJoint {
-                        jointParameters HingeJointParameters {
-                          position 4.7213390394883576e-08
-                          axis 0 0 -1
-                          anchor 0 0 -0.03458
-                          dampingConstant 0.1
-                        }
-                        device [
-                          DEF right_arm_joint RotationalMotor {
-                            name "right_arm_joint"
-                            maxVelocity 3
-                            minPosition -1.7
-                            maxPosition 1.7
-                            maxTorque 16
-                          }
-                          DEF right_arm_joint_sensor PositionSensor {
-                            name "right_arm_joint_sensor"
-                          }
-                        ]
-                        endPoint DEF right_arm_link Solid {
-                          translation 0 0 -0.034581
-                          rotation 0 0 -0.9999999999999999 5.16191365590357e-08
-                          children [
-                            HingeJoint {
-                              jointParameters HingeJointParameters {
-                                position -4.494225700367184e-09
-                                axis 0 -1 0
-                                anchor 0 0 -0.216
-                                dampingConstant 0.1
-                              }
-                              device [
-                                DEF right_elbow_joint RotationalMotor {
-                                  name "right_elbow_joint"
-                                  maxVelocity 3
-                                  minPosition -1.7
-                                  maxPosition 1.7
-                                  maxTorque 16
-                                }
-                                DEF right_elbow_joint_sensor PositionSensor {
-                                  name "right_elbow_joint_sensor"
-                                }
-                              ]
-                              endPoint DEF right_forearm_link Solid {
-                                translation 0 0 -0.216
-                                rotation 0 -1 0 0
-                                children [
-                                  HingeJoint {
-                                    jointParameters HingeJointParameters {
-                                      position -8.402316273080195e-10
-                                      axis 0 0 -1
-                                      anchor 0 0 -0.2305
-                                      dampingConstant 0.1
-                                    }
-                                    device [
-                                      DEF right_wrist_joint RotationalMotor {
-                                        name "right_wrist_joint"
-                                        maxVelocity 3
-                                        minPosition -1.7
-                                        maxPosition 1.7
-                                        maxTorque 16
-                                      }
-                                      DEF right_wrist_joint_sensor PositionSensor {
-                                        name "right_wrist_joint_sensor"
-                                      }
-                                    ]
-                                    endPoint DEF right_wrist_link Solid {
-                                      translation 0 0 -0.2305
-                                      rotation 0 0 -1 0
-                                      children [
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            position 1.4652235883993776e-08
-                                            axis -1 0 0
-                                            anchor 0 0.0405 -0.0217
-                                            dampingConstant 0.1
-                                          }
-                                          device [
-                                            DEF right_griper_L_joint RotationalMotor {
-                                              name "right_griper_L_joint"
-                                              maxVelocity 3
-                                              minPosition -1.7
-                                              maxPosition 1.7
-                                              maxTorque 16
-                                            }
-                                            DEF right_griper_L_joint_sensor PositionSensor {
-                                              name "right_griper_L_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint DEF right_griper_L_link Solid {
-                                            translation 0 0.0405 -0.0217
-                                            rotation -1 0 0 0
-                                            children [
-                                              DEF right_griper_L_link_visual Pose {
-                                                rotation 0 0 1 1.5707996938995747
-                                                children [
-                                                  CadShape {
-                                                    url [
-                                                      "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                            name "right_griper_L_link"
-                                            boundingObject DEF right_griper_L_link_collision Pose {
-                                              rotation 0 0 1 1.5707996938995747
-                                              children [
-                                                Mesh {
-                                                  url [
-                                                    "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                            physics Physics {
-                                              density -1
-                                              mass 0.05
-                                              centerOfMass [
-                                                0 0.01 -0.065
-                                              ]
-                                              inertiaMatrix [
-                                                1 1 1
-                                                0 0 0
-                                              ]
-                                            }
-                                          }
-                                        }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            position -1.4630540006673664e-08
-                                            axis -1 0 0
-                                            anchor 0 -0.0405 -0.0217
-                                            dampingConstant 0.1
-                                          }
-                                          device [
-                                            DEF right_griper_R_joint RotationalMotor {
-                                              name "right_griper_R_joint"
-                                              maxVelocity 3
-                                              minPosition -1.7
-                                              maxPosition 1.7
-                                              maxTorque 16
-                                            }
-                                            DEF right_griper_R_joint_sensor PositionSensor {
-                                              name "right_griper_R_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint DEF right_griper_R_link Solid {
-                                            translation 0 -0.0405 -0.0217
-                                            rotation -1 0 0 0
-                                            children [
-                                              DEF right_griper_R_link_visual Pose {
-                                                rotation 0 0 -1 1.5708003061004252
-                                                children [
-                                                  CadShape {
-                                                    url [
-                                                      "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                            name "right_griper_R_link"
-                                            boundingObject DEF right_griper_R_link_collision Pose {
-                                              rotation 0 0 -1 1.5707996938995747
-                                              children [
-                                                Mesh {
-                                                  url [
-                                                    "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                            physics Physics {
-                                              density -1
-                                              mass 0.05
-                                              centerOfMass [
-                                                0 -0.01 -0.065
-                                              ]
-                                              inertiaMatrix [
-                                                1 1 1
-                                                0 0 0
-                                              ]
-                                            }
-                                          }
-                                        }
-                                        DEF right_wrist_link_visual Pose {
-                                          translation 0 0 -0.021676
-                                          children [
-                                            CadShape {
-                                              url [
-                                                "../../meshes/justina/servos/Servo_Mx28-2_LowPoly.dae"
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                      name "right_wrist_link"
-                                      boundingObject DEF right_wrist_link_collision Pose {
-                                        translation 0 0 -0.021676
-                                        children [
-                                          Mesh {
-                                            url [
-                                              "../../meshes/justina/servos/Servo_Mx28-2_LowPoly.dae"
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                      physics Physics {
-                                        density -1
-                                        mass 0.2
-                                        centerOfMass [
-                                          0 0 -0.02
-                                        ]
-                                        inertiaMatrix [
-                                          1 1 1
-                                          0 0 0
-                                        ]
-                                      }
-                                    }
-                                  }
-                                  DEF right_forearm_link3_visual Pose {
-                                    translation 0 0 -0.21
-                                    children [
-                                      CadShape {
-                                        url [
-                                          "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                  DEF right_forearm_link2_visual Pose {
-                                    translation 0 0 -0.12
-                                    children [
-                                      CadShape {
-                                        url [
-                                          "../../meshes/justina/arm/Forearm_LowPoly.dae"
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                  DEF right_forearm_link_visual Pose {
-                                    children [
-                                      CadShape {
-                                        url [
-                                          "../../meshes/justina/servos/Servo_Mx106_LowPoly.dae"
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                                name "right_forearm_link"
-                                boundingObject Group {
-                                  children [
-                                    DEF right_forearm_link3_collision Pose {
-                                      translation 0 0 -0.21
-                                      children [
-                                        Mesh {
-                                          url [
-                                            "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                    DEF right_forearm_link2_collision Pose {
-                                      translation 0 0 -0.12
-                                      children [
-                                        Mesh {
-                                          url [
-                                            "../../meshes/justina/arm/Forearm_LowPoly.dae"
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                    DEF right_forearm_link_collision Pose {
-                                      children [
-                                        Mesh {
-                                          url [
-                                            "../../meshes/justina/servos/Servo_Mx106_LowPoly.dae"
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                                physics Physics {
-                                  density -1
-                                  mass 0.4
-                                  centerOfMass [
-                                    0 0 -0.1
-                                  ]
-                                  inertiaMatrix [
-                                    1 1 1
-                                    0 0 0
-                                  ]
-                                }
-                              }
-                            }
-                            DEF right_arm_link2_visual Pose {
-                              translation 0 0 -0.214537
-                              rotation 0 0 1 -1.5708
-                              children [
-                                CadShape {
-                                  url [
-                                    "../../meshes/justina/arm/Arm_LowPoly.dae"
-                                  ]
-                                }
-                              ]
-                            }
-                            DEF right_arm_link_visual Pose {
-                              translation 0 0 -0.02
-                              rotation 0 0 1 -1.5708
-                              children [
-                                CadShape {
-                                  url [
-                                    "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                          name "right_arm_link"
-                          boundingObject Group {
-                            children [
-                              DEF right_arm_link2_collision Pose {
-                                translation 0 0 -0.214537
-                                rotation 0 0 1 -1.5707996938995747
-                                children [
-                                  Mesh {
-                                    url [
-                                      "../../meshes/justina/arm/Arm_LowPoly.dae"
-                                    ]
-                                  }
-                                ]
-                              }
-                              DEF right_arm_link_collision Pose {
-                                translation 0 0 -0.02
-                                rotation 0 0 1 -1.5707996938995747
-                                children [
-                                  Mesh {
-                                    url [
-                                      "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                          physics Physics {
-                            density -1
-                            mass 0.3
-                            centerOfMass [
-                              0 0.02 -0.07
-                            ]
-                            inertiaMatrix [
-                              1 1 1
-                              0 0 0
-                            ]
-                          }
-                        }
-                      }
-                      DEF right_motor_frame_link_visual Pose {
-                        children [
-                          CadShape {
-                            url [
-                              "../../meshes/justina/arm/Shoulder_Frame_LowPoly.dae"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                    name "right_motor_frame_link"
-                    boundingObject DEF right_motor_frame_link_collision Pose {
-                      children [
-                        Mesh {
-                          url [
-                            "../../meshes/justina/arm/Shoulder_Frame_LowPoly.dae"
-                          ]
-                        }
-                      ]
-                    }
-                    physics Physics {
-                      density -1
-                      mass 0.1
-                      centerOfMass [
-                        0 0 -0.03
-                      ]
-                      inertiaMatrix [
-                        1 1 1
-                        0 0 0
-                      ]
-                    }
-                  }
-                }
-                DEF right_shoulder_link_visual Pose {
-                  translation 0 0 -0.049168
-                  children [
-                    CadShape {
-                      url [
-                        "../../meshes/justina/servos/Servo_Mx106-2_LowPoly.dae"
-                      ]
-                    }
-                  ]
-                }
-              ]
-              name "right_shoulder_link"
-              boundingObject DEF right_shoulder_link_collision Pose {
-                translation 0 0 -0.049168
-                children [
-                  Mesh {
-                    url [
-                      "../../meshes/justina/servos/Servo_Mx106-2_LowPoly.dae"
-                    ]
-                  }
-                ]
-              }
-              physics Physics {
-                density -1
-                mass 0.125
-                centerOfMass [
-                  0 0 -0.04
-                ]
-                inertiaMatrix [
-                  1 1 1
-                  0 0 0
-                ]
-              }
-            }
-            DEF left_shoulder_link Solid {
-              translation 0 0.212537 -0.044976
-              children [
-                HingeJoint {
-                  jointParameters HingeJointParameters {
-                    position 1.5720765231498512e-08
-                    axis 0 -1 0
-                    anchor 0 0 -0.060551
-                    dampingConstant 0.1
-                  }
-                  device [
-                    DEF left_motor_frame_joint RotationalMotor {
-                      name "left_motor_frame_joint"
-                      maxVelocity 3
-                      minPosition -1.7
-                      maxPosition 1.7
-                      maxTorque 16
-                    }
-                    DEF left_motor_frame_joint_sensor PositionSensor {
-                      name "left_motor_frame_joint_sensor"
-                    }
-                  ]
-                  endPoint DEF left_motor_frame_link Solid {
-                    translation 0 0 -0.060551
-                    rotation 0 -1 0 0
-                    children [
-                      HingeJoint {
-                        jointParameters HingeJointParameters {
-                          position -7.099950788220239e-08
-                          axis 0 0 -1
-                          anchor 0 0 -0.034581
-                          dampingConstant 0.1
-                        }
-                        device [
-                          DEF left_arm_joint RotationalMotor {
-                            name "left_arm_joint"
-                            maxVelocity 3
-                            minPosition -1.7
-                            maxPosition 1.7
-                            maxTorque 16
-                          }
-                          DEF left_arm_joint_sensor PositionSensor {
-                            name "left_arm_joint_sensor"
-                          }
-                        ]
-                        endPoint DEF left_arm_link Solid {
-                          translation 0 0 -0.034581
-                          rotation 0 0 1 7.300048299977715e-08
-                          children [
-                            HingeJoint {
-                              jointParameters HingeJointParameters {
-                                position -4.486118209593862e-09
-                                axis 0 -1 0
-                                anchor 0 0 -0.216002
-                                dampingConstant 0.1
-                              }
-                              device [
-                                DEF left_elbow_joint RotationalMotor {
-                                  name "left_elbow_joint"
-                                  maxVelocity 3
-                                  minPosition -1.7
-                                  maxPosition 1.7
-                                  maxTorque 16
-                                }
-                                DEF left_elbow_joint_sensor PositionSensor {
-                                  name "left_elbow_joint_sensor"
-                                }
-                              ]
-                              endPoint DEF left_forearm_link Solid {
-                                translation 0 0 -0.216002
-                                rotation 0 -1 0 0
-                                children [
-                                  HingeJoint {
-                                    jointParameters HingeJointParameters {
-                                      position 8.202744339392892e-10
-                                      axis 0 0 -1
-                                      anchor 0 0 -0.2305
-                                      dampingConstant 0.1
-                                    }
-                                    device [
-                                      DEF left_wrist_joint RotationalMotor {
-                                        name "left_wrist_joint"
-                                        maxVelocity 3
-                                        minPosition -1.7
-                                        maxPosition 8.098586693949909e-10
-                                        maxTorque 16
-                                      }
-                                      DEF left_wrist_joint_sensor PositionSensor {
-                                        name "left_wrist_joint_sensor"
-                                      }
-                                    ]
-                                    endPoint DEF left_wrist_link Solid {
-                                      translation 0 0 -0.2305
-                                      rotation 0 0 -1 0
-                                      children [
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            position 1.4650409369141925e-08
-                                            axis -1 0 0
-                                            anchor 0 0.0405 -0.0217
-                                            dampingConstant 0.1
-                                          }
-                                          device [
-                                            DEF left_griper_L_joint RotationalMotor {
-                                              name "left_griper_L_joint"
-                                              maxVelocity 3
-                                              minPosition -1.7
-                                              maxPosition 1.7
-                                              maxTorque 16
-                                            }
-                                            DEF left_griper_L_joint_sensor PositionSensor {
-                                              name "left_griper_L_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint DEF left_griper_L_link Solid {
-                                            translation 0 0.0405 -0.0217
-                                            rotation -1 0 0 0
-                                            children [
-                                              DEF left_griper_L_link_visual Pose {
-                                                rotation 0 0 1 1.5707996938995747
-                                                children [
-                                                  CadShape {
-                                                    url [
-                                                      "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                            name "left_griper_L_link"
-                                            boundingObject DEF left_griper_L_link_collision Pose {
-                                              rotation 0 0 1 1.5707996938995747
-                                              children [
-                                                Mesh {
-                                                  url [
-                                                    "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                            physics Physics {
-                                              density -1
-                                              mass 0.05
-                                              centerOfMass [
-                                                0 0.01 -0.065
-                                              ]
-                                              inertiaMatrix [
-                                                1 1 1
-                                                0 0 0
-                                              ]
-                                            }
-                                          }
-                                        }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            position -1.4632293685459837e-08
-                                            axis -1 0 0
-                                            anchor 0 -0.0405 -0.021675
-                                            dampingConstant 0.1
-                                          }
-                                          device [
-                                            DEF left_griper_R_joint RotationalMotor {
-                                              name "left_griper_R_joint"
-                                              maxVelocity 3
-                                              minPosition -1.7
-                                              maxPosition 1.7
-                                              maxTorque 16
-                                            }
-                                            DEF left_griper_R_joint_sensor PositionSensor {
-                                              name "left_griper_R_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint DEF left_griper_R_link Solid {
-                                            translation 0 -0.0405 -0.021675
-                                            rotation -1 0 0 0
-                                            children [
-                                              DEF left_griper_R_link_visual Pose {
-                                                rotation 0 0 -1 1.5707996938995747
-                                                children [
-                                                  CadShape {
-                                                    url [
-                                                      "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                            name "left_griper_R_link"
-                                            boundingObject DEF left_griper_R_link_collision Pose {
-                                              rotation 0 0 -1 1.5707996938995747
-                                              children [
-                                                Mesh {
-                                                  url [
-                                                    "../../meshes/justina/arm/Gripper_Clean.dae"
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                            physics Physics {
-                                              density -1
-                                              mass 0.05
-                                              centerOfMass [
-                                                0 -0.01 -0.065
-                                              ]
-                                              inertiaMatrix [
-                                                1 1 1
-                                                0 0 0
-                                              ]
-                                            }
-                                          }
-                                        }
-                                        DEF left_wrist_link_visual Pose {
-                                          translation 0 0 -0.021676
-                                          children [
-                                            CadShape {
-                                              url [
-                                                "../../meshes/justina/servos/Servo_Mx28-2_LowPoly.dae"
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                      name "left_wrist_link"
-                                      boundingObject DEF left_wrist_link_collision Pose {
-                                        translation 0 0 -0.021676
-                                        children [
-                                          Mesh {
-                                            url [
-                                              "../../meshes/justina/servos/Servo_Mx28-2_LowPoly.dae"
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                      physics Physics {
-                                        density -1
-                                        mass 0.2
-                                        centerOfMass [
-                                          0 0 -0.02
-                                        ]
-                                        inertiaMatrix [
-                                          1 1 1
-                                          0 0 0
-                                        ]
-                                      }
-                                    }
-                                  }
-                                  DEF left_forearm_link3_visual Pose {
-                                    translation 0 0 -0.21
-                                    children [
-                                      CadShape {
-                                        url [
-                                          "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                  DEF left_forearm_link2_visual Pose {
-                                    translation 0 0 -0.12
-                                    children [
-                                      CadShape {
-                                        url [
-                                          "../../meshes/justina/arm/Forearm_LowPoly.dae"
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                  DEF left_forearm_link_visual Pose {
-                                    children [
-                                      CadShape {
-                                        url [
-                                          "../../meshes/justina/servos/Servo_Mx106_LowPoly.dae"
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                                name "left_forearm_link"
-                                boundingObject Group {
-                                  children [
-                                    DEF left_forearm_link3_collision Pose {
-                                      translation 0 0 -0.21
-                                      children [
-                                        Mesh {
-                                          url [
-                                            "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                    DEF left_forearm_link2_collision Pose {
-                                      translation 0 0 -0.12
-                                      children [
-                                        Mesh {
-                                          url [
-                                            "../../meshes/justina/arm/Forearm_LowPoly.dae"
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                    DEF left_forearm_link_collision Pose {
-                                      children [
-                                        Mesh {
-                                          url [
-                                            "../../meshes/justina/servos/Servo_Mx106_LowPoly.dae"
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                                physics Physics {
-                                  density -1
-                                  mass 0.4
-                                  centerOfMass [
-                                    0 0 -0.1
-                                  ]
-                                  inertiaMatrix [
-                                    1 1 1
-                                    0 0 0
-                                  ]
-                                }
-                              }
-                            }
-                            DEF left_arm_link2_visual Pose {
-                              translation 0 0 -0.214537
-                              rotation 0 0 1 1.5707996938995747
-                              children [
-                                CadShape {
-                                  url [
-                                    "../../meshes/justina/arm/Arm_LowPoly.dae"
-                                  ]
-                                }
-                              ]
-                            }
-                            DEF left_arm_link_visual Pose {
-                              translation 0 0 -0.02
-                              rotation 0 0 1 1.5707996938995747
-                              children [
-                                CadShape {
-                                  url [
-                                    "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                          name "left_arm_link"
-                          boundingObject Group {
-                            children [
-                              DEF left_arm_link2_collision Pose {
-                                translation 0 0 -0.214537
-                                rotation 0 0 1 1.5707996938995747
-                                children [
-                                  Mesh {
-                                    url [
-                                      "../../meshes/justina/arm/Arm_LowPoly.dae"
-                                    ]
-                                  }
-                                ]
-                              }
-                              DEF left_arm_link_collision Pose {
-                                translation 0 0 -0.02
-                                rotation 0 0 1 1.5708003061004252
-                                children [
-                                  Mesh {
-                                    url [
-                                      "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                          physics Physics {
-                            density -1
-                            mass 0.3
-                            centerOfMass [
-                              0 -0.02 -0.07
-                            ]
-                            inertiaMatrix [
-                              1 1 1
-                              0 0 0
-                            ]
-                          }
-                        }
-                      }
-                      DEF left_motor_frame_link_visual Pose {
-                        children [
-                          CadShape {
-                            url [
-                              "../../meshes/justina/arm/Shoulder_Frame_LowPoly.dae"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                    name "left_motor_frame_link"
-                    boundingObject DEF left_motor_frame_link_collision Pose {
-                      children [
-                        Mesh {
-                          url [
-                            "../../meshes/justina/arm/Shoulder_Frame_LowPoly.dae"
-                          ]
-                        }
-                      ]
-                    }
-                    physics Physics {
-                      density -1
-                      mass 0.1
-                      centerOfMass [
-                        0 0 -0.03
-                      ]
-                      inertiaMatrix [
-                        1 1 1
-                        0 0 0
-                      ]
-                    }
-                  }
-                }
-                DEF left_shoulder_link_visual Pose {
-                  translation 0 0 -0.049168
-                  children [
-                    CadShape {
-                      url [
-                        "../../meshes/justina/servos/Servo_Mx106-2_LowPoly.dae"
-                      ]
-                    }
-                  ]
-                }
-              ]
-              name "left_shoulder_link"
-              boundingObject DEF left_shoulder_link_collision Pose {
-                translation 0 0 -0.049168
-                children [
-                  Mesh {
-                    url [
-                      "../../meshes/justina/servos/Servo_Mx106-2_LowPoly.dae"
-                    ]
-                  }
-                ]
-              }
-              physics Physics {
-                density -1
-                mass 0.125
-                centerOfMass [
-                  0 0 -0.04
-                ]
-                inertiaMatrix [
-                  1 1 1
-                  0 0 0
-                ]
-              }
-            }
-            DEF neck_link Solid {
-              translation 0 0 0.140425
-              children [
-                HingeJoint {
-                  jointParameters HingeJointParameters {
-                    position 5.8718556881147704e-08
-                    axis 0 0 1
-                    anchor 0 0 0.0205
-                    dampingConstant 0.1
-                  }
-                  device [
-                    DEF head_pan_joint RotationalMotor {
-                      name "head_pan_joint"
-                      maxVelocity 3
-                      minPosition -1.7
-                      maxPosition 1.7
-                      maxTorque 16
-                    }
-                    DEF head_pan_joint_sensor PositionSensor {
-                      name "head_pan_joint_sensor"
-                    }
-                  ]
-                  endPoint DEF head_link Solid {
-                    translation 7.868761326613122e-10 2.2002639986864505e-09 0.020472661700175587
-                    rotation -0.0010062591716423666 0.9730301771246938 0.23067566375143794 2.5809568279517867e-07
-                    children [
-                      HingeJoint {
-                        jointParameters HingeJointParameters {
-                          position -4.715896509951212e-07
-                          axis 0 -1 0
-                          anchor 0 0 0.05852
-                          dampingConstant 0.1
-                        }
-                        device [
-                          DEF head_tilt_joint RotationalMotor {
-                            name "head_tilt_joint"
-                            maxVelocity 3
-                            minPosition -1.7
-                            maxPosition 1.7
-                            maxTorque 16
-                          }
-                          DEF head_tilt_joint_sensor PositionSensor {
-                            name "head_tilt_joint_sensor"
-                          }
-                        ]
-                        endPoint DEF mask_link Solid {
-                          translation 0 0 0.05852
-                          rotation 0 1 0 4.712160915387253e-07
-                          children [
-                            DEF camera_link Solid {
-                              translation 0 0 0.083435
-                              children [
-                                Pose {
-                                  translation 0 0 -0.082763
-                                  children [
-                                    DEF camera_link_visual CadShape {
-                                      url [
-                                        "../../meshes/robotino_low_poly/sensors/kinect_LowPoly_B.dae"
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                              name "camera_link"
-                              boundingObject DEF camera_link_collision Pose {
-                                translation 0 0 -0.082763
-                                children [
-                                  Mesh {
-                                    url [
-                                      "../../meshes/robotino_low_poly/sensors/kinect_Collider_B.dae"
-                                    ]
-                                  }
-                                ]
-                              }
-                              physics Physics {
-                                density -1
-                                mass 1
-                                centerOfMass [
-                                  0 0 -0.015
-                                ]
-                                inertiaMatrix [
-                                  1 1 1
-                                  0 0 0
-                                ]
-                              }
-                            }
-                            DEF mask_link_visual Pose {
-                              translation 0 0 -0.1
-                              children [
-                                CadShape {
-                                  url [
-                                    "../../meshes/justina/head/FaceMask_LowPoly.dae"
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                          name "mask_link"
-                          boundingObject DEF mask_link_collision Pose {
-                            translation 0 0 -0.1
-                            children [
-                              Mesh {
-                                url [
-                                  "../../meshes/justina/head/FaceMask_Collider_Low.dae"
-                                ]
-                              }
-                            ]
-                          }
-                          physics Physics {
-                            density -1
-                            mass 0.2
-                            centerOfMass [
-                              0.06 0 -0.06
-                            ]
-                            inertiaMatrix [
-                              1 1 1
-                              0 0 0
-                            ]
-                          }
-                        }
-                      }
-                      DEF head_link_visual Pose {
-                        translation 0 0 0.0581
-                        rotation 0.5773509358560258 -0.577349935856137 0.577349935856137 2.09439
-                        children [
-                          CadShape {
-                            url [
-                              "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                    name "head_link"
-                    boundingObject DEF head_link_collision Pose {
-                      translation 0 0 0.0581
-                      rotation 0.5773509358560258 -0.577349935856137 0.577349935856137 2.09439
-                      children [
-                        Mesh {
-                          url [
-                            "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                          ]
-                        }
-                      ]
-                    }
-                    physics Physics {
-                      density -1
-                      mass 0.15
-                      centerOfMass [
-                        0 0 0.05
-                      ]
-                      inertiaMatrix [
-                        1 1 1
-                        0 0 0
-                      ]
-                    }
-                  }
-                }
-                DEF neck_link_visual CadShape {
-                  url [
-                    "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                  ]
-                }
-              ]
-              name "neck_link"
-              boundingObject DEF neck_link_collision Mesh {
-                url [
-                  "../../meshes/justina/servos/Servo_Mx64_LowPoly.dae"
-                ]
-              }
-              physics Physics {
-                density -1
-                mass 0.1
-                centerOfMass [
-                  -0.01 0 0
-                ]
-                inertiaMatrix [
-                  1 1 1
-                  0 0 0
-                ]
-              }
-            }
-            DEF spine_link_visual CadShape {
-              url [
-                "../../meshes/justina/torso/PumaLogo.dae"
-              ]
-            }
-          ]
-          name "spine_link"
-          boundingObject DEF spine_link_collision Mesh {
-            url [
-              "../../meshes/justina/torso/PumaLogo.dae"
-            ]
-          }
-          physics Physics {
-            density -1
-            mass 0.2
-            centerOfMass [
-              0.03 0 -0.05
-            ]
-          }
-        }
-        DEF torso_link:visual CadShape {
+        CadShape {
           url [
-            "../../meshes/justina/torso/Justina_Torso_LowPoly.dae"
+            ""
           ]
         }
       ]
-      name "torso_link"
-      boundingObject DEF torso_link_collision Mesh {
-        url [
-          "../../meshes/justina/torso/Justina_Torso_LowPoly.dae"
-        ]
-      }
-      physics Physics {
-        density -1
-        mass 1.5
-        centerOfMass [
-          0 0 0.2
-        ]
-        inertiaMatrix [
-          1 1 1
-          0 0 0
-        ]
-      }
     }
     DEF laser_link Solid {
       translation 0.06 0 0.1975
@@ -1701,18 +573,1195 @@ DEF Justina Robot {
         ]
       }
     }
-    DEF tower_link Solid {
+    DEF body_link Solid {
+      translation 0 0 0.305
       children [
-        DEF tower_link_visual CadShape {
+        Pose {
+          translation 0 0 0.08
+          children [
+            SliderJoint {
+              jointParameters JointParameters {
+                position 0.2
+                maxStop 0.3014
+              }
+              device [
+                DEF torso_joint LinearMotor {
+                  maxPosition 0.3014
+                }
+                DEF torso_joint_sensor PositionSensor {
+                }
+              ]
+              endPoint DEF torso_link Solid {
+                translation 0 0 0.2
+                children [
+                  DEF spine_link Solid {
+                    translation 0 0 0.5187
+                    children [
+                      DEF right_shoulder_link Solid {
+                        translation 0 -0.224765 0
+                        children [
+                          HingeJoint {
+                            jointParameters HingeJointParameters {
+                              axis 0 -1 0
+                              anchor 0 0 -0.0608
+                              dampingConstant 0.1
+                            }
+                            device [
+                              DEF rf_shoulder_joint RotationalMotor {
+                                name "rf_shoulder_joint"
+                                maxVelocity 3
+                                minPosition -1.7
+                                maxPosition 1.7
+                                maxTorque 16
+                              }
+                              DEF rf_shoulder_joint_sensor PositionSensor {
+                                name "rf_shoulder_joint_sensor"
+                              }
+                            ]
+                            endPoint DEF rf_frame_link Solid {
+                              translation 0 0 -0.0608
+                              rotation 0 -1 0 0
+                              children [
+                                HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    axis -1 0 0
+                                    anchor 0 0 -0.1
+                                    dampingConstant 0.1
+                                  }
+                                  device [
+                                    DEF rs_shoulder_joint RotationalMotor {
+                                      name "rs_shoulder_joint"
+                                      maxVelocity 3
+                                      minPosition -1.7
+                                      maxPosition 1.7
+                                      maxTorque 16
+                                    }
+                                    DEF rs_shoulder_joint_sensor PositionSensor {
+                                      name "rs_shoulder_joint_sensor"
+                                    }
+                                  ]
+                                  endPoint DEF r_arm_link Solid {
+                                    translation 0 0 -0.1
+                                    rotation -1 0 0 0
+                                    children [
+                                      HingeJoint {
+                                        jointParameters HingeJointParameters {
+                                          axis 0 0 -1
+                                          anchor 0 0 -0.15
+                                          dampingConstant 0.1
+                                        }
+                                        device [
+                                          DEF r_arm_twist_joint RotationalMotor {
+                                            name "r_arm_twist_joint"
+                                            maxVelocity 3
+                                            minPosition -1.7
+                                            maxPosition 1.7
+                                            maxTorque 16
+                                          }
+                                          DEF r_arm_twist_joint_sensor PositionSensor {
+                                            name "right_arm_joint_sensor"
+                                          }
+                                        ]
+                                        endPoint DEF r_arm_twist_link Solid {
+                                          translation 0 0 -0.15
+                                          rotation 0 0 -1 0
+                                          children [
+                                            HingeJoint {
+                                              jointParameters HingeJointParameters {
+                                                axis 0 -1 0
+                                                anchor 0 0 -0.1
+                                                dampingConstant 0.1
+                                              }
+                                              device [
+                                                DEF r_elbow_joint RotationalMotor {
+                                                  name "r_elbow_joint"
+                                                  maxVelocity 3
+                                                  minPosition -1.7
+                                                  maxPosition 1.7
+                                                  maxTorque 16
+                                                }
+                                                DEF r_elbow_joint_sensor PositionSensor {
+                                                  name "r_elbow_joint_sensor"
+                                                }
+                                              ]
+                                              endPoint DEF r_forearm_link Solid {
+                                                translation 0 0 -0.1
+                                                rotation 0 -1 0 0
+                                                children [
+                                                  HingeJoint {
+                                                    jointParameters HingeJointParameters {
+                                                      axis 0 0 -1
+                                                      anchor 0 0 -0.15
+                                                      dampingConstant 0.1
+                                                    }
+                                                    device [
+                                                      DEF r_wrist_joint RotationalMotor {
+                                                        name "r_wrist_joint"
+                                                        maxVelocity 3
+                                                        minPosition -1.7
+                                                        maxPosition 1.7
+                                                        maxTorque 16
+                                                      }
+                                                      DEF r_wrist_joint_sensor PositionSensor {
+                                                        name "r_wrist_joint_sensor"
+                                                      }
+                                                    ]
+                                                    endPoint DEF r_wrist_link Solid {
+                                                      translation 0 0 -0.15
+                                                      rotation 0 0 -1 0
+                                                      children [
+                                                        HingeJoint {
+                                                          jointParameters HingeJointParameters {
+                                                            axis 0 -1 0
+                                                            anchor 0 0 -0.1
+                                                            dampingConstant 0.1
+                                                          }
+                                                          device [
+                                                            DEF r_hand_joint RotationalMotor {
+                                                              name "r_hand_joint"
+                                                              maxVelocity 3
+                                                              minPosition -1.7
+                                                              maxPosition 1.7
+                                                              maxTorque 16
+                                                            }
+                                                            DEF r_hand_joint_sensor PositionSensor {
+                                                              name "r_hand_joint_sensor"
+                                                            }
+                                                          ]
+                                                          endPoint DEF r_hand_link Solid {
+                                                            translation 0 0 -0.1
+                                                            rotation 0 -1 0 0
+                                                            children [
+                                                              HingeJoint {
+                                                                jointParameters HingeJointParameters {
+                                                                  anchor 0 0.01614 -0.169349
+                                                                  dampingConstant 0.1
+                                                                }
+                                                                device [
+                                                                  DEF right_griper_L_joint RotationalMotor {
+                                                                    name "right_griper_L_joint"
+                                                                    maxVelocity 3
+                                                                    minPosition -1.7
+                                                                    maxPosition 1.7
+                                                                    maxTorque 16
+                                                                  }
+                                                                  DEF right_griper_L_joint_sensor PositionSensor {
+                                                                    name "right_griper_L_joint_sensor"
+                                                                  }
+                                                                ]
+                                                                endPoint DEF right_griper_L_link Solid {
+                                                                  translation 0 0.01614 -0.169349
+                                                                  rotation 0 0 -1 1.5707996938995745
+                                                                  children [
+                                                                    DEF right_griper_L_link_visual Pose {
+                                                                      children [
+                                                                        CadShape {
+                                                                          url [
+                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                  name "right_griper_L_link"
+                                                                  boundingObject DEF right_griper_L_link_collision Pose {
+                                                                    children [
+                                                                      Mesh {
+                                                                        url [
+                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                  physics Physics {
+                                                                    density -1
+                                                                    mass 0.05
+                                                                    centerOfMass [
+                                                                      -0.05 0 -0.06
+                                                                    ]
+                                                                    inertiaMatrix [
+                                                                      1 1 1
+                                                                      0 0 0
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              }
+                                                              HingeJoint {
+                                                                jointParameters HingeJointParameters {
+                                                                  axis -1 0 0
+                                                                  anchor 0 -0.01614 -0.169349
+                                                                  dampingConstant 0.1
+                                                                }
+                                                                device [
+                                                                  DEF right_griper_R_joint RotationalMotor {
+                                                                    name "right_griper_R_joint"
+                                                                    maxVelocity 3
+                                                                    minPosition -1.7
+                                                                    maxPosition 1.7
+                                                                    maxTorque 16
+                                                                  }
+                                                                  DEF right_griper_R_joint_sensor PositionSensor {
+                                                                    name "right_griper_R_joint_sensor"
+                                                                  }
+                                                                ]
+                                                                endPoint DEF right_griper_R_link Solid {
+                                                                  translation 0 -0.01614 -0.169349
+                                                                  rotation 0 0 1 1.5707996938995745
+                                                                  children [
+                                                                    DEF right_griper_R_link_visual Pose {
+                                                                      children [
+                                                                        CadShape {
+                                                                          url [
+                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                  name "right_griper_R_link"
+                                                                  boundingObject DEF right_griper_R_link_collision Pose {
+                                                                    children [
+                                                                      Mesh {
+                                                                        url [
+                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                  physics Physics {
+                                                                    density -1
+                                                                    mass 0.05
+                                                                    centerOfMass [
+                                                                      -0.05 0 -0.06
+                                                                    ]
+                                                                    inertiaMatrix [
+                                                                      1 1 1
+                                                                      0 0 0
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              }
+                                                              DEF r_hand_link_visual Pose {
+                                                                children [
+                                                                  CadShape {
+                                                                    url [
+                                                                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand.dae"
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                            name "r_hand_link"
+                                                            boundingObject DEF r_hand_link_collision Pose {
+                                                              children [
+                                                                Mesh {
+                                                                  url [
+                                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand_Collider.dae"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                            physics Physics {
+                                                              density -1
+                                                              mass 0.2
+                                                              centerOfMass [
+                                                                0 0 -0.12
+                                                              ]
+                                                              inertiaMatrix [
+                                                                1 1 1
+                                                                0 0 0
+                                                              ]
+                                                            }
+                                                          }
+                                                        }
+                                                        DEF r_wrist_link_visual Pose {
+                                                          children [
+                                                            CadShape {
+                                                              url [
+                                                                "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist.dae"
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                      name "r_wrist_link"
+                                                      boundingObject DEF r_wrist_link_collision Pose {
+                                                        children [
+                                                          Mesh {
+                                                            url [
+                                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist_Collider.dae"
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                      physics Physics {
+                                                        density -1
+                                                        mass 0.2
+                                                        centerOfMass [
+                                                          0 0 -0.07
+                                                        ]
+                                                        inertiaMatrix [
+                                                          1 1 1
+                                                          0 0 0
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                  DEF r_forearm_link_visual Pose {
+                                                    children [
+                                                      CadShape {
+                                                        url [
+                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm.dae"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                                name "r_forearm_link"
+                                                boundingObject DEF r_forearm_link_collision Pose {
+                                                  children [
+                                                    Mesh {
+                                                      url [
+                                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm_Collider.dae"
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                                physics Physics {
+                                                  density -1
+                                                  mass 0.4
+                                                  centerOfMass [
+                                                    0 0 -0.1
+                                                  ]
+                                                  inertiaMatrix [
+                                                    1 1 1
+                                                    0 0 0
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                            DEF r_arm_twist_link_visual Pose {
+                                              children [
+                                                CadShape {
+                                                  url [
+                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist.dae"
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                          name "r_arm_twist_link"
+                                          boundingObject DEF r_arm_twist_link_collision Pose {
+                                            children [
+                                              Mesh {
+                                                url [
+                                                  "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist_Collider.dae"
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                          physics Physics {
+                                            density -1
+                                            mass 0.3
+                                            centerOfMass [
+                                              0 0 -0.07
+                                            ]
+                                            inertiaMatrix [
+                                              1 1 1
+                                              0 0 0
+                                            ]
+                                          }
+                                        }
+                                      }
+                                      DEF r_arm_link_visual Pose {
+                                        children [
+                                          CadShape {
+                                            url [
+                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm.dae"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                    name "r_arm_link"
+                                    boundingObject DEF r_arm_link_collision Mesh {
+                                      url [
+                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm_Collider.dae"
+                                      ]
+                                    }
+                                    physics Physics {
+                                      density -1
+                                      mass 0.1
+                                      centerOfMass [
+                                        0 0 -0.09
+                                      ]
+                                      inertiaMatrix [
+                                        1 1 1
+                                        0 0 0
+                                      ]
+                                    }
+                                  }
+                                }
+                                DEF rf_frame_link_visual Pose {
+                                  children [
+                                    CadShape {
+                                      url [
+                                        "../../meshes/justina_model_B/arm/ShoulderFrame.dae"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                              name "rf_frame_link"
+                              boundingObject DEF rf_frame_link_collision Pose {
+                                children [
+                                  Mesh {
+                                    url [
+                                      "../../meshes/justina_model_B/arm/ShoulderFrame_Collider.dae"
+                                    ]
+                                  }
+                                ]
+                              }
+                              physics Physics {
+                                density -1
+                                mass 0.15
+                                centerOfMass [
+                                  0 0 -0.065
+                                ]
+                                inertiaMatrix [
+                                  1 1 1
+                                  0 0 0
+                                ]
+                              }
+                            }
+                          }
+                          DEF right_shoulder_link_visual Pose {
+                            children [
+                              CadShape {
+                                url [
+                                  "../../meshes/justina_model_B/arm/ShoulderMotor.dae"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                        name "right_shoulder_link"
+                        boundingObject DEF right_shoulder_link_collision Pose {
+                          children [
+                            Mesh {
+                              url [
+                                "../../meshes/justina_model_B/arm/ShoulderMotor_Collider.dae"
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.15
+                          centerOfMass [
+                            0 0 -0.04
+                          ]
+                          inertiaMatrix [
+                            1 1 1
+                            0 0 0
+                          ]
+                        }
+                      }
+                      DEF left_shoulder_link Solid {
+                        translation 0 0.224765 0
+                        children [
+                          HingeJoint {
+                            jointParameters HingeJointParameters {
+                              axis 0 -1 0
+                              anchor 0 0 -0.0608
+                              dampingConstant 0.1
+                            }
+                            device [
+                              DEF lf_shoulder_joint RotationalMotor {
+                                name "lf_shoulder_joint"
+                                maxVelocity 3
+                                minPosition -1.7
+                                maxPosition 1.7
+                                maxTorque 16
+                              }
+                              DEF lf_shoulder_joint_sensor PositionSensor {
+                                name "lf_shoulder_joint_sensor"
+                              }
+                            ]
+                            endPoint DEF lf_frame_link Solid {
+                              translation 0 0 -0.0608
+                              rotation 0 -1 0 0
+                              children [
+                                HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    anchor 0 0 -0.1
+                                    dampingConstant 0.1
+                                  }
+                                  device [
+                                    DEF ls_shoulder_joint RotationalMotor {
+                                      name "ls_shoulder_joint"
+                                      maxVelocity 3
+                                      minPosition -1.7
+                                      maxPosition 1.7
+                                      maxTorque 16
+                                    }
+                                    DEF ls_shoulder_joint_sensor PositionSensor {
+                                      name "ls_shoulder_joint_sensor"
+                                    }
+                                  ]
+                                  endPoint DEF l_arm_link Solid {
+                                    translation 0 0 -0.1
+                                    rotation 1 0 0 0
+                                    children [
+                                      HingeJoint {
+                                        jointParameters HingeJointParameters {
+                                          axis 0 0 1
+                                          anchor 0 0 -0.15
+                                          dampingConstant 0.1
+                                        }
+                                        device [
+                                          DEF l_arm_twist_joint RotationalMotor {
+                                            name "l_arm_twist_joint"
+                                            maxVelocity 3
+                                            minPosition -1.7
+                                            maxPosition 1.7
+                                            maxTorque 16
+                                          }
+                                          DEF l_arm_twist_joint_sensor PositionSensor {
+                                            name "l_arm_twist_joint_sensor"
+                                          }
+                                        ]
+                                        endPoint DEF l_arm_twist_link Solid {
+                                          translation 0 0 -0.15
+                                          children [
+                                            HingeJoint {
+                                              jointParameters HingeJointParameters {
+                                                axis 0 -1 0
+                                                anchor 0 0 -0.1
+                                                dampingConstant 0.1
+                                              }
+                                              device [
+                                                DEF l_elbow_joint RotationalMotor {
+                                                  name "l_elbow_joint"
+                                                  maxVelocity 3
+                                                  minPosition -1.7
+                                                  maxPosition 1.7
+                                                  maxTorque 16
+                                                }
+                                                DEF l_elbow_joint_sensor PositionSensor {
+                                                  name "l_elbow_joint_sensor"
+                                                }
+                                              ]
+                                              endPoint DEF l_forearm_link Solid {
+                                                translation 0 0 -0.1
+                                                rotation 0 -1 0 0
+                                                children [
+                                                  HingeJoint {
+                                                    jointParameters HingeJointParameters {
+                                                      axis 0 0 1
+                                                      anchor 0 0 -0.15
+                                                      dampingConstant 0.1
+                                                    }
+                                                    device [
+                                                      DEF l_wrist_joint RotationalMotor {
+                                                        name "l_wrist_joint"
+                                                        maxVelocity 3
+                                                        minPosition -1.7
+                                                        maxPosition 1.7
+                                                        maxTorque 16
+                                                      }
+                                                      DEF l_wrist_joint_sensor PositionSensor {
+                                                        name "l_wrist_joint_sensor"
+                                                      }
+                                                    ]
+                                                    endPoint DEF l_wrist_link Solid {
+                                                      translation 0 0 -0.15
+                                                      children [
+                                                        HingeJoint {
+                                                          jointParameters HingeJointParameters {
+                                                            axis 0 -1 0
+                                                            anchor 0 0 -0.1
+                                                            dampingConstant 0.1
+                                                          }
+                                                          device [
+                                                            DEF l_hand_joint RotationalMotor {
+                                                              name "l_hand_joint"
+                                                              maxVelocity 3
+                                                              minPosition -1.7
+                                                              maxPosition 1.7
+                                                              maxTorque 16
+                                                            }
+                                                            DEF l_hand_joint_sensor PositionSensor {
+                                                              name "l_hand_joint_sensor"
+                                                            }
+                                                          ]
+                                                          endPoint DEF l_hand_link Solid {
+                                                            translation 0 0 -0.1
+                                                            rotation 0 -1 0 0
+                                                            children [
+                                                              HingeJoint {
+                                                                jointParameters HingeJointParameters {
+                                                                  anchor 0 0.01614 -0.169349
+                                                                  dampingConstant 0.1
+                                                                }
+                                                                device [
+                                                                  DEF left_griper_L_joint RotationalMotor {
+                                                                    name "left_griper_L_joint"
+                                                                    maxVelocity 3
+                                                                    minPosition -1.7
+                                                                    maxPosition 1.7
+                                                                    maxTorque 16
+                                                                  }
+                                                                  DEF left_griper_L_joint_sensor PositionSensor {
+                                                                    name "left_griper_L_joint_sensor"
+                                                                  }
+                                                                ]
+                                                                endPoint DEF left_griper_L_link Solid {
+                                                                  translation 0 0.01614 -0.169349
+                                                                  rotation 0 0 -1 1.5707996938995745
+                                                                  children [
+                                                                    DEF left_griper_L_link_visual Pose {
+                                                                      children [
+                                                                        CadShape {
+                                                                          url [
+                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                  name "left_griper_L_link"
+                                                                  boundingObject DEF left_griper_L_link_collision Pose {
+                                                                    children [
+                                                                      Mesh {
+                                                                        url [
+                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                  physics Physics {
+                                                                    density -1
+                                                                    mass 0.05
+                                                                    centerOfMass [
+                                                                      -0.05 0 -0.06
+                                                                    ]
+                                                                    inertiaMatrix [
+                                                                      1 1 1
+                                                                      0 0 0
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              }
+                                                              HingeJoint {
+                                                                jointParameters HingeJointParameters {
+                                                                  axis -1 0 0
+                                                                  anchor 0 -0.01614 -0.169349
+                                                                  dampingConstant 0.1
+                                                                }
+                                                                device [
+                                                                  DEF left_griper_R_joint RotationalMotor {
+                                                                    name "left_griper_R_joint"
+                                                                    maxVelocity 3
+                                                                    minPosition -1.7
+                                                                    maxPosition 1.7
+                                                                    maxTorque 16
+                                                                  }
+                                                                  DEF left_griper_R_joint_sensor PositionSensor {
+                                                                    name "left_griper_R_joint_sensor"
+                                                                  }
+                                                                ]
+                                                                endPoint DEF left_griper_R_link Solid {
+                                                                  translation 0 -0.01614 -0.169349
+                                                                  rotation 0 0 1 1.5707996938995745
+                                                                  children [
+                                                                    DEF left_griper_R_link_visual Pose {
+                                                                      children [
+                                                                        CadShape {
+                                                                          url [
+                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                  name "left_griper_R_link"
+                                                                  boundingObject DEF left_griper_R_link_collision Pose {
+                                                                    children [
+                                                                      Mesh {
+                                                                        url [
+                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                  physics Physics {
+                                                                    density -1
+                                                                    mass 0.05
+                                                                    centerOfMass [
+                                                                      -0.05 0 -0.06
+                                                                    ]
+                                                                    inertiaMatrix [
+                                                                      1 1 1
+                                                                      0 0 0
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              }
+                                                              DEF l_hand_link_visual Pose {
+                                                                children [
+                                                                  CadShape {
+                                                                    url [
+                                                                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand.dae"
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                            name "l_hand_link"
+                                                            boundingObject DEF l_hand_link_collision Pose {
+                                                              children [
+                                                                Mesh {
+                                                                  url [
+                                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand_Collider.dae"
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                            physics Physics {
+                                                              density -1
+                                                              mass 0.2
+                                                              centerOfMass [
+                                                                0 0 -0.12
+                                                              ]
+                                                              inertiaMatrix [
+                                                                1 1 1
+                                                                0 0 0
+                                                              ]
+                                                            }
+                                                          }
+                                                        }
+                                                        DEF l_wrist_link_visual Pose {
+                                                          children [
+                                                            CadShape {
+                                                              url [
+                                                                "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist.dae"
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                      name "l_wrist_link"
+                                                      boundingObject DEF l_wrist_link_collision Pose {
+                                                        children [
+                                                          Mesh {
+                                                            url [
+                                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist_Collider.dae"
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                      physics Physics {
+                                                        density -1
+                                                        mass 0.2
+                                                        centerOfMass [
+                                                          0 0 -0.07
+                                                        ]
+                                                        inertiaMatrix [
+                                                          1 1 1
+                                                          0 0 0
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                  DEF l_forearm_link_visual Pose {
+                                                    children [
+                                                      CadShape {
+                                                        url [
+                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm.dae"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                                name "l_forearm_link"
+                                                boundingObject DEF l_forearm_link_collision Pose {
+                                                  children [
+                                                    Mesh {
+                                                      url [
+                                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm_Collider.dae"
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                                physics Physics {
+                                                  density -1
+                                                  mass 0.4
+                                                  centerOfMass [
+                                                    0 0 -0.1
+                                                  ]
+                                                  inertiaMatrix [
+                                                    1 1 1
+                                                    0 0 0
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                            DEF l_arm_twist_link_visual Pose {
+                                              children [
+                                                CadShape {
+                                                  url [
+                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist.dae"
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                          name "l_arm_twist_link"
+                                          boundingObject DEF l_arm_twist_link_collision Pose {
+                                            children [
+                                              Mesh {
+                                                url [
+                                                  "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist_Collider.dae"
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                          physics Physics {
+                                            density -1
+                                            mass 0.3
+                                            centerOfMass [
+                                              0 0 -0.07
+                                            ]
+                                            inertiaMatrix [
+                                              1 1 1
+                                              0 0 0
+                                            ]
+                                          }
+                                        }
+                                      }
+                                      DEF l_arm_link_visual Pose {
+                                        children [
+                                          CadShape {
+                                            url [
+                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm.dae"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                    name "l_arm_link"
+                                    boundingObject DEF l_arm_link_collision Mesh {
+                                      url [
+                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm_Collider.dae"
+                                      ]
+                                    }
+                                    physics Physics {
+                                      density -1
+                                      mass 0.1
+                                      centerOfMass [
+                                        0 0 -0.09
+                                      ]
+                                      inertiaMatrix [
+                                        1 1 1
+                                        0 0 0
+                                      ]
+                                    }
+                                  }
+                                }
+                                DEF lf_frame_link_visual Pose {
+                                  children [
+                                    CadShape {
+                                      url [
+                                        "../../meshes/justina_model_B/arm/ShoulderFrame.dae"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                              name "lf_frame_link"
+                              boundingObject DEF lf_frame_link_collision Pose {
+                                children [
+                                  Mesh {
+                                    url [
+                                      "../../meshes/justina_model_B/arm/ShoulderFrame_Collider.dae"
+                                    ]
+                                  }
+                                ]
+                              }
+                              physics Physics {
+                                density -1
+                                mass 0.15
+                                centerOfMass [
+                                  0 0 -0.065
+                                ]
+                                inertiaMatrix [
+                                  1 1 1
+                                  0 0 0
+                                ]
+                              }
+                            }
+                          }
+                          DEF left_shoulder_link_visual Pose {
+                            children [
+                              CadShape {
+                                url [
+                                  "../../meshes/justina_model_B/arm/ShoulderMotor.dae"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                        name "left_shoulder_link"
+                        boundingObject DEF left_shoulder_link_collision Pose {
+                          children [
+                            Mesh {
+                              url [
+                                "../../meshes/justina_model_B/arm/ShoulderMotor_Collider.dae"
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.15
+                          centerOfMass [
+                            0 0 -0.04
+                          ]
+                          inertiaMatrix [
+                            1 1 1
+                            0 0 0
+                          ]
+                        }
+                      }
+                      DEF neck_link Solid {
+                        translation 0 0 0.02
+                        children [
+                          HingeJoint {
+                            jointParameters HingeJointParameters {
+                              axis 0 0 1
+                              anchor 0 0 0.143
+                              dampingConstant 0.1
+                            }
+                            device [
+                              DEF head_pan_joint RotationalMotor {
+                                name "head_pan_joint"
+                                maxVelocity 3
+                                minPosition -1.7
+                                maxPosition 1.7
+                                maxTorque 16
+                              }
+                              DEF head_pan_joint_sensor PositionSensor {
+                                name "head_pan_joint_sensor"
+                              }
+                            ]
+                            endPoint DEF head_link Solid {
+                              translation 0 0 0.143
+                              children [
+                                HingeJoint {
+                                  jointParameters HingeJointParameters {
+                                    axis 0 -1 0
+                                    anchor 0 0 0.057
+                                    dampingConstant 0.1
+                                  }
+                                  device [
+                                    DEF head_tilt_joint RotationalMotor {
+                                      name "head_tilt_joint"
+                                      maxVelocity 3
+                                      minPosition -1.7
+                                      maxPosition 1.7
+                                      maxTorque 16
+                                    }
+                                    DEF head_tilt_joint_sensor PositionSensor {
+                                      name "head_tilt_joint_sensor"
+                                    }
+                                  ]
+                                  endPoint DEF head_frame_link Solid {
+                                    translation 0 0 0.057
+                                    rotation 0 -1 0 0
+                                    children [
+                                      DEF camera_link Solid {
+                                        translation 0 0 0.108729
+                                        children [
+                                          DEF camera_link_visual Pose {
+                                            children [
+                                              CadShape {
+                                                url [
+                                                  "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/SingleKinect_LowPoly.dae"
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                        name "camera_link"
+                                        boundingObject DEF camera_link_collision Pose {
+                                          children [
+                                            Mesh {
+                                              url [
+                                                "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/SingleKinect_LowPoly_Collider.dae"
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                        physics Physics {
+                                          density -1
+                                          mass 0.8
+                                          centerOfMass [
+                                            0 0 -0.005
+                                          ]
+                                          inertiaMatrix [
+                                            1 1 1
+                                            0 0 0
+                                          ]
+                                        }
+                                      }
+                                      DEF head_frame_link_visual Pose {
+                                        children [
+                                          CadShape {
+                                            url [
+                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/Face_Frame.dae"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                    name "head_frame_link"
+                                    boundingObject DEF head_frame_link_collision Pose {
+                                      children [
+                                        Mesh {
+                                          url [
+                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/Face_Frame_Collider.dae"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                    physics Physics {
+                                      density -1
+                                      mass 0.15
+                                      centerOfMass [
+                                        0.035 0 0.03
+                                      ]
+                                      inertiaMatrix [
+                                        1 1 1
+                                        0 0 0
+                                      ]
+                                    }
+                                  }
+                                }
+                                DEF head_link_visual Pose {
+                                  children [
+                                    CadShape {
+                                      url [
+                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/HeadTiltMotor.dae"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                              name "head_link"
+                              boundingObject DEF head_link_collision Pose {
+                                children [
+                                  Mesh {
+                                    url [
+                                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/HeadTiltMotor_Collider.dae"
+                                    ]
+                                  }
+                                ]
+                              }
+                              physics Physics {
+                                density -1
+                                mass 0.15
+                                centerOfMass [
+                                  0 0 0.04
+                                ]
+                                inertiaMatrix [
+                                  1 1 1
+                                  0 0 0
+                                ]
+                              }
+                            }
+                          }
+                          DEF neck_link_visual CadShape {
+                            url [
+                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Neck.dae"
+                            ]
+                          }
+                        ]
+                        name "neck_link"
+                        boundingObject DEF neck_link_collision Mesh {
+                          url [
+                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Neck_Collider.dae"
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.2
+                          centerOfMass [
+                            0 0 0.1
+                          ]
+                          inertiaMatrix [
+                            1 1 1
+                            0 0 0
+                          ]
+                        }
+                      }
+                      DEF spine_link_visual Pose {
+                        children [
+                          CadShape {
+                            url [
+                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/ShoulderPads.dae"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                    name "spine_link"
+                    boundingObject DEF spine_link_collision Mesh {
+                      url [
+                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/ShoulderPads.dae"
+                      ]
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.2
+                      centerOfMass [
+                        0.01 0 0
+                      ]
+                    }
+                  }
+                  DEF torso_link_visual CadShape {
+                    url [
+                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Torso_ROBOTINO_B.dae"
+                    ]
+                  }
+                ]
+                name "torso_link"
+                boundingObject DEF torso_link_collision Mesh {
+                  url [
+                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Torso_Collider_ROBOTINO_B.dae"
+                  ]
+                }
+                physics Physics {
+                  density -1
+                  mass 2
+                  centerOfMass [
+                    0 0 0.4
+                  ]
+                }
+              }
+            }
+          ]
+        }
+        DEF body_link_visual CadShape {
           url [
-            "../../meshes/robotino_low_poly/Justina_Platform_LowPoly.dae"
+            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Body_ROBOTINO_B.dae"
           ]
         }
       ]
-      name "tower_link"
-      boundingObject DEF tower_link_collision Mesh {
+      name "body_link"
+      boundingObject DEF body_link_collision Mesh {
         url [
-          "../../meshes/robotino_low_poly/Justina_Platform_Collider.dae"
+          "../../meshes/justina_model_B/Body_Collider_ROBOTINO_B.dae"
         ]
       }
       physics Physics {
@@ -1729,7 +1778,6 @@ DEF Justina Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 4.7096633430379756e-07
         axis -1 0 0
         anchor -0.165 0 0.063899
       }
@@ -1744,8 +1792,8 @@ DEF Justina Robot {
         }
       ]
       endPoint DEF wheel0_link Solid {
-        translation -0.1650000059928953 -1.561087844226331e-08 0.0640979264037325
-        rotation -4.0148651939883044e-07 2.214609736937103e-07 0.9999999999998948 1.5707997003353942
+        translation -0.1650000059928953 -1.5704566081419257e-08 0.06409792640372514
+        rotation 0 0 1 1.57079970033527
         children [
           DEF wheel0_link_visual CadShape {
             url [
@@ -1774,7 +1822,6 @@ DEF Justina Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 3.12828756519002e-06
         axis 0.5 -0.866025 0
         anchor 0.0825 -0.142894 0.063899
       }
@@ -1789,8 +1836,8 @@ DEF Justina Robot {
         }
       ]
       endPoint DEF wheel1_link Solid {
-        translation 0.08249999606358308 -0.14289401315460376 0.06409572822480468
-        rotation 1.5397119493508297e-06 3.728502075689078e-07 -0.9999999999987451 2.6179939946378306
+        translation 0.08249999659655449 -0.14289401284689243 0.06409572822483496
+        rotation 0 0 -1 2.617993994637088
         children [
           DEF wheel1_link_visual CadShape {
             url [
@@ -1819,7 +1866,6 @@ DEF Justina Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position -3.4628383315172978e-06
         axis 0.5 0.866025 0
         anchor 0.0825 0.142894 0.063899
       }
@@ -1834,8 +1880,8 @@ DEF Justina Robot {
         }
       ]
       endPoint DEF wheel2_link Solid {
-        translation 0.08249999417186166 0.14289397912384783 0.06410580094568083
-        rotation -1.353586524211353e-06 -6.358000111010416e-06 -0.9999999999788718 0.5235996999993262
+        translation 0.08249999479203818 0.14289397876578858 0.06410580094566093
+        rotation 0 0 -1 0.5235996999890595
         children [
           DEF wheel2_link_visual CadShape {
             url [
@@ -1867,18 +1913,18 @@ DEF Justina Robot {
       children [
         DEF base_link_visual CadShape {
           url [
-            "../../meshes/robotino_low_poly/Robotino3_LowPoly.dae"
+            "../../meshes/justina_model_B/Base_ROBOTINO_B.dae"
           ]
         }
       ]
     }
   ]
-  boundingObject Pose {
+  boundingObject DEF base_link_collision Pose {
     translation 0 0 0.02
     children [
       Mesh {
         url [
-          "../../meshes/robotino_low_poly/Robotino3_Collider_LowPoly.dae"
+          "../../meshes/justina_model_B/Base_Collider_ROBOTINO_B.dae"
         ]
       }
     ]

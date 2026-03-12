@@ -67,10 +67,10 @@ class JustinaController(Node):
         self.joint_names = [
             'wheel0_joint', 'wheel1_joint', 'wheel2_joint',
             'head_pan_joint', 'head_tilt_joint',
-            'left_motor_frame_joint', 'left_arm_joint', 'left_elbow_joint',
-            'left_wrist_joint', 'left_griper_R_joint', 'left_griper_L_joint',
-            'right_motor_frame_joint', 'right_arm_joint', 'right_elbow_joint',
-            'right_wrist_joint', 'right_griper_R_joint', 'right_griper_L_joint'
+            'lf_shoulder_joint', 'ls_shoulder_joint', 'l_arm_twist_joint', 'l_elbow_joint',
+            'l_wrist_joint', 'l_hand_joint', 'left_griper_R_joint', 'left_griper_L_joint',
+            'rf_shoulder_joint', 'rs_shoulder_joint', 'r_arm_twist_joint', 'r_elbow_joint',
+            'r_wrist_joint', 'r_hand_joint', 'right_griper_R_joint', 'right_griper_L_joint'
         ]
 
         # store motor devices for later control

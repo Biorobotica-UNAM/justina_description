@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
-# justina_controller.py
 from controller import Robot
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist, TransformStamped
 from nav_msgs.msg import Odometry
-from sensor_msgs.msg import JointState, LaserScan
+from sensor_msgs.msg import JointState, LaserScan, Image, CameraInfo
 from tf2_ros import TransformBroadcaster
 from builtin_interfaces.msg import Time
 from rosgraph_msgs.msg import Clock
 import math
+import struct
+from controller import Supervisor
 
 class JustinaController(Node):
     """
-    ROS2 controller for 3-wheel omnidirectional base.
-    TF: odom -> base_footprint -> base_link
-    Publishes /odom, /joint_states, /hardware/base/scan (LaserScan), and /clock.
+    ROS2 controller for 3-wheel omnidirectional base with torso and arms.
+    Publishes /odom, /joint_states, /hardware/base/scan, and Kinect RGB-D.
+    Camera frames are provided by the URDF (robot_state_publisher) – no manual transforms.
     """
 
     def __init__(self, robot: Robot):
@@ -35,7 +36,7 @@ class JustinaController(Node):
         self.Vy = 0.0
         self.w = 0.0
         self.x = 0.0
-        self.y = 1.0      # robot spawn at Y=1 (from your world)
+        self.y = 1.0      # robot spawn at Y=1
         self.theta = 0.0
         self.last_sim_time = None
 
@@ -62,10 +63,29 @@ class JustinaController(Node):
                 self.get_logger().error(f"Motor {name} not found!")
 
         # ---------------------------
-        # All movable joints (for joint_states)
+        # Torso prismatic joint
+        # ---------------------------
+        self.torso_motor = robot.getDevice('torso_joint')
+        if self.torso_motor:
+            # Move torso to maximum height
+            self.torso_motor.setPosition(0.3014)   # target position (max)
+            self.torso_motor.setVelocity(10)       # speed in m/s
+            self.torso_sensor = robot.getPositionSensor('torso_joint_sensor')
+            if self.torso_sensor:
+                self.torso_sensor.enable(self.time_step)
+            else:
+                self.torso_sensor = None
+                self.get_logger().warn("No position sensor for torso_joint")
+        else:
+            self.get_logger().error("Motor torso_joint not found!")
+            self.torso_sensor = None
+
+        # ---------------------------
+        # All movable joints (joint_states) – names must match URDF
         # ---------------------------
         self.joint_names = [
             'wheel0_joint', 'wheel1_joint', 'wheel2_joint',
+            'torso_joint',
             'head_pan_joint', 'head_tilt_joint',
             'lf_shoulder_joint', 'ls_shoulder_joint', 'l_arm_twist_joint', 'l_elbow_joint',
             'l_wrist_joint', 'l_hand_joint', 'left_griper_R_joint', 'left_griper_L_joint',
@@ -73,9 +93,9 @@ class JustinaController(Node):
             'r_wrist_joint', 'r_hand_joint', 'right_griper_R_joint', 'right_griper_L_joint'
         ]
 
-        # store motor devices for later control
+        # store motor devices for later control (optional, not used now)
         self.other_motors = {}
-        for name in self.joint_names[3:]:
+        for name in self.joint_names[4:]:   # skip wheels and torso
             motor = robot.getDevice(name)
             if motor:
                 self.other_motors[name] = motor
@@ -88,22 +108,72 @@ class JustinaController(Node):
         self.joint_pub = self.create_publisher(JointState, '/joint_states', 10)
         self.tf_broadcaster = TransformBroadcaster(self)
 
-        # LaserScan publisher (topic matches your real robot)
+        # LaserScan publisher
         self.laser_pub = self.create_publisher(LaserScan, '/hardware/base/scan', 10)
 
-        # Clock publisher for simulation time
+        # Clock publisher
         self.clock_pub = self.create_publisher(Clock, '/clock', 10)
 
         # ---------------------------
-        # Lidar initialization
+        # Lidar (Hokuyo) initialization
         # ---------------------------
-        self.lidar = robot.getDevice('hokuyo_urg_04lx')
+        hokuyo_name = 'URG-04LX-UG01'  # match the name in Webots robot
+        self.lidar = robot.getDevice(hokuyo_name)
         if self.lidar:
             self.lidar.enable(self.time_step)
-            self.lidar.enablePointCloud()   # optional, for Webots point cloud view
-            self.get_logger().info("Hokuyo URG-04LX lidar initialized.")
+            self.lidar.enablePointCloud()
+            self.get_logger().info("Hokuyo '%s' lidar initialized." % hokuyo_name)
         else:
-            self.get_logger().error("Could not find lidar device 'hokuyo_urg_04lx'!")
+            self.get_logger().error("Could not find lidar device '%s'!" % hokuyo_name)
+
+        # ---------------------------
+        # Kinect initialization
+        # ---------------------------
+        kinect_name_prefix = "kinect"  # must match cameraName in webots robot
+        self.kinect_color = robot.getDevice(kinect_name_prefix + "_color")
+        self.kinect_depth = robot.getDevice(kinect_name_prefix + "_range")
+
+        if self.kinect_color:
+            self.kinect_color.enable(self.time_step)
+            self.color_width = self.kinect_color.getWidth()
+            self.color_height = self.kinect_color.getHeight()
+            self.get_logger().info(f"Kinect color camera enabled: {self.color_width}x{self.color_height}")
+        else:
+            self.get_logger().error(f"Could not find Kinect color device '{kinect_name_prefix} color'!")
+
+        if self.kinect_depth:
+            self.kinect_depth.enable(self.time_step)
+            self.depth_width = self.kinect_depth.getWidth()
+            self.depth_height = self.kinect_depth.getHeight()
+            self.depth_max_range = self.kinect_depth.getMaxRange()
+            self.get_logger().info(f"Kinect depth sensor enabled: {self.depth_width}x{self.depth_height}, max range {self.depth_max_range}")
+        else:
+            self.get_logger().error(f"Could not find Kinect depth device '{kinect_name_prefix} range'!")
+
+        # Publishers for Kinect data
+        self.color_pub = self.create_publisher(Image, '/camera/image_raw', 10)
+        self.depth_pub = self.create_publisher(Image, '/camera/depth/image_raw', 10)
+        self.color_info_pub = self.create_publisher(CameraInfo, '/camera/camera_info', 10)
+        self.depth_info_pub = self.create_publisher(CameraInfo, '/camera/depth/camera_info', 10)
+
+        # Camera info (same for color and depth)
+        if self.kinect_color or self.kinect_depth:
+            fov = 1.0
+            w = self.color_width if self.kinect_color else self.depth_width
+            h = self.color_height if self.kinect_color else self.depth_height
+            fx = w / (2.0 * math.tan(fov / 2.0))
+            fy = fx
+            cx = (w - 1) / 2.0
+            cy = (h - 1) / 2.0
+            self.camera_info = CameraInfo()
+            self.camera_info.width = w
+            self.camera_info.height = h
+            self.camera_info.k = [fx, 0.0, cx, 0.0, fy, cy, 0.0, 0.0, 1.0]
+            self.camera_info.d = [0.0, 0.0, 0.0, 0.0, 0.0]
+            self.camera_info.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+            self.camera_info.p = [fx, 0.0, cx, 0.0, 0.0, fy, cy, 0.0, 0.0, 0.0, 1.0, 0.0]
+        else:
+            self.camera_info = None
 
         self.get_logger().info("Controller initialized.")
 
@@ -159,8 +229,10 @@ class JustinaController(Node):
         self.publish_odometry(current_time)
         self.publish_joint_states(current_time)
         self.publish_laser_scan(current_time)
+        self.publish_kinect_data(current_time)
+        # No manual transforms for Kinect – they come from URDF
 
-        rclpy.spin_once(self, timeout_sec=0.0)
+        rclpy.spin_once(self, timeout_sec=0.001)
         return True
 
     def publish_odometry(self, stamp):
@@ -188,12 +260,18 @@ class JustinaController(Node):
         t_odom.transform.rotation.w = qw
         self.tf_broadcaster.sendTransform(t_odom)
 
+        # Get actual robot height from Webots (Supervisor needed)
+        actual_pos = self.robot.getSelf().getPosition()   # [x, y, z] in world coordinates
+        actual_z = actual_pos[2]
+
         # TF: base_footprint -> base_link
         t_base = TransformStamped()
         t_base.header.stamp = stamp
         t_base.header.frame_id = "base_footprint"
         t_base.child_frame_id = "base_link"
-        t_base.transform.translation.z = 0.06
+        t_base.transform.translation.x = 0.0
+        t_base.transform.translation.y = 0.0
+        t_base.transform.translation.z = actual_z
         t_base.transform.rotation.w = 1.0
         self.tf_broadcaster.sendTransform(t_base)
 
@@ -203,7 +281,7 @@ class JustinaController(Node):
         js.name = self.joint_names
         js.position = []
 
-        # Wheel positions (from sensors)
+        # Wheel positions (3 joints)
         for i, wheel in enumerate(self.wheels):
             if self.wheel_sensors[i] is not None:
                 pos = self.wheel_sensors[i].getValue()
@@ -213,8 +291,17 @@ class JustinaController(Node):
                     pos = 0.0
             js.position.append(pos)
 
-        # Other joints – publish 0.0 for now
-        for name in self.joint_names[3:]:
+        # Torso position (index 3)
+        if self.torso_sensor is not None:
+            pos = self.torso_sensor.getValue()
+        else:
+            pos = self.torso_motor.getTargetPosition() if self.torso_motor else 0.0
+            if math.isnan(pos):
+                pos = 0.0
+        js.position.append(pos)
+
+        # Other joints (arms, head, grippers) – set to 0.0 for now
+        for name in self.joint_names[4:]:
             js.position.append(0.0)
 
         self.joint_pub.publish(js)
@@ -223,18 +310,15 @@ class JustinaController(Node):
         if not self.lidar:
             return
 
-        # Get the range image (list of floats, one per step)
         ranges = self.lidar.getRangeImage()
         if not ranges:
             self.get_logger().warn("Lidar range image is empty.")
             return
 
-        # Create LaserScan message
         scan = LaserScan()
         scan.header.stamp = stamp
-        scan.header.frame_id = "laser_link"   # must match URDF frame
+        scan.header.frame_id = "laser_link"
 
-        # Fixed parameters from URG-04LX specs
         scan.angle_min = -2.094395    # -120 degrees
         scan.angle_max = 2.094395     # +120 degrees
         scan.angle_increment = (scan.angle_max - scan.angle_min) / (len(ranges) - 1)
@@ -243,15 +327,57 @@ class JustinaController(Node):
         scan.range_min = 0.06
         scan.range_max = 4.1
 
-        # Reverse the order to match ROS convention (angle_min to angle_max)
+        # Reverse order to match ROS convention
         scan.ranges = list(reversed([r if r <= scan.range_max else float('inf') for r in ranges]))
-
-        # Publish
         self.laser_pub.publish(scan)
+
+    def publish_kinect_data(self, stamp):
+        # Color image
+        if self.kinect_color:
+            img_data = self.kinect_color.getImage()  # bytes (BGRA)
+            if img_data:
+                img_msg = Image()
+                img_msg.header.stamp = stamp
+                img_msg.header.frame_id = "camera_link"
+                img_msg.height = self.color_height
+                img_msg.width = self.color_width
+                img_msg.encoding = "bgra8"
+                img_msg.is_bigendian = False
+                img_msg.step = self.color_width * 4
+                img_msg.data = img_data
+                self.color_pub.publish(img_msg)
+
+                if self.camera_info:
+                    info_msg = self.camera_info
+                    info_msg.header.stamp = stamp
+                    info_msg.header.frame_id = "camera_link"
+                    self.color_info_pub.publish(info_msg)
+
+        # Depth image
+        if self.kinect_depth:
+            depth_data = self.kinect_depth.getRangeImage()  # list of floats
+            if depth_data:
+                depth_msg = Image()
+                depth_msg.header.stamp = stamp
+                depth_msg.header.frame_id = "camera_link"
+                depth_msg.height = self.depth_height
+                depth_msg.width = self.depth_width
+                depth_msg.encoding = "32FC1"
+                depth_msg.is_bigendian = False
+                depth_msg.step = self.depth_width * 4
+                depth_msg.data = struct.pack('{}f'.format(len(depth_data)), *depth_data)
+                self.depth_pub.publish(depth_msg)
+
+                if self.camera_info:
+                    info_msg = self.camera_info
+                    info_msg.header.stamp = stamp
+                    info_msg.header.frame_id = "camera_link"
+                    self.depth_info_pub.publish(info_msg)
 
 def main():
     rclpy.init()
-    robot = Robot()
+    #robot = Robot()
+    robot = Supervisor()
     controller = JustinaController(robot)
     while controller.step():
         pass

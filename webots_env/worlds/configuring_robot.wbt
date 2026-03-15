@@ -2,14 +2,16 @@
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/devices/hokuyo/protos/HokuyoUrg04lxug01.proto"
 
 WorldInfo {
-  basicTimeStep 4
+  basicTimeStep 16
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation -0.09429413823722034 -0.17024198647852534 0.9808803604588815 5.205768361480268
-  position -0.4907501236170791 1.8897230385442128 1.5129574445331504
-  follow "robot:laser_link"
+  orientation 0.11997572322835386 0.07054161406144116 -0.9902674924087129 2.1103138488916
+  position 0.2947812104858423 1.7472612509290968 1.6957319144852887
+  follow "robot:body_link:torso_link:spine_link"
+  followType "Mounted Shot"
 }
 TexturedBackground {
   texture "noon_building_overcast"
@@ -520,34 +522,15 @@ DEF BioRoboticsLab_Mesh Group {
   ]
 }
 DEF Justina Robot {
-  translation 0 1 0.0601035
+  translation 0 1 0.06
   children [
-    DEF reference Solid {
-      translation -0.02 0 0
-      children [
-        CadShape {
-          url [
-            ""
-          ]
-        }
-      ]
-    }
     DEF laser_link Solid {
       translation 0.06 0 0.1975
       children [
-        Lidar {
-          translation 0 0 0.058
-          name "hokuyo_urg_04lx"
-          fieldOfView 4.18879
-          numberOfLayers 1
-          minRange 0.06
-          maxRange 4.1
-          noise 0.003
-        }
-        DEF laser_link_visual CadShape {
-          url [
-            "../../meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae"
-          ]
+        HokuyoUrg04lxug01 {
+          translation 0 0 0.053
+          name "URG-04LX-UG01"
+          noise 0.002
         }
       ]
       name "laser_link"
@@ -574,25 +557,28 @@ DEF Justina Robot {
       }
     }
     DEF body_link Solid {
-      translation 0 0 0.305
+      translation 0 0 0.315
       children [
         Pose {
           translation 0 0 0.08
           children [
             SliderJoint {
               jointParameters JointParameters {
-                position 0.2
+                position 0.3
                 maxStop 0.3014
               }
               device [
                 DEF torso_joint LinearMotor {
-                  maxPosition 0.3014
+                  name "torso_joint"
+                  maxPosition 0.3
+                  maxForce 5000
                 }
                 DEF torso_joint_sensor PositionSensor {
+                  name "torso_joint_sensor"
                 }
               ]
               endPoint DEF torso_link Solid {
-                translation 0 0 0.2
+                translation 0 0 0.3
                 children [
                   DEF spine_link Solid {
                     translation 0 0 0.5187
@@ -734,6 +720,7 @@ DEF Justina Robot {
                                                             children [
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
+                                                                  axis -1 0 0
                                                                   anchor 0 0.01614 -0.169349
                                                                   dampingConstant 0.1
                                                                 }
@@ -751,7 +738,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF right_griper_L_link Solid {
                                                                   translation 0 0.01614 -0.169349
-                                                                  rotation 0 0 -1 1.5707996938995745
+                                                                  rotation -3.0586318318096727e-10 -3.058642130559842e-10 -1 1.5707996938995745
                                                                   children [
                                                                     DEF right_griper_L_link_visual Pose {
                                                                       children [
@@ -788,7 +775,6 @@ DEF Justina Robot {
                                                               }
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
-                                                                  axis -1 0 0
                                                                   anchor 0 -0.01614 -0.169349
                                                                   dampingConstant 0.1
                                                                 }
@@ -806,7 +792,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF right_griper_R_link Solid {
                                                                   translation 0 -0.01614 -0.169349
-                                                                  rotation 0 0 1 1.5707996938995745
+                                                                  rotation 1.6313994210500804e-13 -1.6314049132375606e-13 1 1.5707996938995745
                                                                   children [
                                                                     DEF right_griper_R_link_visual Pose {
                                                                       children [
@@ -863,7 +849,7 @@ DEF Justina Robot {
                                                             }
                                                             physics Physics {
                                                               density -1
-                                                              mass 0.2
+                                                              mass 0.5
                                                               centerOfMass [
                                                                 0 0 -0.12
                                                               ]
@@ -896,7 +882,7 @@ DEF Justina Robot {
                                                       }
                                                       physics Physics {
                                                         density -1
-                                                        mass 0.2
+                                                        mass 0.15
                                                         centerOfMass [
                                                           0 0 -0.07
                                                         ]
@@ -929,9 +915,9 @@ DEF Justina Robot {
                                                 }
                                                 physics Physics {
                                                   density -1
-                                                  mass 0.4
+                                                  mass 0.15
                                                   centerOfMass [
-                                                    0 0 -0.1
+                                                    0 0 -0.09
                                                   ]
                                                   inertiaMatrix [
                                                     1 1 1
@@ -962,7 +948,7 @@ DEF Justina Robot {
                                           }
                                           physics Physics {
                                             density -1
-                                            mass 0.3
+                                            mass 0.2
                                             centerOfMass [
                                               0 0 -0.07
                                             ]
@@ -991,7 +977,7 @@ DEF Justina Robot {
                                     }
                                     physics Physics {
                                       density -1
-                                      mass 0.1
+                                      mass 0.15
                                       centerOfMass [
                                         0 0 -0.09
                                       ]
@@ -1024,9 +1010,9 @@ DEF Justina Robot {
                               }
                               physics Physics {
                                 density -1
-                                mass 0.15
+                                mass 0.35
                                 centerOfMass [
-                                  0 0 -0.065
+                                  0 0 -0.07
                                 ]
                                 inertiaMatrix [
                                   1 1 1
@@ -1057,7 +1043,7 @@ DEF Justina Robot {
                         }
                         physics Physics {
                           density -1
-                          mass 0.15
+                          mass 0.35
                           centerOfMass [
                             0 0 -0.04
                           ]
@@ -1094,6 +1080,7 @@ DEF Justina Robot {
                               children [
                                 HingeJoint {
                                   jointParameters HingeJointParameters {
+                                    axis -1 0 0
                                     anchor 0 0 -0.1
                                     dampingConstant 0.1
                                   }
@@ -1111,11 +1098,11 @@ DEF Justina Robot {
                                   ]
                                   endPoint DEF l_arm_link Solid {
                                     translation 0 0 -0.1
-                                    rotation 1 0 0 0
+                                    rotation -1 0 0 0
                                     children [
                                       HingeJoint {
                                         jointParameters HingeJointParameters {
-                                          axis 0 0 1
+                                          axis 0 0 -1
                                           anchor 0 0 -0.15
                                           dampingConstant 0.1
                                         }
@@ -1133,6 +1120,7 @@ DEF Justina Robot {
                                         ]
                                         endPoint DEF l_arm_twist_link Solid {
                                           translation 0 0 -0.15
+                                          rotation 0 0 -1 0
                                           children [
                                             HingeJoint {
                                               jointParameters HingeJointParameters {
@@ -1201,6 +1189,7 @@ DEF Justina Robot {
                                                             children [
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
+                                                                  axis -1 0 0
                                                                   anchor 0 0.01614 -0.169349
                                                                   dampingConstant 0.1
                                                                 }
@@ -1218,7 +1207,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF left_griper_L_link Solid {
                                                                   translation 0 0.01614 -0.169349
-                                                                  rotation 0 0 -1 1.5707996938995745
+                                                                  rotation -3.05813598706445e-10 -3.058146284145756e-10 -1 1.5707996938995745
                                                                   children [
                                                                     DEF left_griper_L_link_visual Pose {
                                                                       children [
@@ -1255,7 +1244,6 @@ DEF Justina Robot {
                                                               }
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
-                                                                  axis -1 0 0
                                                                   anchor 0 -0.01614 -0.169349
                                                                   dampingConstant 0.1
                                                                 }
@@ -1273,7 +1261,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF left_griper_R_link Solid {
                                                                   translation 0 -0.01614 -0.169349
-                                                                  rotation 0 0 1 1.5707996938995745
+                                                                  rotation 1.6319297468216146e-13 -1.6319352416791818e-13 1 1.5707996938995745
                                                                   children [
                                                                     DEF left_griper_R_link_visual Pose {
                                                                       children [
@@ -1330,7 +1318,7 @@ DEF Justina Robot {
                                                             }
                                                             physics Physics {
                                                               density -1
-                                                              mass 0.2
+                                                              mass 0.5
                                                               centerOfMass [
                                                                 0 0 -0.12
                                                               ]
@@ -1363,7 +1351,7 @@ DEF Justina Robot {
                                                       }
                                                       physics Physics {
                                                         density -1
-                                                        mass 0.2
+                                                        mass 0.15
                                                         centerOfMass [
                                                           0 0 -0.07
                                                         ]
@@ -1396,9 +1384,9 @@ DEF Justina Robot {
                                                 }
                                                 physics Physics {
                                                   density -1
-                                                  mass 0.4
+                                                  mass 0.15
                                                   centerOfMass [
-                                                    0 0 -0.1
+                                                    0 0 -0.09
                                                   ]
                                                   inertiaMatrix [
                                                     1 1 1
@@ -1429,7 +1417,7 @@ DEF Justina Robot {
                                           }
                                           physics Physics {
                                             density -1
-                                            mass 0.3
+                                            mass 0.2
                                             centerOfMass [
                                               0 0 -0.07
                                             ]
@@ -1458,7 +1446,7 @@ DEF Justina Robot {
                                     }
                                     physics Physics {
                                       density -1
-                                      mass 0.1
+                                      mass 0.15
                                       centerOfMass [
                                         0 0 -0.09
                                       ]
@@ -1491,9 +1479,9 @@ DEF Justina Robot {
                               }
                               physics Physics {
                                 density -1
-                                mass 0.15
+                                mass 0.35
                                 centerOfMass [
-                                  0 0 -0.065
+                                  0 0 -0.07
                                 ]
                                 inertiaMatrix [
                                   1 1 1
@@ -1524,7 +1512,7 @@ DEF Justina Robot {
                         }
                         physics Physics {
                           density -1
-                          mass 0.15
+                          mass 0.35
                           centerOfMass [
                             0 0 -0.04
                           ]
@@ -1592,6 +1580,22 @@ DEF Justina Robot {
                                               }
                                             ]
                                           }
+                                          Camera {
+                                            translation 0 0 -0.0127
+                                            name "kinect_color"
+                                            fieldOfView 1
+                                            width 640
+                                            height 480
+                                          }
+                                          RangeFinder {
+                                            translation 0 0 -0.0127
+                                            name "kinect_range"
+                                            fieldOfView 1
+                                            width 640
+                                            height 480
+                                            maxRange 3.5
+                                            noise 0.001
+                                          }
                                         ]
                                         name "camera_link"
                                         boundingObject DEF camera_link_collision Pose {
@@ -1605,7 +1609,7 @@ DEF Justina Robot {
                                         }
                                         physics Physics {
                                           density -1
-                                          mass 0.8
+                                          mass 0.5
                                           centerOfMass [
                                             0 0 -0.005
                                           ]
@@ -1637,9 +1641,9 @@ DEF Justina Robot {
                                     }
                                     physics Physics {
                                       density -1
-                                      mass 0.15
+                                      mass 0.3
                                       centerOfMass [
-                                        0.035 0 0.03
+                                        0.03 0 0.02
                                       ]
                                       inertiaMatrix [
                                         1 1 1
@@ -1670,7 +1674,7 @@ DEF Justina Robot {
                               }
                               physics Physics {
                                 density -1
-                                mass 0.15
+                                mass 0.1
                                 centerOfMass [
                                   0 0 0.04
                                 ]
@@ -1695,9 +1699,9 @@ DEF Justina Robot {
                         }
                         physics Physics {
                           density -1
-                          mass 0.2
+                          mass 0.15
                           centerOfMass [
-                            0 0 0.1
+                            -0.0025 0 0.095
                           ]
                           inertiaMatrix [
                             1 1 1
@@ -1723,7 +1727,7 @@ DEF Justina Robot {
                     }
                     physics Physics {
                       density -1
-                      mass 0.2
+                      mass 0.3
                       centerOfMass [
                         0.01 0 0
                       ]
@@ -1766,9 +1770,9 @@ DEF Justina Robot {
       }
       physics Physics {
         density -1
-        mass 2
+        mass 5.5
         centerOfMass [
-          0 0 0.5
+          0 0 0.25
         ]
         inertiaMatrix [
           1 1 1
@@ -1792,8 +1796,8 @@ DEF Justina Robot {
         }
       ]
       endPoint DEF wheel0_link Solid {
-        translation -0.1650000059928953 -1.5704566081419257e-08 0.06409792640372514
-        rotation 0 0 1 1.57079970033527
+        translation -0.1650000059928953 -1.570456608149613e-08 0.06409792640372514
+        rotation 4.599872491128893e-19 1.9166135379703724e-19 1 1.570799700335266
         children [
           DEF wheel0_link_visual CadShape {
             url [
@@ -1837,7 +1841,7 @@ DEF Justina Robot {
       ]
       endPoint DEF wheel1_link Solid {
         translation 0.08249999659655449 -0.14289401284689243 0.06409572822483496
-        rotation 0 0 -1 2.617993994637088
+        rotation -2.2448973327639806e-19 5.051018998718963e-19 -0.9999999999999999 2.617993994637089
         children [
           DEF wheel1_link_visual CadShape {
             url [
@@ -1881,7 +1885,7 @@ DEF Justina Robot {
       ]
       endPoint DEF wheel2_link Solid {
         translation 0.08249999479203818 0.14289397876578858 0.06410580094566093
-        rotation 0 0 -1 0.5235996999890595
+        rotation -5.759913900787767e-19 -1.8065184507016178e-18 -1 0.5235996999890449
         children [
           DEF wheel2_link_visual CadShape {
             url [
@@ -1913,7 +1917,7 @@ DEF Justina Robot {
       children [
         DEF base_link_visual CadShape {
           url [
-            "../../meshes/justina_model_B/Base_ROBOTINO_B.dae"
+            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Base_ROBOTINO_B.dae"
           ]
         }
       ]
@@ -1931,7 +1935,11 @@ DEF Justina Robot {
   }
   physics Physics {
     density -1
-    mass 10
+    mass 23
+    centerOfMass [
+      0 0 0.12
+    ]
   }
   controller "justina_controller"
+  supervisor TRUE
 }

@@ -50,4 +50,15 @@
     <param name="use_sim_time" value="true" />
   </node>
 
+  <!-- JOYSTICK DRIVER -->
+  <node pkg="joy" exec="joy_node" name="joy_node" output="screen"/>
+
+  <!-- TELEOP MAPPING -->
+  <node pkg="teleop_twist_joy"
+        exec="teleop_node"
+        name="teleop_twist_joy"
+        output="screen">
+    <param from="$(var package_share)/webots_env/config/teleop_joy.yaml"/>
+  </node>
+  
 </launch>

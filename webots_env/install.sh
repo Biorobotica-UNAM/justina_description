@@ -44,6 +44,12 @@ fi
 echo "Installing Gazebo message tools..."
 #sudo apt install -y gz-msgs9 gz-tools
 
+# Install Python packages for teleoperation
+echo "Installing Python packages for teleoperation..."
+sudo apt install -y python3-pygame
+sudo apt install ros-jazzy-joy
+sudo apt install ros-jazzy-teleop-twist-joy
+
 # Clean up
 echo "Cleaning up..."
 sudo apt autoremove -y

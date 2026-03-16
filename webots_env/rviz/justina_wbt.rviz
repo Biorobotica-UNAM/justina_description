@@ -6,12 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /TF1
         - /TF1/Frames1
         - /LaserScan1/Topic1
         - /LaserScan1/Autocompute Value Bounds1
-        - /Camera1
-        - /DepthCloud1
         - /DepthCloud1/Auto Size1
         - /DepthCloud1/Occlusion Compensation1
         - /DepthCloud1/Autocompute Value Bounds1
@@ -512,25 +509,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 6.309170722961426
+      Distance: 1.9823026657104492
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.8115341663360596
-        Y: 2.1054189205169678
-        Z: 0.5661225318908691
+        X: 0.06443460285663605
+        Y: 1.2126528024673462
+        Z: 0.6931045651435852
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6047981977462769
+      Pitch: 0.3197992742061615
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 3.9854209423065186
+      Yaw: 6.205417633056641
     Saved: ~
 Window Geometry:
   Camera:

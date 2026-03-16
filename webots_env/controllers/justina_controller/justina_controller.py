@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-from controller import Robot
-import rclpy
-from rclpy.node import Node
+from controller import Robot, Supervisor
 from geometry_msgs.msg import Twist, TransformStamped
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import JointState, LaserScan, Image, CameraInfo
 from tf2_ros import TransformBroadcaster
 from builtin_interfaces.msg import Time
 from rosgraph_msgs.msg import Clock
+import rclpy
+from rclpy.node import Node
 import math
 import struct
-from controller import Supervisor
 
 class JustinaController(Node):
     """
@@ -52,7 +51,7 @@ class JustinaController(Node):
                 motor.setPosition(float('inf'))
                 motor.setVelocity(0.0)
                 self.wheels.append(motor)
-                sensor = robot.getPositionSensor(name + "_sensor")
+                sensor = robot.getDevice(name + "_sensor")
                 if sensor:
                     sensor.enable(self.time_step)
                     self.wheel_sensors.append(sensor)
@@ -68,9 +67,9 @@ class JustinaController(Node):
         self.torso_motor = robot.getDevice('torso_joint')
         if self.torso_motor:
             # Move torso to maximum height
-            self.torso_motor.setPosition(0.3014)   # target position (max)
+            self.torso_motor.setPosition(0.3014)   # target position (max) 0.3014
             self.torso_motor.setVelocity(10)       # speed in m/s
-            self.torso_sensor = robot.getPositionSensor('torso_joint_sensor')
+            self.torso_sensor = robot.getDevice('torso_joint_sensor')
             if self.torso_sensor:
                 self.torso_sensor.enable(self.time_step)
             else:
@@ -117,7 +116,7 @@ class JustinaController(Node):
         # ---------------------------
         # Lidar (Hokuyo) initialization
         # ---------------------------
-        hokuyo_name = 'URG-04LX-UG01'  # match the name in Webots robot
+        hokuyo_name = 'URG-04LX'  # match the name in Webots robot
         self.lidar = robot.getDevice(hokuyo_name)
         if self.lidar:
             self.lidar.enable(self.time_step)
@@ -129,7 +128,7 @@ class JustinaController(Node):
         # ---------------------------
         # Kinect initialization
         # ---------------------------
-        kinect_name_prefix = "kinect"  # must match cameraName in webots robot
+        kinect_name_prefix = "camera"  # must match cameraName in webots robot
         self.kinect_color = robot.getDevice(kinect_name_prefix + "_color")
         self.kinect_depth = robot.getDevice(kinect_name_prefix + "_range")
 
@@ -338,7 +337,7 @@ class JustinaController(Node):
             if img_data:
                 img_msg = Image()
                 img_msg.header.stamp = stamp
-                img_msg.header.frame_id = "camera_link"
+                img_msg.header.frame_id = "camera_color_frame"
                 img_msg.height = self.color_height
                 img_msg.width = self.color_width
                 img_msg.encoding = "bgra8"
@@ -359,7 +358,7 @@ class JustinaController(Node):
             if depth_data:
                 depth_msg = Image()
                 depth_msg.header.stamp = stamp
-                depth_msg.header.frame_id = "camera_link"
+                depth_msg.header.frame_id = "camera_depth_frame"
                 depth_msg.height = self.depth_height
                 depth_msg.width = self.depth_width
                 depth_msg.encoding = "32FC1"

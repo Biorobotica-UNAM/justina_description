@@ -2,14 +2,22 @@
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/devices/hokuyo/protos/HokuyoUrg04lxug01.proto"
 
 WorldInfo {
   basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material1 "WheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      bounce 0
+    }
+  ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation 0.11997572322835386 0.07054161406144116 -0.9902674924087129 2.1103138488916
-  position 0.2947812104858423 1.7472612509290968 1.6957319144852887
+  orientation 0.17410792039888026 0.04701646960764998 0.983603519534172 3.564972801904953
+  position 0.6137512059282056 1.3701741143691735 -0.13072009033330895
   follow "robot:body_link:torso_link:spine_link"
   followType "Mounted Shot"
 }
@@ -527,10 +535,25 @@ DEF Justina Robot {
     DEF laser_link Solid {
       translation 0.06 0 0.1975
       children [
-        HokuyoUrg04lxug01 {
+        DEF URG-04LX Lidar {
           translation 0 0 0.053
-          name "URG-04LX-UG01"
+          name "URG-04LX"
+          horizontalResolution 667
+          fieldOfView 4.18879
+          verticalFieldOfView 0.00628004
+          numberOfLayers 1
+          minRange 0.06
+          maxRange 4.096
           noise 0.002
+        }
+        DEF laser_link_visual Pose {
+          children [
+            CadShape {
+              url [
+                "../../../../../../src/Hardware/justina_description/meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae"
+              ]
+            }
+          ]
         }
       ]
       name "laser_link"
@@ -546,7 +569,7 @@ DEF Justina Robot {
       }
       physics Physics {
         density -1
-        mass 0.3
+        mass 0.16
         centerOfMass [
           0 0 0
         ]
@@ -564,13 +587,12 @@ DEF Justina Robot {
           children [
             SliderJoint {
               jointParameters JointParameters {
-                position 0.3
                 maxStop 0.3014
               }
               device [
                 DEF torso_joint LinearMotor {
                   name "torso_joint"
-                  maxPosition 0.3
+                  maxPosition 0.3014
                   maxForce 5000
                 }
                 DEF torso_joint_sensor PositionSensor {
@@ -578,7 +600,6 @@ DEF Justina Robot {
                 }
               ]
               endPoint DEF torso_link Solid {
-                translation 0 0 0.3
                 children [
                   DEF spine_link Solid {
                     translation 0 0 0.5187
@@ -738,7 +759,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF right_griper_L_link Solid {
                                                                   translation 0 0.01614 -0.169349
-                                                                  rotation -3.0586318318096727e-10 -3.058642130559842e-10 -1 1.5707996938995745
+                                                                  rotation 0 0 -1 1.5707996938995745
                                                                   children [
                                                                     DEF right_griper_L_link_visual Pose {
                                                                       children [
@@ -792,7 +813,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF right_griper_R_link Solid {
                                                                   translation 0 -0.01614 -0.169349
-                                                                  rotation 1.6313994210500804e-13 -1.6314049132375606e-13 1 1.5707996938995745
+                                                                  rotation 0 0 1 1.5707996938995745
                                                                   children [
                                                                     DEF right_griper_R_link_visual Pose {
                                                                       children [
@@ -1207,7 +1228,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF left_griper_L_link Solid {
                                                                   translation 0 0.01614 -0.169349
-                                                                  rotation -3.05813598706445e-10 -3.058146284145756e-10 -1 1.5707996938995745
+                                                                  rotation 0 0 -1 1.5707996938995745
                                                                   children [
                                                                     DEF left_griper_L_link_visual Pose {
                                                                       children [
@@ -1261,7 +1282,7 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF left_griper_R_link Solid {
                                                                   translation 0 -0.01614 -0.169349
-                                                                  rotation 1.6319297468216146e-13 -1.6319352416791818e-13 1 1.5707996938995745
+                                                                  rotation 0 0 1 1.5707996938995745
                                                                   children [
                                                                     DEF left_griper_R_link_visual Pose {
                                                                       children [
@@ -1582,14 +1603,14 @@ DEF Justina Robot {
                                           }
                                           Camera {
                                             translation 0 0 -0.0127
-                                            name "kinect_color"
+                                            name "camera_color"
                                             fieldOfView 1
                                             width 640
                                             height 480
                                           }
                                           RangeFinder {
                                             translation 0 0 -0.0127
-                                            name "kinect_range"
+                                            name "camera_range"
                                             fieldOfView 1
                                             width 640
                                             height 480
@@ -1788,16 +1809,15 @@ DEF Justina Robot {
       device [
         RotationalMotor {
           name "wheel0_joint"
-          maxVelocity 3
-          sound ""
+          maxVelocity 137.46
         }
         PositionSensor {
           name "wheel0_joint_sensor"
         }
       ]
       endPoint DEF wheel0_link Solid {
-        translation -0.1650000059928953 -1.570456608149613e-08 0.06409792640372514
-        rotation 4.599872491128893e-19 1.9166135379703724e-19 1 1.570799700335266
+        translation -0.18 0 0.06
+        rotation 0 0 1 1.5708
         children [
           DEF wheel0_link_visual CadShape {
             url [
@@ -1806,9 +1826,17 @@ DEF Justina Robot {
           }
         ]
         name "wheel0_link"
-        boundingObject DEF wheel0_link_collision Mesh {
-          url [
-            "../../meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae"
+        contactMaterial "WheelMat"
+        boundingObject DEF wheel0_link_collision Pose {
+          rotation 1 0 0 1.5708003061004252
+          children [
+            Shape {
+              geometry Cylinder {
+                height 0.05
+                radius 0.06
+              }
+              castShadows FALSE
+            }
           ]
         }
         physics Physics {
@@ -1816,10 +1844,6 @@ DEF Justina Robot {
           mass 1
           centerOfMass [
             0 0 0
-          ]
-          inertiaMatrix [
-            2.009954632918044 0.0637187315028692 2.055552567100865
-            0.3300000023095008 0.021086669999998437 -0.12779799999999314
           ]
         }
       }
@@ -1832,7 +1856,7 @@ DEF Justina Robot {
       device [
         RotationalMotor {
           name "wheel1_joint"
-          maxVelocity 3
+          maxVelocity 137.46
           sound ""
         }
         PositionSensor {
@@ -1840,8 +1864,8 @@ DEF Justina Robot {
         }
       ]
       endPoint DEF wheel1_link Solid {
-        translation 0.08249999659655449 -0.14289401284689243 0.06409572822483496
-        rotation -2.2448973327639806e-19 5.051018998718963e-19 -0.9999999999999999 2.617993994637089
+        translation 0.09 -0.155885 0.06
+        rotation 0 0 -0.9999999999999999 2.618
         children [
           DEF wheel1_link_visual CadShape {
             url [
@@ -1850,11 +1874,7 @@ DEF Justina Robot {
           }
         ]
         name "wheel1_link"
-        boundingObject DEF wheel1_link_collision Mesh {
-          url [
-            "../../meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae"
-          ]
-        }
+        boundingObject USE wheel0_link_collision
         physics Physics {
           density -1
           mass 1
@@ -1876,7 +1896,7 @@ DEF Justina Robot {
       device [
         RotationalMotor {
           name "wheel2_joint"
-          maxVelocity 3
+          maxVelocity 137.46
           sound ""
         }
         PositionSensor {
@@ -1884,8 +1904,8 @@ DEF Justina Robot {
         }
       ]
       endPoint DEF wheel2_link Solid {
-        translation 0.08249999479203818 0.14289397876578858 0.06410580094566093
-        rotation -5.759913900787767e-19 -1.8065184507016178e-18 -1 0.5235996999890449
+        translation 0.09 0.155885 0.06
+        rotation 0 0 -1 0.5235989999999997
         children [
           DEF wheel2_link_visual CadShape {
             url [
@@ -1894,11 +1914,7 @@ DEF Justina Robot {
           }
         ]
         name "wheel2_link"
-        boundingObject DEF wheel2_link_collision Mesh {
-          url [
-            "../../meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae"
-          ]
-        }
+        boundingObject USE wheel0_link_collision
         physics Physics {
           density -1
           mass 1

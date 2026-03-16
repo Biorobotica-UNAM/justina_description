@@ -12,14 +12,15 @@ WorldInfo {
         0, 2, 0
       ]
       bounce 0
+      bumpSound ""
+      rollSound ""
     }
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation 0.17410792039888026 0.04701646960764998 0.983603519534172 3.564972801904953
-  position 0.6137512059282056 1.3701741143691735 -0.13072009033330895
-  follow "robot:body_link:torso_link:spine_link"
-  followType "Mounted Shot"
+  orientation -0.06920934214423853 -0.9884403898207191 0.1348912996861791 5.789922182830092
+  position -2.7233223123069927 1.107566434696968 2.153064715412091
+  follow "robot:body_link"
 }
 TexturedBackground {
   texture "noon_building_overcast"
@@ -1804,7 +1805,7 @@ DEF Justina Robot {
     HingeJoint {
       jointParameters HingeJointParameters {
         axis -1 0 0
-        anchor -0.165 0 0.063899
+        anchor -0.18 0 0.06
       }
       device [
         RotationalMotor {
@@ -1828,12 +1829,12 @@ DEF Justina Robot {
         name "wheel0_link"
         contactMaterial "WheelMat"
         boundingObject DEF wheel0_link_collision Pose {
-          rotation 1 0 0 1.5708003061004252
+          rotation 1 0 0 -1.5708
           children [
             Shape {
               geometry Cylinder {
-                height 0.05
-                radius 0.06
+                height 0.01
+                radius 0.063
               }
               castShadows FALSE
             }
@@ -1851,7 +1852,7 @@ DEF Justina Robot {
     HingeJoint {
       jointParameters HingeJointParameters {
         axis 0.5 -0.866025 0
-        anchor 0.0825 -0.142894 0.063899
+        anchor 0.09 -0.155885 0.06
       }
       device [
         RotationalMotor {
@@ -1874,6 +1875,7 @@ DEF Justina Robot {
           }
         ]
         name "wheel1_link"
+        contactMaterial "WheelMat"
         boundingObject USE wheel0_link_collision
         physics Physics {
           density -1
@@ -1891,7 +1893,7 @@ DEF Justina Robot {
     HingeJoint {
       jointParameters HingeJointParameters {
         axis 0.5 0.866025 0
-        anchor 0.0825 0.142894 0.063899
+        anchor 0.09 0.155885 0.06
       }
       device [
         RotationalMotor {
@@ -1914,6 +1916,7 @@ DEF Justina Robot {
           }
         ]
         name "wheel2_link"
+        contactMaterial "WheelMat"
         boundingObject USE wheel0_link_collision
         physics Physics {
           density -1
@@ -1951,11 +1954,11 @@ DEF Justina Robot {
   }
   physics Physics {
     density -1
-    mass 23
+    mass 20
     centerOfMass [
-      0 0 0.12
+      0 0 0.1
     ]
   }
-  controller "justina_controller"
+  controller "robotino3_base_controller"
   supervisor TRUE
 }

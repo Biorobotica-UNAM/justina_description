@@ -59,6 +59,11 @@ install(
   DESTINATION share/${PROJECT_NAME}/webots_env
 )
 
+install(PROGRAMS
+  webots_env/controllers/robotino3_base_controller/robotino3_base_controller.py
+  DESTINATION lib/${PROJECT_NAME}/controllers
+)
+
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/model)
   install(
     DIRECTORY model/

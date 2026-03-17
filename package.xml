@@ -24,6 +24,8 @@
   <depend>pluginlib</depend>
   <depend>rclpy</depend>
   <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
   
   <!-- Gazebo/Simulation dependencies -->
   <depend>ros_gz</depend>

@@ -9,6 +9,7 @@ Panels:
         - /TF1/Frames1
         - /LaserScan1/Topic1
         - /LaserScan1/Autocompute Value Bounds1
+        - /Camera1
         - /DepthCloud1/Auto Size1
         - /DepthCloud1/Occlusion Compensation1
         - /DepthCloud1/Autocompute Value Bounds1
@@ -67,15 +68,19 @@ Visualization Manager:
           Value: true
         body_link:
           Value: true
+        camera_color_frame:
+          Value: true
+        camera_color_optical_frame:
+          Value: true
+        camera_depth_frame:
+          Value: true
+        camera_depth_optical_frame:
+          Value: true
         camera_link:
           Value: true
         head_frame_link:
           Value: true
         head_link:
-          Value: true
-        kinect_color_frame:
-          Value: true
-        kinect_depth_frame:
           Value: true
         l_arm_link:
           Value: true
@@ -159,10 +164,12 @@ Visualization Manager:
                         head_link:
                           head_frame_link:
                             camera_link:
-                              kinect_color_frame:
-                                {}
-                              kinect_depth_frame:
-                                {}
+                              camera_color_frame:
+                                camera_color_optical_frame:
+                                  {}
+                              camera_depth_frame:
+                                camera_depth_optical_frame:
+                                  {}
                       right_shoulder_link:
                         rf_frame_link:
                           r_arm_link:
@@ -202,6 +209,10 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         base_link:
           Alpha: 1
           Show Axes: false
@@ -212,6 +223,22 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        camera_color_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_color_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         camera_link:
           Alpha: 1
           Show Axes: false
@@ -227,14 +254,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        kinect_color_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        kinect_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         l_arm_link:
           Alpha: 1
           Show Axes: false
@@ -407,7 +426,7 @@ Visualization Manager:
       Far Plane Distance: 100
       Image Rendering: background and overlay
       Name: Camera
-      Overlay Alpha: 0.5
+      Overlay Alpha: 1
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -509,25 +528,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.9823026657104492
+      Distance: 7.75570011138916
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.06443460285663605
-        Y: 1.2126528024673462
-        Z: 0.6931045651435852
+        X: 0.920783519744873
+        Y: 0.9975664615631104
+        Z: 0.3083805441856384
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3197992742061615
+      Pitch: 0.8697987794876099
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 6.205417633056641
+      Yaw: 0.7822325229644775
     Saved: ~
 Window Geometry:
   Camera:

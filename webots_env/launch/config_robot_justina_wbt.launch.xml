@@ -18,7 +18,6 @@
           value="$(command 'cat $(var package_share)/webots_env/urdf/Robot.urdf')" />
     <!-- Tell the node to use simulation time -->
     <param name="use_sim_time" value="true" />
-    <!-- The controller already publishes joint_states; ensure they are remapped correctly -->
     <remap from="joint_states" to="joint_states"/>
   </node>
 
@@ -29,7 +28,6 @@
 
   <!-- Start component container with point cloud nodes -->
   <node_container pkg="rclcpp_components" exec="component_container" name="depth_image_proc_container" namespace="" output="screen">
-
     <!-- RGB-D point cloud -->
     <composable_node pkg="depth_image_proc" plugin="depth_image_proc::PointCloudXyzrgbNode" name="point_cloud_xyzrgb">
       <param name="use_intra_process_comms" value="true"/>
@@ -44,21 +42,18 @@
     </composable_node>
   </node_container>
 
-  <!-- ========== Launch RViz with custom config ========== -->
+  <!-- RViz custom config -->
   <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen"
         args="-d $(var package_share)/webots_env/rviz/justina_wbt.rviz">
     <param name="use_sim_time" value="true" />
   </node>
 
-  <!-- JOYSTICK DRIVER -->
-  <node pkg="joy" exec="joy_node" name="joy_node" output="screen"/>
-
-  <!-- TELEOP MAPPING -->
-  <node pkg="teleop_twist_joy"
-        exec="teleop_node"
-        name="teleop_twist_joy"
-        output="screen">
-    <param from="$(var package_share)/webots_env/config/teleop_joy.yaml"/>
+  <!-- JOYSTICK -->
+  <node pkg="joy" exec="joy_node" name="joy_node" output="screen">
+    <remap from="joy" to="/hardware/joy"/>
   </node>
-  
+  <node pkg="justina_description" exec="robot_teleop.py" name="robot_teleop" output="screen">
+    <param name="use_sim_time" value="true" />
+  </node>
+
 </launch>

@@ -39,12 +39,12 @@
       <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
     </inertial>
     <visual>
-      <origin xyz="0 -0.002 0.035" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.05 0.05455 0.07"/>
+        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae"/>
       </geometry>
       <material name="grey"/>
-    </visual>
+    </visual><box size="0.05 0.05455 0.07"/>
     <collision>
       <origin xyz="0 -0.002 0.035" rpy="0 0 0"/>
       <geometry>
@@ -871,7 +871,7 @@
     <parent link="base_link"/>
     <child link="wheel0_link"/>
     <origin xyz="0.09 0.155885 0.06" rpy="0 0 -0.523599"/>
-    <axis xyz="0 1 0"/>
+    <axis xyz="0 -1 0"/>
     <dynamics damping="0.1"/>
   </joint>
 
@@ -880,7 +880,7 @@
     <parent link="base_link"/>
     <child link="wheel1_link"/>
     <origin xyz="-0.18 0 0.06" rpy="0 0 1.5708"/>
-    <axis xyz="0 1 0"/>
+    <axis xyz="0 -1 0"/>
     <dynamics damping="0.1"/>
   </joint>
 
@@ -889,7 +889,7 @@
     <parent link="base_link"/>
     <child link="wheel2_link"/>
     <origin xyz="0.09 -0.155885 0.06" rpy="0 0 -2.61799"/>
-    <axis xyz="0 1 0"/>
+    <axis xyz="0 -1 0"/>
     <dynamics damping="0.1"/>
   </joint>
 

@@ -19,9 +19,9 @@ WorldInfo {
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation -0.05740300998688246 -0.010385126244680982 0.9982970718164648 3.1732291276692033
-  position 1.0371268824261641 1.0454017424883186 0.5268768669491231
-  follow "robot"
+  orientation -0.15212442599174195 -0.0072789549222350884 0.9883345465134379 3.111816096169272
+  position 2.2239233017569653 0.9764340604895406 1.4771809546255497
+  follow "robot:body_link"
 }
 TexturedBackground {
   texture "noon_building_overcast"
@@ -1566,7 +1566,7 @@ DEF Justina Robot {
                                   jointParameters HingeJointParameters {
                                     axis 0 -1 0
                                     anchor 0 0 0.057
-                                    minStop -0.6
+                                    minStop -0.51
                                     maxStop 0.51
                                   }
                                   device [

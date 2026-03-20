@@ -30,7 +30,7 @@ class BaseHardware:
         self.actual_vx = 0.0
         self.actual_vy = 0.0
         self.actual_w = 0.0
-        self.max_acc = [2.0, 2.0, 4.0]   # linear x, linear y, angular (was [10,6,20]) # acceleration limits
+        self.max_acc = [2.0, 2.0, 4.0]   # linear x, linear y, angular
 
         # Odometry
         self.x = 0.0
@@ -66,41 +66,39 @@ class BaseHardware:
         self.target_w = w
 
     def accelerate(self, dt):
-        # Exponential smoothing (low‑pass filter) – smooths out commands
-        alpha = 0.1   # smoothing factor (0.0 = no change, 1.0 = instant)
+        alpha = 0.1
         self.actual_vx += alpha * (self.target_vx - self.actual_vx)
         self.actual_vy += alpha * (self.target_vy - self.actual_vy)
         self.actual_w  += alpha * (self.target_w  - self.actual_w)    
 
     def update(self, dt):
-        # Apply acceleration limits (updates self.actual_*)
         self.accelerate(dt)
 
         vx, vy, w_target = self.actual_vx, self.actual_vy, self.actual_w
-        w_cmd = -w_target   # invert to match hardware (positive w_target = clockwise)
 
-        # Compute wheel velocities using w_cmd
         sin60 = math.sin(math.pi / 3)
         cos60 = math.cos(math.pi / 3)
-        v0 = (vy + self.L * w_cmd) / self.wheel_radius
-        v1 = (-sin60 * vx - cos60 * vy + self.L * w_cmd) / self.wheel_radius
-        v2 = ( sin60 * vx - cos60 * vy + self.L * w_cmd) / self.wheel_radius
 
+        v_wheel0 = (-sin60 * vx + cos60 * vy + self.L * w_target) / self.wheel_radius
+        v_wheel1 = (          -vy               + self.L * w_target) / self.wheel_radius
+        v_wheel2 = ( sin60 * vx + cos60 * vy + self.L * w_target) / self.wheel_radius
+
+        # Limit wheel speeds
         MAX_WHEEL_SPEED = 12
-        v0 = max(-MAX_WHEEL_SPEED, min(MAX_WHEEL_SPEED, v0))
-        v1 = max(-MAX_WHEEL_SPEED, min(MAX_WHEEL_SPEED, v1))
-        v2 = max(-MAX_WHEEL_SPEED, min(MAX_WHEEL_SPEED, v2))
+        v_wheel0 = max(-MAX_WHEEL_SPEED, min(MAX_WHEEL_SPEED, v_wheel0))
+        v_wheel1 = max(-MAX_WHEEL_SPEED, min(MAX_WHEEL_SPEED, v_wheel1))
+        v_wheel2 = max(-MAX_WHEEL_SPEED, min(MAX_WHEEL_SPEED, v_wheel2))
 
-        self.wheels[0].setVelocity(v0)
-        self.wheels[1].setVelocity(v1)
-        self.wheels[2].setVelocity(v2)
+        self.wheels[0].setVelocity(v_wheel0)   # wheel0_joint (60°)
+        self.wheels[1].setVelocity(v_wheel1)   # wheel1_joint (180°)
+        self.wheels[2].setVelocity(v_wheel2)   # wheel2_joint (-60°)
 
-        # Update odometry using w_cmd (to keep theta consistent with actual motion)
+        # Odometry: positive w_target increases theta (CCW)
         dx = (vx * math.cos(self.theta) - vy * math.sin(self.theta)) * dt
         dy = (vx * math.sin(self.theta) + vy * math.cos(self.theta)) * dt
         self.x += dx
         self.y += dy
-        self.theta -= w_cmd * dt
+        self.theta += w_target * dt
 
     def get_odom(self):
         return self.x, self.y, self.theta
@@ -256,7 +254,7 @@ class TorsoHardware:
         self.torso_motor = robot.getDevice('torso_joint')
         self.torso_sensor = robot.getDevice('torso_joint_sensor')
         if self.torso_motor:
-            self.torso_motor.setPosition(0.3014)  # initial position
+            self.torso_motor.setPosition(0.3014)
             self.torso_motor.setVelocity(10)
         if self.torso_sensor:
             self.torso_sensor.enable(time_step)
@@ -289,22 +287,20 @@ class JustinaController(Node):
         self.head = HeadHardware(robot, self.time_step)
         self.torso = TorsoHardware(robot, self.time_step)
 
-        # Subscribers for commands
-        self.create_subscription(Twist, '/cmd_vel', self.cmd_vel_callback, 10)
+        self.create_subscription(Twist, '/hardware/base/cmd_vel', self.cmd_vel_callback, 10)
         self.create_subscription(Float64, '/head/pan_cmd', self.head_pan_callback, 10)
         self.create_subscription(Float64, '/head/tilt_cmd', self.head_tilt_callback, 10)
         self.create_subscription(Float64, '/torso/cmd_pos', self.torso_callback, 10)
         self.create_subscription(Float64MultiArray, '/hardware/head/goal_pose', self.head_goal_callback, 10)
 
-        # Publishers
-        self.odom_pub = self.create_publisher(Odometry, '/odom', 10)
-        self.joint_pub = self.create_publisher(JointState, '/joint_states', 10)
+        self.odom_pub = self.create_publisher(Odometry, '/hardware/base/odom', 10)
         self.laser_pub = self.create_publisher(LaserScan, '/hardware/base/scan', 10)
+        self.joint_pub = self.create_publisher(JointState, '/joint_states', 10)
         self.clock_pub = self.create_publisher(Clock, '/clock', 10)
-        self.color_pub = self.create_publisher(Image, '/camera/image_raw', 10)
-        self.color_info_pub = self.create_publisher(CameraInfo, '/camera/camera_info', 10)
-        self.depth_pub = self.create_publisher(Image, '/camera/depth/image_raw', 10)
-        self.depth_info_pub = self.create_publisher(CameraInfo, '/camera/depth/camera_info', 10)
+        self.color_pub = self.create_publisher(Image, '/hardware/camera/image_raw', 10)
+        self.color_info_pub = self.create_publisher(CameraInfo, '/hardware/camera/camera_info', 10)
+        self.depth_pub = self.create_publisher(Image, '/hardware/camera/depth/image_raw', 10)
+        self.depth_info_pub = self.create_publisher(CameraInfo, '/hardware/camera/depth/camera_info', 10)
 
         self.tf_broadcaster = TransformBroadcaster(self)
         self.last_sim_time = None

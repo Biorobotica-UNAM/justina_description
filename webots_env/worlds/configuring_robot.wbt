@@ -19,8 +19,8 @@ WorldInfo {
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation -0.2660287692566795 -0.04044966653067834 0.9631160461778909 3.4961891283160886
-  position 2.9933103464277693 2.249644568634447 2.61213563182979
+  orientation -0.25599805908655326 0.016264002836770874 0.9665404678313491 3.111389742222729
+  position 5.261799288931002 1.0920665253621826 3.2177049063704817
   follow "robot"
 }
 TexturedBackground {
@@ -613,7 +613,6 @@ DEF Justina Robot {
                             jointParameters HingeJointParameters {
                               axis 0 -1 0
                               anchor 0 0 -0.0608
-                              dampingConstant 0
                             }
                             device [
                               DEF rf_shoulder_joint RotationalMotor {
@@ -635,7 +634,6 @@ DEF Justina Robot {
                                   jointParameters HingeJointParameters {
                                     axis -1 0 0
                                     anchor 0 0 -0.1
-                                    dampingConstant 0
                                   }
                                   device [
                                     DEF rs_shoulder_joint RotationalMotor {
@@ -657,7 +655,6 @@ DEF Justina Robot {
                                         jointParameters HingeJointParameters {
                                           axis 0 0 -1
                                           anchor 0 0 -0.15
-                                          dampingConstant 0
                                         }
                                         device [
                                           DEF r_arm_twist_joint RotationalMotor {
@@ -679,7 +676,6 @@ DEF Justina Robot {
                                               jointParameters HingeJointParameters {
                                                 axis 0 -1 0
                                                 anchor 0 0 -0.1
-                                                dampingConstant 0
                                               }
                                               device [
                                                 DEF r_elbow_joint RotationalMotor {
@@ -701,7 +697,6 @@ DEF Justina Robot {
                                                     jointParameters HingeJointParameters {
                                                       axis 0 0 -1
                                                       anchor 0 0 -0.15
-                                                      dampingConstant 0
                                                     }
                                                     device [
                                                       DEF r_wrist_joint RotationalMotor {
@@ -723,7 +718,6 @@ DEF Justina Robot {
                                                           jointParameters HingeJointParameters {
                                                             axis 0 -1 0
                                                             anchor 0 0 -0.1
-                                                            dampingConstant 0
                                                           }
                                                           device [
                                                             DEF r_hand_joint RotationalMotor {
@@ -745,7 +739,6 @@ DEF Justina Robot {
                                                                 jointParameters HingeJointParameters {
                                                                   axis -1 0 0
                                                                   anchor 0 0.01614 -0.169349
-                                                                  dampingConstant 0
                                                                 }
                                                                 device [
                                                                   DEF right_griper_L_joint RotationalMotor {
@@ -799,7 +792,6 @@ DEF Justina Robot {
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
                                                                   anchor 0 -0.01614 -0.169349
-                                                                  dampingConstant 0
                                                                 }
                                                                 device [
                                                                   DEF right_griper_R_joint RotationalMotor {
@@ -1083,7 +1075,6 @@ DEF Justina Robot {
                             jointParameters HingeJointParameters {
                               axis 0 -1 0
                               anchor 0 0 -0.0608
-                              dampingConstant 0
                             }
                             device [
                               DEF lf_shoulder_joint RotationalMotor {
@@ -1105,7 +1096,6 @@ DEF Justina Robot {
                                   jointParameters HingeJointParameters {
                                     axis -1 0 0
                                     anchor 0 0 -0.1
-                                    dampingConstant 0
                                   }
                                   device [
                                     DEF ls_shoulder_joint RotationalMotor {
@@ -1127,7 +1117,6 @@ DEF Justina Robot {
                                         jointParameters HingeJointParameters {
                                           axis 0 0 -1
                                           anchor 0 0 -0.15
-                                          dampingConstant 0
                                         }
                                         device [
                                           DEF l_arm_twist_joint RotationalMotor {
@@ -1149,7 +1138,6 @@ DEF Justina Robot {
                                               jointParameters HingeJointParameters {
                                                 axis 0 -1 0
                                                 anchor 0 0 -0.1
-                                                dampingConstant 0
                                               }
                                               device [
                                                 DEF l_elbow_joint RotationalMotor {
@@ -1171,7 +1159,6 @@ DEF Justina Robot {
                                                     jointParameters HingeJointParameters {
                                                       axis 0 0 1
                                                       anchor 0 0 -0.15
-                                                      dampingConstant 0
                                                     }
                                                     device [
                                                       DEF l_wrist_joint RotationalMotor {
@@ -1192,7 +1179,6 @@ DEF Justina Robot {
                                                           jointParameters HingeJointParameters {
                                                             axis 0 -1 0
                                                             anchor 0 0 -0.1
-                                                            dampingConstant 0
                                                           }
                                                           device [
                                                             DEF l_hand_joint RotationalMotor {
@@ -1214,7 +1200,6 @@ DEF Justina Robot {
                                                                 jointParameters HingeJointParameters {
                                                                   axis -1 0 0
                                                                   anchor 0 0.01614 -0.169349
-                                                                  dampingConstant 0
                                                                 }
                                                                 device [
                                                                   DEF left_griper_L_joint RotationalMotor {
@@ -1268,7 +1253,6 @@ DEF Justina Robot {
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
                                                                   anchor 0 -0.01614 -0.169349
-                                                                  dampingConstant 0
                                                                 }
                                                                 device [
                                                                   DEF left_griper_R_joint RotationalMotor {
@@ -1552,7 +1536,6 @@ DEF Justina Robot {
                             jointParameters HingeJointParameters {
                               axis 0 0 1
                               anchor 0 0 0.143
-                              dampingConstant 0
                             }
                             device [
                               DEF head_pan_joint RotationalMotor {
@@ -1573,7 +1556,6 @@ DEF Justina Robot {
                                   jointParameters HingeJointParameters {
                                     axis 0 -1 0
                                     anchor 0 0 0.057
-                                    dampingConstant 0
                                   }
                                   device [
                                     DEF head_tilt_joint RotationalMotor {
@@ -1805,31 +1787,30 @@ DEF Justina Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        axis -1 0 0
         anchor -0.18 0 0.06
       }
       device [
         RotationalMotor {
-          name "wheel0_joint"
+          name "wheel1_joint"
           maxVelocity 137.46
         }
         PositionSensor {
-          name "wheel0_joint_sensor"
+          name "wheel1_joint_sensor"
         }
       ]
-      endPoint DEF wheel0_link Solid {
+      endPoint DEF wheel1_link Solid {
         translation -0.18 0 0.06
         rotation 0 0 1 1.5708
         children [
-          DEF wheel0_link_visual CadShape {
+          DEF wheel1_link_visual CadShape {
             url [
               "../../meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"
             ]
           }
         ]
-        name "wheel0_link"
+        name "wheel1_link"
         contactMaterial "WheelMat"
-        boundingObject DEF wheel0_link_collision Pose {
+        boundingObject DEF wheel1_link_collision Pose {
           rotation 1 0 0 -1.5708
           children [
             Shape {
@@ -1852,32 +1833,32 @@ DEF Justina Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        axis 0.5 -0.866025 0
+        axis -0.5 0.866025 0
         anchor 0.09 -0.155885 0.06
       }
       device [
         RotationalMotor {
-          name "wheel1_joint"
+          name "wheel2_joint"
           maxVelocity 137.46
           sound ""
         }
         PositionSensor {
-          name "wheel1_joint_sensor"
+          name "wheel2_joint_sensor"
         }
       ]
-      endPoint DEF wheel1_link Solid {
+      endPoint DEF wheel2_link Solid {
         translation 0.09 -0.155885 0.06
         rotation 0 0 -0.9999999999999999 2.618
         children [
-          DEF wheel1_link_visual CadShape {
+          DEF wheel2_link_visual CadShape {
             url [
               "../../meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"
             ]
           }
         ]
-        name "wheel1_link"
+        name "wheel2_link"
         contactMaterial "WheelMat"
-        boundingObject USE wheel0_link_collision
+        boundingObject USE wheel1_link_collision
         physics Physics {
           density -1
           mass 1
@@ -1893,32 +1874,32 @@ DEF Justina Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        axis 0.5 0.866025 0
+        axis -0.5 -0.866025 0
         anchor 0.09 0.155885 0.06
       }
       device [
         RotationalMotor {
-          name "wheel2_joint"
+          name "wheel0_joint"
           maxVelocity 137.46
           sound ""
         }
         PositionSensor {
-          name "wheel2_joint_sensor"
+          name "wheel0_joint_sensor"
         }
       ]
-      endPoint DEF wheel2_link Solid {
+      endPoint DEF wheel0_link Solid {
         translation 0.09 0.155885 0.06
-        rotation 0 0 -1 0.5235989999999997
+        rotation 0 0 -1 0.5235993061004255
         children [
-          DEF wheel2_link_visual CadShape {
+          DEF wheel0_link_visual CadShape {
             url [
               "../../meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"
             ]
           }
         ]
-        name "wheel2_link"
+        name "wheel0_link"
         contactMaterial "WheelMat"
-        boundingObject USE wheel0_link_collision
+        boundingObject USE wheel1_link_collision
         physics Physics {
           density -1
           mass 1

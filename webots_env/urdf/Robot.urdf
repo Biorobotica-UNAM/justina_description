@@ -592,7 +592,7 @@
   <joint name="base_footprint_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="base_link"/>
-    <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
     
   <!-- Connect body_link to base_link -->
@@ -866,29 +866,29 @@
   the origin tags are set to orient the wheels correctly based on 
   their positions around the base_link. -->
 
-  <!-- wheel0 (at angle 180°) -->
+  <!-- wheel0 (at angle 60°) -->
   <joint name="wheel0_joint" type="continuous">
     <parent link="base_link"/>
     <child link="wheel0_link"/>
+    <origin xyz="0.09 0.155885 0.06" rpy="0 0 -0.523599"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.1"/>
+  </joint>
+
+  <!-- wheel1 (at angle 180°) -->
+  <joint name="wheel1_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel1_link"/>
     <origin xyz="-0.18 0 0.06" rpy="0 0 1.5708"/>
     <axis xyz="0 1 0"/>
     <dynamics damping="0.1"/>
   </joint>
 
-  <!-- wheel1 (at angle 300° or -60°) -->
-  <joint name="wheel1_joint" type="continuous">
-    <parent link="base_link"/>
-    <child link="wheel1_link"/>
-    <origin xyz="0.09 -0.155885 0.06" rpy="0 0 -2.61799"/>
-    <axis xyz="0 1 0"/>
-    <dynamics damping="0.1"/>
-  </joint>
-
-  <!-- wheel2 (at angle 60°) -->
+  <!-- wheel2 (at angle 300° or -60°) -->
   <joint name="wheel2_joint" type="continuous">
     <parent link="base_link"/>
     <child link="wheel2_link"/>
-    <origin xyz="0.09 0.155885 0.06" rpy="0 0 -0.523599"/>
+    <origin xyz="0.09 -0.155885 0.06" rpy="0 0 -2.61799"/>
     <axis xyz="0 1 0"/>
     <dynamics damping="0.1"/>
   </joint>

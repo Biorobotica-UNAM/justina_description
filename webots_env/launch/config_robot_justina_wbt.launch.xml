@@ -20,7 +20,8 @@
   <node pkg="robot_state_publisher" exec="robot_state_publisher">
     <param name="robot_description" value="$(command 'cat $(var package_share)/webots_env/urdf/Robot.urdf')" />
     <param name="use_sim_time" value="true" />
-    <remap from="joint_states" to="joint_states"/>
+    <remap from="joint_states" to="/hardware/joint_states"/>
+    <remap from="robot_description" to="/hardware/base/robot_description"/>
   </node>
 
   <!-- ========== Static transform from map to odom ========== -->

@@ -295,7 +295,7 @@ class JustinaController(Node):
 
         self.odom_pub = self.create_publisher(Odometry, '/hardware/base/odom', 10)
         self.laser_pub = self.create_publisher(LaserScan, '/hardware/base/scan', 10)
-        self.joint_pub = self.create_publisher(JointState, '/joint_states', 10)
+        self.joint_pub = self.create_publisher(JointState, '/hardware/joint_states', 10)
         self.clock_pub = self.create_publisher(Clock, '/clock', 10)
         self.color_pub = self.create_publisher(Image, '/hardware/camera/image_raw', 10)
         self.color_info_pub = self.create_publisher(CameraInfo, '/hardware/camera/camera_info', 10)

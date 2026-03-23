@@ -20,6 +20,12 @@
   <depend>joint_state_publisher_gui</depend>
   <depend>rviz2</depend>
 
+  <depend>rclcpp</depend>
+  <depend>cv_bridge</depend>
+  <depend>opencv2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+
   <depend>webots_ros2_driver</depend>
   <depend>pluginlib</depend>
   <depend>rclpy</depend>
@@ -38,5 +44,3 @@
     <build_type>ament_cmake</build_type>
   </export>
 </package>
-
-

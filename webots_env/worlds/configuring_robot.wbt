@@ -596,6 +596,7 @@ DEF Justina Robot {
                   name "torso_joint"
                   maxPosition 0.3014
                   maxForce 5000
+                  sound ""
                 }
                 DEF torso_joint_sensor PositionSensor {
                   name "torso_joint_sensor"
@@ -623,6 +624,7 @@ DEF Justina Robot {
                                 minPosition -1.7
                                 maxPosition 1.7
                                 maxTorque 16
+                                sound ""
                               }
                               DEF rf_shoulder_joint_sensor PositionSensor {
                                 name "rf_shoulder_joint_sensor"
@@ -645,6 +647,7 @@ DEF Justina Robot {
                                       minPosition -1.7
                                       maxPosition 1.7
                                       maxTorque 16
+                                      sound ""
                                     }
                                     DEF rs_shoulder_joint_sensor PositionSensor {
                                       name "rs_shoulder_joint_sensor"
@@ -666,6 +669,7 @@ DEF Justina Robot {
                                             minPosition -1.7
                                             maxPosition 1.7
                                             maxTorque 16
+                                            sound ""
                                           }
                                           DEF r_arm_twist_joint_sensor PositionSensor {
                                             name "right_arm_joint_sensor"
@@ -689,6 +693,7 @@ DEF Justina Robot {
                                                   minPosition -1.7
                                                   maxPosition 1.7
                                                   maxTorque 16
+                                                  sound ""
                                                 }
                                                 DEF r_elbow_joint_sensor PositionSensor {
                                                   name "r_elbow_joint_sensor"
@@ -710,6 +715,7 @@ DEF Justina Robot {
                                                         minPosition -1.7
                                                         maxPosition 1.7
                                                         maxTorque 16
+                                                        sound ""
                                                       }
                                                       DEF r_wrist_joint_sensor PositionSensor {
                                                         name "r_wrist_joint_sensor"
@@ -730,6 +736,7 @@ DEF Justina Robot {
                                                               minPosition -1.7
                                                               maxPosition 1.7
                                                               maxTorque 16
+                                                              sound ""
                                                             }
                                                             DEF r_hand_joint_sensor PositionSensor {
                                                               name "r_hand_joint_sensor"
@@ -751,6 +758,7 @@ DEF Justina Robot {
                                                                     minPosition -1.7
                                                                     maxPosition 1.7
                                                                     maxTorque 16
+                                                                    sound ""
                                                                   }
                                                                   DEF right_gripper_L_joint_sensor PositionSensor {
                                                                     name "right_gripper_L_joint_sensor"
@@ -804,6 +812,7 @@ DEF Justina Robot {
                                                                     minPosition -1.7
                                                                     maxPosition 1.7
                                                                     maxTorque 16
+                                                                    sound ""
                                                                   }
                                                                   DEF right_gripper_R_joint_sensor PositionSensor {
                                                                     name "right_gripper_R_joint_sensor"
@@ -1089,6 +1098,7 @@ DEF Justina Robot {
                                 minPosition -1.5842
                                 maxPosition 1.7914
                                 maxTorque 16
+                                sound ""
                               }
                               DEF lf_shoulder_joint_sensor PositionSensor {
                                 name "lf_shoulder_joint_sensor"
@@ -1111,6 +1121,7 @@ DEF Justina Robot {
                                       minPosition -1.7
                                       maxPosition 1.7
                                       maxTorque 16
+                                      sound ""
                                     }
                                     DEF ls_shoulder_joint_sensor PositionSensor {
                                       name "ls_shoulder_joint_sensor"
@@ -1132,6 +1143,7 @@ DEF Justina Robot {
                                             minPosition -1.7
                                             maxPosition 1.7
                                             maxTorque 16
+                                            sound ""
                                           }
                                           DEF l_arm_twist_joint_sensor PositionSensor {
                                             name "l_arm_twist_joint_sensor"
@@ -1154,6 +1166,7 @@ DEF Justina Robot {
                                                   minPosition -1.7
                                                   maxPosition 1.7
                                                   maxTorque 16
+                                                  sound ""
                                                 }
                                                 DEF l_elbow_joint_sensor PositionSensor {
                                                   name "l_elbow_joint_sensor"
@@ -1175,6 +1188,7 @@ DEF Justina Robot {
                                                         minPosition -1.7
                                                         maxPosition 1.7
                                                         maxTorque 16
+                                                        sound ""
                                                       }
                                                       DEF l_wrist_joint_sensor PositionSensor {
                                                         name "l_wrist_joint_sensor"
@@ -1195,6 +1209,7 @@ DEF Justina Robot {
                                                               minPosition -1.7
                                                               maxPosition 1.7
                                                               maxTorque 16
+                                                              sound ""
                                                             }
                                                             DEF l_hand_joint_sensor PositionSensor {
                                                               name "l_hand_joint_sensor"
@@ -1216,6 +1231,7 @@ DEF Justina Robot {
                                                                     minPosition -1.7
                                                                     maxPosition 1.7
                                                                     maxTorque 16
+                                                                    sound ""
                                                                   }
                                                                   DEF left_gripper_L_joint_sensor PositionSensor {
                                                                     name "left_gripper_L_joint_sensor"
@@ -1269,6 +1285,7 @@ DEF Justina Robot {
                                                                     minPosition -1.7
                                                                     maxPosition 1.7
                                                                     maxTorque 16
+                                                                    sound ""
                                                                   }
                                                                   DEF left_gripper_R_joint_sensor PositionSensor {
                                                                     name "left_gripper_R_joint_sensor"
@@ -1554,6 +1571,7 @@ DEF Justina Robot {
                                 minPosition -1.7
                                 maxPosition 1.7
                                 maxTorque 16
+                                sound ""
                               }
                               DEF head_pan_joint_sensor PositionSensor {
                                 name "head_pan_joint_sensor"
@@ -1576,6 +1594,7 @@ DEF Justina Robot {
                                       minPosition -1.7
                                       maxPosition 1.7
                                       maxTorque 16
+                                      sound ""
                                     }
                                     DEF head_tilt_joint_sensor PositionSensor {
                                       name "head_tilt_joint_sensor"
@@ -1805,6 +1824,7 @@ DEF Justina Robot {
         RotationalMotor {
           name "wheel1_joint"
           maxVelocity 137.46
+          sound ""
         }
         PositionSensor {
           name "wheel1_joint_sensor"

@@ -10,9 +10,6 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
-add_executable(depth_to_pointcloud
-  src/virtual_pointcloud.cpp
-)
 ament_target_dependencies(depth_to_pointcloud
   rclcpp
   sensor_msgs
@@ -49,4 +46,4 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-ament_package()
+ament_package()F

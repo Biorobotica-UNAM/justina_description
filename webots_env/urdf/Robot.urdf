@@ -20,13 +20,13 @@
     <visual>
       <origin xyz="0 0 0.02" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Base_ROBOTINO_B.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Base_ROBOTINO_B.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0.02" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Base_Collider_ROBOTINO_B.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Base_Collider_ROBOTINO_B.dae"/>
       </geometry>
     </collision>
   </link>
@@ -41,7 +41,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae"/>
+        <mesh filename="package://justina_description/meshes/robotino/sensors/Hokuyo_Clean.dae"/>
       </geometry>
       <material name="grey"/>
     </visual><box size="0.05 0.05455 0.07"/>
@@ -62,12 +62,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Body_ROBOTINO_B.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Body_ROBOTINO_B.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Body_Collider_ROBOTINO_B.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Body_Collider_ROBOTINO_B.dae"/>
       </geometry>
     </collision>
   </link>
@@ -81,12 +81,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Torso_ROBOTINO_B.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Torso_ROBOTINO_B.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Torso_Collider_ROBOTINO_B.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Torso_Collider_ROBOTINO_B.dae"/>
       </geometry>
     </collision>
   </link>
@@ -100,12 +100,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/ShoulderPads.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/ShoulderPads.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/ShoulderPads.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/ShoulderPads.dae"/>
       </geometry>
     </collision>
   </link>
@@ -119,12 +119,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderMotor.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderMotor.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderMotor_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderMotor_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -138,12 +138,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderFrame.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderFrame.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderFrame_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderFrame_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -157,12 +157,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Arm.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Arm_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -176,12 +176,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ArmTwist.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ArmTwist.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ArmTwist_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ArmTwist_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -195,12 +195,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Forearm.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Forearm_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -214,12 +214,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Wrist.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Wrist.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Wrist_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Wrist_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -233,12 +233,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Hand.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Hand.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Hand_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Hand_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -253,12 +253,12 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -272,12 +272,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -291,12 +291,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderMotor.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderMotor.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderMotor_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderMotor_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -310,12 +310,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderFrame.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderFrame.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ShoulderFrame_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ShoulderFrame_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -329,12 +329,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Arm.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Arm_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Arm_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -348,12 +348,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ArmTwist.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ArmTwist.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/ArmTwist_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/ArmTwist_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -367,12 +367,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Forearm.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Forearm_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Forearm_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -386,12 +386,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Wrist.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Wrist.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Wrist_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Wrist_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -405,12 +405,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Hand.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Hand.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Hand_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Hand_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -424,12 +424,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -443,12 +443,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -462,12 +462,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Neck.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Neck.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/Neck_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/Neck_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -481,12 +481,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/face/HeadTiltMotor.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/HeadTiltMotor.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/face/HeadTiltMotor_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/HeadTiltMotor_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -500,12 +500,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/face/Face_Frame.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/Face_Frame.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/face/Face_Frame_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/Face_Frame_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -520,13 +520,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="-1.5707 -1.5707 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/face/SingleKinect_LowPoly.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/SingleKinect_LowPoly.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="-1.5707 -1.5707 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina_model_B/face/SingleKinect_LowPoly_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/SingleKinect_LowPoly_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -540,12 +540,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"/>
+        <mesh filename="package://justina_description/meshes/robotino/Robotino3_Wheel_Very_LowPoly.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/robotino/Robotino3_SplitWheel_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -559,12 +559,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"/>
+        <mesh filename="package://justina_description/meshes/robotino/Robotino3_Wheel_Very_LowPoly.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/robotino/Robotino3_SplitWheel_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -578,12 +578,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"/>
+        <mesh filename="package://justina_description/meshes/robotino/Robotino3_Wheel_Very_LowPoly.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/robotino_low_poly/Robotino3_SplitWheel_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/robotino/Robotino3_SplitWheel_Collider.dae"/>
       </geometry>
     </collision>
   </link>

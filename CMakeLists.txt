@@ -14,6 +14,10 @@ add_executable(depth_to_pointcloud
   src/virtual_pointcloud.cpp
 )
 
+add_executable(fake_static_tf_publisher
+  src/fake_static_tf_publisher.cpp
+)
+
 ament_target_dependencies(depth_to_pointcloud
   rclcpp
   sensor_msgs
@@ -24,7 +28,21 @@ ament_target_dependencies(depth_to_pointcloud
   geometry_msgs
 )
 
+ament_target_dependencies(fake_static_tf_publisher
+  rclcpp
+  sensor_msgs
+  cv_bridge
+  OpenCV
+  tf2_ros
+  tf2_geometry_msgs
+  geometry_msgs
+)
+
 install(TARGETS depth_to_pointcloud
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS fake_static_tf_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
 

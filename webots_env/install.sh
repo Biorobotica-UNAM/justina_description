@@ -29,7 +29,8 @@ sudo apt install -y \
     ros-jazzy-rviz2 \
     ros-jazzy-tf2-ros \
     ros-jazzy-tf2-tools \
-    ros-jazzy-topic-tools
+    ros-jazzy-topic-tools \
+    ros-jazzy-webots-ros2
 
 # Install Gazebo Sim if not already installed
 echo "Checking for Gazebo Sim..."

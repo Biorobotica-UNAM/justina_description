@@ -1,42 +1,55 @@
 cmake_minimum_required(VERSION 3.8)
 project(justina_description)
 
-# Find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
+find_package(OpenCV REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
-# ===========================================
-# INSTALL DIRECTORIES AND FILES
-# ===========================================
-
-# Install URDF files
-install(
-  DIRECTORY urdf/
-  DESTINATION share/${PROJECT_NAME}/urdf
+add_executable(depth_to_pointcloud
+  src/virtual_pointcloud.cpp
 )
 
-# Install launch files
-install(
-  DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/launch
+add_executable(fake_static_tf_publisher
+  src/fake_static_tf_publisher.cpp
 )
 
-# Install meshes directory (if it exists)
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/meshes)
-  install(
-    DIRECTORY meshes/
-    DESTINATION share/${PROJECT_NAME}/meshes
-  )
-endif()
+ament_target_dependencies(depth_to_pointcloud
+  rclcpp
+  sensor_msgs
+  cv_bridge
+  OpenCV
+  tf2_ros
+  tf2_geometry_msgs
+  geometry_msgs
+)
 
-# Install rviz configuration (if it exists)
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/rviz)
-  install(
-    DIRECTORY rviz/
-    DESTINATION share/${PROJECT_NAME}/rviz
-  )
-endif()
+ament_target_dependencies(fake_static_tf_publisher
+  rclcpp
+  sensor_msgs
+  cv_bridge
+  OpenCV
+  tf2_ros
+  tf2_geometry_msgs
+  geometry_msgs
+)
 
-# Install webots_env subdirectory (controllers, protos, worlds, launch ...)
+install(TARGETS depth_to_pointcloud
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS fake_static_tf_publisher
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY urdf meshes launch rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+
 install(DIRECTORY
   webots_env/controllers
   webots_env/launch
@@ -51,15 +64,8 @@ install(DIRECTORY
 
 install(PROGRAMS
   webots_env/scripts/robot_teleop.py
+  webots_env/scripts/set_initial_pose.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/model)
-  install(
-    DIRECTORY model/
-    DESTINATION share/${PROJECT_NAME}/model
-  )
-endif()
-
-# Finalize package
 ament_package()

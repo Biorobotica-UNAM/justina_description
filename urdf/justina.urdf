@@ -282,6 +282,9 @@
     </collision>
   </link>
 
+  <!-- grab objects link -->
+  <link name="right_grab_object_link"></link>
+  
   <!-- left_shoulder_link -->
   <link name="left_shoulder_link">
     <inertial>
@@ -452,6 +455,9 @@
       </geometry>
     </collision>
   </link>
+
+  <!-- grab objects link --> 
+ <link name="left_grab_object_link"></link> 
 
   <!-- neck_link -->
   <link name="neck_link">
@@ -706,6 +712,12 @@
     <dynamics damping="0.1"/>
   </joint>
 
+  <joint name="right_grab_joint" type="fixed">
+    <parent link="r_hand_link"/>
+    <child link="right_grab_object_link"/>
+    <origin xyz="-0.019943 0 -0.2542" rpy="0 0 0"/>
+  </joint>
+
   <!-- fixed joint for left_shoulder_link relative to spine_link -->
   <joint name="left_shoulder_fixed" type="fixed">
     <parent link="spine_link"/>
@@ -784,6 +796,12 @@
     <axis xyz="1 0 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
+  </joint>
+
+  <joint name="left_grab_joint" type="fixed">
+    <parent link="l_hand_link"/>
+    <child link="left_grab_object_link"/>
+    <origin xyz="-0.019943 0 -0.2542" rpy="0 0 0"/>
   </joint>
 
   <!-- fixed joint for neck_link relative to spine_link -->

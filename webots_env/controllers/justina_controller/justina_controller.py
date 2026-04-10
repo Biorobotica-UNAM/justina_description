@@ -393,11 +393,11 @@ class JustinaController(Node):
             'lf_shoulder_joint', 'ls_shoulder_joint',
             'l_arm_twist_joint', 'l_elbow_joint',
             'l_wrist_joint', 'l_hand_joint',
-            'left_griper_R_joint', 'left_griper_L_joint',
+            'left_gripper_R_joint', 'left_gripper_L_joint',
             'rf_shoulder_joint', 'rs_shoulder_joint',
             'r_arm_twist_joint', 'r_elbow_joint',
             'r_wrist_joint', 'r_hand_joint',
-            'right_griper_R_joint', 'right_griper_L_joint'
+            'right_gripper_R_joint', 'right_gripper_L_joint'
         ]
         positions = []
         positions.extend(self.base.get_wheel_positions())

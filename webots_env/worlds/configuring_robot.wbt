@@ -19,8 +19,8 @@ WorldInfo {
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation -0.19137647979772254 0.006855329078261617 0.9814927648451927 3.0591009625659957
-  position 1.3830509434456888 0.8763380839517982 0.7662830012419377
+  orientation -0.06742281038036815 -0.0025950345805227323 0.9977211185676782 3.183328748186823
+  position 1.1488410771556274 1.204707742609761 0.27207357578601804
   follow "robot:body_link"
 }
 TexturedBackground {
@@ -749,7 +749,7 @@ DEF Justina Robot {
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
                                                                   axis -1 0 0
-                                                                  anchor 0 0.01614 -0.169349
+                                                                  anchor -0.019943 0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF right_gripper_L_joint RotationalMotor {
@@ -765,7 +765,7 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF right_gripper_L_link Solid {
-                                                                  translation 0 0.01614 -0.169349
+                                                                  translation -0.019943 0.01614 -0.16263
                                                                   rotation 0 0 -1 1.5707996938995745
                                                                   children [
                                                                     DEF right_gripper_L_link_visual Pose {
@@ -803,7 +803,7 @@ DEF Justina Robot {
                                                               }
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
-                                                                  anchor 0 -0.01614 -0.169349
+                                                                  anchor -0.019943 -0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF right_gripper_R_joint RotationalMotor {
@@ -819,7 +819,7 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF right_gripper_R_link Solid {
-                                                                  translation 0 -0.01614 -0.169349
+                                                                  translation -0.019943 -0.01614 -0.16263
                                                                   rotation 0 0 1 1.5707996938995745
                                                                   children [
                                                                     DEF right_gripper_R_link_visual Pose {
@@ -857,6 +857,9 @@ DEF Justina Robot {
                                                               }
                                                               DEF r_hand_link_visual Pose {
                                                                 children [
+                                                                  DEF right_grab_object_link Pose {
+                                                                    translation -0.019943 0 -0.2542
+                                                                  }
                                                                   CadShape {
                                                                     url [
                                                                       "../../meshes/justina/arm//Gripper_Hand.dae"
@@ -1222,7 +1225,7 @@ DEF Justina Robot {
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
                                                                   axis -1 0 0
-                                                                  anchor 0 0.01614 -0.169349
+                                                                  anchor -0.019943 0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF left_gripper_L_joint RotationalMotor {
@@ -1238,7 +1241,7 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF left_gripper_L_link Solid {
-                                                                  translation 0 0.01614 -0.169349
+                                                                  translation -0.019943 0.01614 -0.16263
                                                                   rotation 0 0 -1 1.5707996938995745
                                                                   children [
                                                                     DEF left_gripper_L_link_visual Pose {
@@ -1276,7 +1279,7 @@ DEF Justina Robot {
                                                               }
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
-                                                                  anchor 0 -0.01614 -0.169349
+                                                                  anchor -0.019943 -0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF left_gripper_R_joint RotationalMotor {
@@ -1292,7 +1295,7 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF left_gripper_R_link Solid {
-                                                                  translation 0 -0.01614 -0.169349
+                                                                  translation -0.019943 -0.01614 -0.16263
                                                                   rotation 0 0 1 1.5707996938995745
                                                                   children [
                                                                     DEF left_gripper_R_link_visual Pose {
@@ -1330,6 +1333,9 @@ DEF Justina Robot {
                                                               }
                                                               DEF l_hand_link_visual Pose {
                                                                 children [
+                                                                  DEF left_grab_object_link Pose {
+                                                                    translation -0.019943 0 -0.2542
+                                                                  }
                                                                   CadShape {
                                                                     url [
                                                                       "../../meshes/justina/arm//Gripper_Hand.dae"
@@ -1880,7 +1886,7 @@ DEF Justina Robot {
       ]
       endPoint DEF wheel2_link Solid {
         translation 0.09 -0.155885 0.06
-        rotation 0 0 -0.9999999999999999 2.618
+        rotation 4.281798413482185e-25 0 -0.9999999999999999 2.618
         children [
           DEF wheel2_link_visual CadShape {
             url [
@@ -1921,7 +1927,7 @@ DEF Justina Robot {
       ]
       endPoint DEF wheel0_link Solid {
         translation 0.09 0.155885 0.06
-        rotation 0 0 -1 0.5235993061004255
+        rotation 0 9.987429071522507e-25 -1 0.5235993061004255
         children [
           DEF wheel0_link_visual CadShape {
             url [

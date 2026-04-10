@@ -51,10 +51,10 @@ private:
         tfs.push_back(makeTF("base_footprint", "wheel2_link"));
 
         // Base → grippers (dedos)
-        tfs.push_back(makeTF("base_footprint", "left_griper_L_link"));
-        tfs.push_back(makeTF("base_footprint", "left_griper_R_link"));
-        tfs.push_back(makeTF("base_footprint", "right_griper_L_link"));
-        tfs.push_back(makeTF("base_footprint", "right_griper_R_link"));
+        tfs.push_back(makeTF("base_footprint", "left_gripper_L_link"));
+        tfs.push_back(makeTF("base_footprint", "left_gripper_R_link"));
+        tfs.push_back(makeTF("base_footprint", "right_gripper_L_link"));
+        tfs.push_back(makeTF("base_footprint", "right_gripper_R_link"));
 
         broadcaster_->sendTransform(tfs);
     }

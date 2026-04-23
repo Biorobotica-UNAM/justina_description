@@ -19,8 +19,8 @@ WorldInfo {
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation -0.06742281038036815 -0.0025950345805227323 0.9977211185676782 3.183328748186823
-  position 1.1488410771556274 1.204707742609761 0.27207357578601804
+  orientation -0.1376249284217293 0.007629003059129566 0.9904550355211678 3.2392755039336216
+  position 4.126680734201826 1.3652547802834691 2.034599448637016
   follow "robot:body_link"
 }
 TexturedBackground {
@@ -621,8 +621,8 @@ DEF Justina Robot {
                               DEF rf_shoulder_joint RotationalMotor {
                                 name "rf_shoulder_joint"
                                 maxVelocity 3
-                                minPosition -1.7
-                                maxPosition 1.7
+                                minPosition -1.4461
+                                maxPosition 1.8681
                                 maxTorque 16
                                 sound ""
                               }
@@ -644,8 +644,8 @@ DEF Justina Robot {
                                     DEF rs_shoulder_joint RotationalMotor {
                                       name "rs_shoulder_joint"
                                       maxVelocity 3
-                                      minPosition -1.7
-                                      maxPosition 1.7
+                                      minPosition -1.5919
+                                      maxPosition 1.5765
                                       maxTorque 16
                                       sound ""
                                     }
@@ -1121,8 +1121,8 @@ DEF Justina Robot {
                                     DEF ls_shoulder_joint RotationalMotor {
                                       name "ls_shoulder_joint"
                                       maxVelocity 3
-                                      minPosition -1.7
-                                      maxPosition 1.7
+                                      minPosition -1.5919
+                                      maxPosition 1.5765
                                       maxTorque 16
                                       sound ""
                                     }
@@ -1166,8 +1166,8 @@ DEF Justina Robot {
                                                 DEF l_elbow_joint RotationalMotor {
                                                   name "l_elbow_joint"
                                                   maxVelocity 3
-                                                  minPosition -1.7
-                                                  maxPosition 1.7
+                                                  minPosition -1.7683
+                                                  maxPosition 1.6993
                                                   maxTorque 16
                                                   sound ""
                                                 }
@@ -1597,8 +1597,8 @@ DEF Justina Robot {
                                     DEF head_tilt_joint RotationalMotor {
                                       name "head_tilt_joint"
                                       maxVelocity 3
-                                      minPosition -1.7
-                                      maxPosition 1.7
+                                      minPosition -0.51
+                                      maxPosition 0.51
                                       maxTorque 16
                                       sound ""
                                     }
@@ -1755,7 +1755,7 @@ DEF Justina Robot {
                         children [
                           CadShape {
                             url [
-                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/ShoulderPads.dae"
+                              "../../meshes/justina/ShoulderPads.dae"
                             ]
                           }
                         ]
@@ -1764,7 +1764,7 @@ DEF Justina Robot {
                     name "spine_link"
                     boundingObject DEF spine_link_collision Mesh {
                       url [
-                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/ShoulderPads.dae"
+                        "../../meshes/justina/ShoulderPads.dae"
                       ]
                     }
                     physics Physics {
@@ -1772,6 +1772,10 @@ DEF Justina Robot {
                       mass 0.3
                       centerOfMass [
                         0.01 0 0
+                      ]
+                      inertiaMatrix [
+                        1 1 1
+                        0 0 0
                       ]
                     }
                   }
@@ -1886,7 +1890,7 @@ DEF Justina Robot {
       ]
       endPoint DEF wheel2_link Solid {
         translation 0.09 -0.155885 0.06
-        rotation 4.281798413482185e-25 0 -0.9999999999999999 2.618
+        rotation 0 0 -1 2.618
         children [
           DEF wheel2_link_visual CadShape {
             url [
@@ -1927,7 +1931,7 @@ DEF Justina Robot {
       ]
       endPoint DEF wheel0_link Solid {
         translation 0.09 0.155885 0.06
-        rotation 0 9.987429071522507e-25 -1 0.5235993061004255
+        rotation 0 0 -1 0.5235993061004255
         children [
           DEF wheel0_link_visual CadShape {
             url [

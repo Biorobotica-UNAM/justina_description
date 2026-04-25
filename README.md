@@ -1,12 +1,21 @@
 # justina_description
 This repository contains a ROS package with all the robot description files for the Justina robot, such as .xacro, .urdf, .dae, and textures.
 
-In this version Real robot uses urdf/justina xacro files, while the simulation version implements proto files form webots software.
-
-Use install.sh file to install all necessary dependencies.
+## Robot Model
+- **Real robot**: URDF description (`urdf/justina.urdf`) – connected to Webots via the **ROS bridge** for hardware‑in‑the‑loop testing.
+- **Simulation**: Webots native PROTO files (same kinematic and sensor properties as the real robot).
 
 To launch simulated version of the robot, use launch files located in webots_env folder that loads a low poly version of the robot, which can be used for faster rendering in Gazebo, reducing poly count from 334,489 to 12,372 polygons for all robot mesh.
 
+## Requirements
+- **Webots R2025a** (download from [Cyberbotics](https://www.cyberbotics.com/#download)), install via:
+  ```bash
+  sudo apt install ./webots_2025a_amd64.deb
+  ```
+- **Instal dependencies**. Change to directory **justina_description/webots_env** and run install.sh file:
+  ```bash
+  ./install.sh
+  ```
 ------------------
 Motor limits conversion to virtual robot 
 ------------------

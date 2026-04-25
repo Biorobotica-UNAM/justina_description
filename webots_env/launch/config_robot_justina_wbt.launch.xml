@@ -18,7 +18,7 @@
 
   <!-- =============== robot_state_publisher =============== -->
   <node pkg="robot_state_publisher" exec="robot_state_publisher">
-    <param name="robot_description" value="$(command 'cat $(var package_share)/webots_env/urdf/Robot.urdf')" />
+    <param name="robot_description" value="$(command 'cat $(var package_share)/urdf/justina.urdf')" />
     <param name="use_sim_time" value="true" />
     <remap from="joint_states" to="/hardware/joint_states"/>
     <remap from="robot_description" to="/hardware/base/robot_description"/>
@@ -52,13 +52,13 @@
   </node>
 
   <!-- ========== NAVIGATION STACK ========== -->
-  <!-- <include file="$(find-pkg-share navigation_tools)/launch/navigation.launch.xml">
+  <include file="$(find-pkg-share navigation_tools)/launch/navigation.launch.xml">
     <arg name="use_sim_time" value="true" />
     <arg name="namespace_nav" value="navigation" />
     <arg name="namespace_hardware" value="hardware" />
     <arg name="use_point_cloud" value="true" />
     <arg name="use_lidar" value="true" />
-  </include> -->
+  </include>
 
   <node pkg="justina_description" exec="set_initial_pose.py" name="set_initial_pose" output="screen"
         args="--x $(var initial_pose_x) --y $(var initial_pose_y) --yaw $(var initial_pose_yaw)">

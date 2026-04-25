@@ -243,8 +243,8 @@
     </collision>
   </link>
 
-  <!-- right_griper_L_link -->
-  <link name="right_griper_L_link">
+  <!-- right_gripper_L_link -->
+  <link name="right_gripper_L_link">
     <inertial>
       <origin xyz="-0.05 0 -0.06" rpy="0 0 0"/>
       <mass value="0.05"/>
@@ -263,8 +263,8 @@
     </collision>
   </link>
 
-  <!-- right_griper_R_link -->
-  <link name="right_griper_R_link">
+  <!-- right_gripper_R_link -->
+  <link name="right_gripper_R_link">
     <inertial>
       <origin xyz="-0.05 0 -0.06" rpy="0 0 0"/>
       <mass value="0.05"/>
@@ -282,6 +282,9 @@
     </collision>
   </link>
 
+  <!-- grab objects link -->
+  <link name="right_grab_object_link"></link>
+  
   <!-- left_shoulder_link -->
   <link name="left_shoulder_link">
     <inertial>
@@ -415,8 +418,8 @@
     </collision>
   </link>
 
-  <!-- left_griper_L_link -->
-  <link name="left_griper_L_link">
+  <!-- left_gripper_L_link -->
+  <link name="left_gripper_L_link">
     <inertial>
       <origin xyz="-0.05 0 -0.06" rpy="0 0 0"/>
       <mass value="0.05"/>
@@ -434,8 +437,8 @@
     </collision>
   </link>
 
-  <!-- left_griper_R_link -->
-  <link name="left_griper_R_link">
+  <!-- left_gripper_R_link -->
+  <link name="left_gripper_R_link">
     <inertial>
       <origin xyz="-0.05 0 -0.06" rpy="0 0 0"/>
       <mass value="0.05"/>
@@ -452,6 +455,9 @@
       </geometry>
     </collision>
   </link>
+
+  <!-- grab objects link --> 
+ <link name="left_grab_object_link"></link> 
 
   <!-- neck_link -->
   <link name="neck_link">
@@ -688,22 +694,28 @@
     <dynamics damping="0.1"/>
   </joint>
 
-  <joint name="right_griper_L_joint" type="revolute">
+  <joint name="right_gripper_L_joint" type="revolute">
     <parent link="r_hand_link"/>
-    <child link="right_griper_L_link"/>
+    <child link="right_gripper_L_link"/>
     <origin xyz="0 0.01614 -0.169349" rpy="0 0 -1.5708"/>
     <axis xyz="-1 0 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
   </joint>
 
-  <joint name="right_griper_R_joint" type="revolute">
+  <joint name="right_gripper_R_joint" type="revolute">
     <parent link="r_hand_link"/>
-    <child link="right_griper_R_link"/>
+    <child link="right_gripper_R_link"/>
     <origin xyz="0 -0.01614 -0.169349" rpy="0 0 1.5708"/>
     <axis xyz="1 0 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
+  </joint>
+
+  <joint name="right_grab_joint" type="fixed">
+    <parent link="r_hand_link"/>
+    <child link="right_grab_object_link"/>
+    <origin xyz="-0.019943 0 -0.2542" rpy="0 0 0"/>
   </joint>
 
   <!-- fixed joint for left_shoulder_link relative to spine_link -->
@@ -768,22 +780,28 @@
     <dynamics damping="0.1"/>
   </joint>
 
-  <joint name="left_griper_L_joint" type="revolute">
+  <joint name="left_gripper_L_joint" type="revolute">
     <parent link="l_hand_link"/>
-    <child link="left_griper_L_link"/>
+    <child link="left_gripper_L_link"/>
     <origin xyz="0 0.01614 -0.169349" rpy="0 0 -1.5708"/>
     <axis xyz="-1 0 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
   </joint>
 
-  <joint name="left_griper_R_joint" type="revolute">
+  <joint name="left_gripper_R_joint" type="revolute">
     <parent link="l_hand_link"/>
-    <child link="left_griper_R_link"/>
+    <child link="left_gripper_R_link"/>
     <origin xyz="0 -0.01614 -0.169349" rpy="0 0 1.5708"/>
     <axis xyz="1 0 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
+  </joint>
+
+  <joint name="left_grab_joint" type="fixed">
+    <parent link="l_hand_link"/>
+    <child link="left_grab_object_link"/>
+    <origin xyz="-0.019943 0 -0.2542" rpy="0 0 0"/>
   </joint>
 
   <!-- fixed joint for neck_link relative to spine_link -->

@@ -259,7 +259,7 @@ class TorsoHardware:
         if self.torso_sensor:
             self.torso_sensor.enable(time_step)
 
-        self.target_position = 0.3014
+        self.target_position = 0.301
 
     def set_target_position(self, pos):
         self.target_position = pos
@@ -393,11 +393,11 @@ class JustinaController(Node):
             'lf_shoulder_joint', 'ls_shoulder_joint',
             'l_arm_twist_joint', 'l_elbow_joint',
             'l_wrist_joint', 'l_hand_joint',
-            'left_griper_R_joint', 'left_griper_L_joint',
+            'left_gripper_R_joint', 'left_gripper_L_joint',
             'rf_shoulder_joint', 'rs_shoulder_joint',
             'r_arm_twist_joint', 'r_elbow_joint',
             'r_wrist_joint', 'r_hand_joint',
-            'right_griper_R_joint', 'right_griper_L_joint'
+            'right_gripper_R_joint', 'right_gripper_L_joint'
         ]
         positions = []
         positions.extend(self.base.get_wheel_positions())

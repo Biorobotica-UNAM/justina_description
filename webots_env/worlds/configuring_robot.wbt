@@ -19,8 +19,8 @@ WorldInfo {
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation -0.15212442599174195 -0.0072789549222350884 0.9883345465134379 3.111816096169272
-  position 2.2239233017569653 0.9764340604895406 1.4771809546255497
+  orientation -0.1376249284217293 0.007629003059129566 0.9904550355211678 3.2392755039336216
+  position 4.126680734201826 1.3652547802834691 2.034599448637016
   follow "robot:body_link"
 }
 TexturedBackground {
@@ -552,7 +552,7 @@ DEF Justina Robot {
           children [
             CadShape {
               url [
-                "../../../../../../src/Hardware/justina_description/meshes/robotino_low_poly/sensors/Hokuyo_Clean.dae"
+                "../../meshes/robotino/sensors/Hokuyo_Clean.dae"
               ]
             }
           ]
@@ -621,8 +621,8 @@ DEF Justina Robot {
                               DEF rf_shoulder_joint RotationalMotor {
                                 name "rf_shoulder_joint"
                                 maxVelocity 3
-                                minPosition -1.7
-                                maxPosition 1.7
+                                minPosition -1.4461
+                                maxPosition 1.8681
                                 maxTorque 16
                                 sound ""
                               }
@@ -644,8 +644,8 @@ DEF Justina Robot {
                                     DEF rs_shoulder_joint RotationalMotor {
                                       name "rs_shoulder_joint"
                                       maxVelocity 3
-                                      minPosition -1.7
-                                      maxPosition 1.7
+                                      minPosition -1.5919
+                                      maxPosition 1.5765
                                       maxTorque 16
                                       sound ""
                                     }
@@ -749,7 +749,7 @@ DEF Justina Robot {
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
                                                                   axis -1 0 0
-                                                                  anchor 0 0.01614 -0.169349
+                                                                  anchor -0.019943 0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF right_gripper_L_joint RotationalMotor {
@@ -765,14 +765,14 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF right_gripper_L_link Solid {
-                                                                  translation 0 0.01614 -0.169349
+                                                                  translation -0.019943 0.01614 -0.16263
                                                                   rotation 0 0 -1 1.5707996938995745
                                                                   children [
                                                                     DEF right_gripper_L_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                            "../../meshes/justina/arm//Gripper.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -783,7 +783,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
                                                                         ]
                                                                       }
                                                                     ]
@@ -803,7 +803,7 @@ DEF Justina Robot {
                                                               }
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
-                                                                  anchor 0 -0.01614 -0.169349
+                                                                  anchor -0.019943 -0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF right_gripper_R_joint RotationalMotor {
@@ -819,14 +819,14 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF right_gripper_R_link Solid {
-                                                                  translation 0 -0.01614 -0.169349
+                                                                  translation -0.019943 -0.01614 -0.16263
                                                                   rotation 0 0 1 1.5707996938995745
                                                                   children [
                                                                     DEF right_gripper_R_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                            "../../meshes/justina/arm//Gripper.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -837,7 +837,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
                                                                         ]
                                                                       }
                                                                     ]
@@ -857,9 +857,12 @@ DEF Justina Robot {
                                                               }
                                                               DEF r_hand_link_visual Pose {
                                                                 children [
+                                                                  DEF right_grab_object_link Pose {
+                                                                    translation -0.019943 0 -0.2542
+                                                                  }
                                                                   CadShape {
                                                                     url [
-                                                                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand.dae"
+                                                                      "../../meshes/justina/arm//Gripper_Hand.dae"
                                                                     ]
                                                                   }
                                                                 ]
@@ -870,7 +873,7 @@ DEF Justina Robot {
                                                               children [
                                                                 Mesh {
                                                                   url [
-                                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand_Collider.dae"
+                                                                    "../../meshes/justina/arm//Gripper_Hand_Collider.dae"
                                                                   ]
                                                                 }
                                                               ]
@@ -892,7 +895,7 @@ DEF Justina Robot {
                                                           children [
                                                             CadShape {
                                                               url [
-                                                                "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist.dae"
+                                                                "../../meshes/justina/arm//Wrist.dae"
                                                               ]
                                                             }
                                                           ]
@@ -903,7 +906,7 @@ DEF Justina Robot {
                                                         children [
                                                           Mesh {
                                                             url [
-                                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist_Collider.dae"
+                                                              "../../meshes/justina/arm//Wrist_Collider.dae"
                                                             ]
                                                           }
                                                         ]
@@ -925,7 +928,7 @@ DEF Justina Robot {
                                                     children [
                                                       CadShape {
                                                         url [
-                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm.dae"
+                                                          "../../meshes/justina/arm//Forearm.dae"
                                                         ]
                                                       }
                                                     ]
@@ -936,7 +939,7 @@ DEF Justina Robot {
                                                   children [
                                                     Mesh {
                                                       url [
-                                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm_Collider.dae"
+                                                        "../../meshes/justina/arm//Forearm_Collider.dae"
                                                       ]
                                                     }
                                                   ]
@@ -958,7 +961,7 @@ DEF Justina Robot {
                                               children [
                                                 CadShape {
                                                   url [
-                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist.dae"
+                                                    "../../meshes/justina/arm//ArmTwist.dae"
                                                   ]
                                                 }
                                               ]
@@ -969,7 +972,7 @@ DEF Justina Robot {
                                             children [
                                               Mesh {
                                                 url [
-                                                  "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist_Collider.dae"
+                                                  "../../meshes/justina/arm//ArmTwist_Collider.dae"
                                                 ]
                                               }
                                             ]
@@ -991,7 +994,7 @@ DEF Justina Robot {
                                         children [
                                           CadShape {
                                             url [
-                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm.dae"
+                                              "../../meshes/justina/arm//Arm.dae"
                                             ]
                                           }
                                         ]
@@ -1000,7 +1003,7 @@ DEF Justina Robot {
                                     name "r_arm_link"
                                     boundingObject DEF r_arm_link_collision Mesh {
                                       url [
-                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm_Collider.dae"
+                                        "../../meshes/justina/arm//Arm_Collider.dae"
                                       ]
                                     }
                                     physics Physics {
@@ -1020,7 +1023,7 @@ DEF Justina Robot {
                                   children [
                                     CadShape {
                                       url [
-                                        "../../meshes/justina_model_B/arm/ShoulderFrame.dae"
+                                        "../../meshes/justina/arm/ShoulderFrame.dae"
                                       ]
                                     }
                                   ]
@@ -1031,7 +1034,7 @@ DEF Justina Robot {
                                 children [
                                   Mesh {
                                     url [
-                                      "../../meshes/justina_model_B/arm/ShoulderFrame_Collider.dae"
+                                      "../../meshes/justina/arm/ShoulderFrame_Collider.dae"
                                     ]
                                   }
                                 ]
@@ -1053,7 +1056,7 @@ DEF Justina Robot {
                             children [
                               CadShape {
                                 url [
-                                  "../../meshes/justina_model_B/arm/ShoulderMotor.dae"
+                                  "../../meshes/justina/arm/ShoulderMotor.dae"
                                 ]
                               }
                             ]
@@ -1064,7 +1067,7 @@ DEF Justina Robot {
                           children [
                             Mesh {
                               url [
-                                "../../meshes/justina_model_B/arm/ShoulderMotor_Collider.dae"
+                                "../../meshes/justina/arm/ShoulderMotor_Collider.dae"
                               ]
                             }
                           ]
@@ -1118,8 +1121,8 @@ DEF Justina Robot {
                                     DEF ls_shoulder_joint RotationalMotor {
                                       name "ls_shoulder_joint"
                                       maxVelocity 3
-                                      minPosition -1.7
-                                      maxPosition 1.7
+                                      minPosition -1.5919
+                                      maxPosition 1.5765
                                       maxTorque 16
                                       sound ""
                                     }
@@ -1163,8 +1166,8 @@ DEF Justina Robot {
                                                 DEF l_elbow_joint RotationalMotor {
                                                   name "l_elbow_joint"
                                                   maxVelocity 3
-                                                  minPosition -1.7
-                                                  maxPosition 1.7
+                                                  minPosition -1.7683
+                                                  maxPosition 1.6993
                                                   maxTorque 16
                                                   sound ""
                                                 }
@@ -1222,7 +1225,7 @@ DEF Justina Robot {
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
                                                                   axis -1 0 0
-                                                                  anchor 0 0.01614 -0.169349
+                                                                  anchor -0.019943 0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF left_gripper_L_joint RotationalMotor {
@@ -1238,14 +1241,14 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF left_gripper_L_link Solid {
-                                                                  translation 0 0.01614 -0.169349
+                                                                  translation -0.019943 0.01614 -0.16263
                                                                   rotation 0 0 -1 1.5707996938995745
                                                                   children [
                                                                     DEF left_gripper_L_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                            "../../meshes/justina/arm//Gripper.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -1256,7 +1259,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
                                                                         ]
                                                                       }
                                                                     ]
@@ -1276,7 +1279,7 @@ DEF Justina Robot {
                                                               }
                                                               HingeJoint {
                                                                 jointParameters HingeJointParameters {
-                                                                  anchor 0 -0.01614 -0.169349
+                                                                  anchor -0.019943 -0.01614 -0.16263
                                                                 }
                                                                 device [
                                                                   DEF left_gripper_R_joint RotationalMotor {
@@ -1292,14 +1295,14 @@ DEF Justina Robot {
                                                                   }
                                                                 ]
                                                                 endPoint DEF left_gripper_R_link Solid {
-                                                                  translation 0 -0.01614 -0.169349
+                                                                  translation -0.019943 -0.01614 -0.16263
                                                                   rotation 0 0 1 1.5707996938995745
                                                                   children [
                                                                     DEF left_gripper_R_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper.dae"
+                                                                            "../../meshes/justina/arm//Gripper.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -1310,7 +1313,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
                                                                         ]
                                                                       }
                                                                     ]
@@ -1330,9 +1333,12 @@ DEF Justina Robot {
                                                               }
                                                               DEF l_hand_link_visual Pose {
                                                                 children [
+                                                                  DEF left_grab_object_link Pose {
+                                                                    translation -0.019943 0 -0.2542
+                                                                  }
                                                                   CadShape {
                                                                     url [
-                                                                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand.dae"
+                                                                      "../../meshes/justina/arm//Gripper_Hand.dae"
                                                                     ]
                                                                   }
                                                                 ]
@@ -1343,7 +1349,7 @@ DEF Justina Robot {
                                                               children [
                                                                 Mesh {
                                                                   url [
-                                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Gripper_Hand_Collider.dae"
+                                                                    "../../meshes/justina/arm//Gripper_Hand_Collider.dae"
                                                                   ]
                                                                 }
                                                               ]
@@ -1365,7 +1371,7 @@ DEF Justina Robot {
                                                           children [
                                                             CadShape {
                                                               url [
-                                                                "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist.dae"
+                                                                "../../meshes/justina/arm//Wrist.dae"
                                                               ]
                                                             }
                                                           ]
@@ -1376,7 +1382,7 @@ DEF Justina Robot {
                                                         children [
                                                           Mesh {
                                                             url [
-                                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Wrist_Collider.dae"
+                                                              "../../meshes/justina/arm//Wrist_Collider.dae"
                                                             ]
                                                           }
                                                         ]
@@ -1398,7 +1404,7 @@ DEF Justina Robot {
                                                     children [
                                                       CadShape {
                                                         url [
-                                                          "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm.dae"
+                                                          "../../meshes/justina/arm//Forearm.dae"
                                                         ]
                                                       }
                                                     ]
@@ -1409,7 +1415,7 @@ DEF Justina Robot {
                                                   children [
                                                     Mesh {
                                                       url [
-                                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Forearm_Collider.dae"
+                                                        "../../meshes/justina/arm//Forearm_Collider.dae"
                                                       ]
                                                     }
                                                   ]
@@ -1431,7 +1437,7 @@ DEF Justina Robot {
                                               children [
                                                 CadShape {
                                                   url [
-                                                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist.dae"
+                                                    "../../meshes/justina/arm//ArmTwist.dae"
                                                   ]
                                                 }
                                               ]
@@ -1442,7 +1448,7 @@ DEF Justina Robot {
                                             children [
                                               Mesh {
                                                 url [
-                                                  "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/ArmTwist_Collider.dae"
+                                                  "../../meshes/justina/arm//ArmTwist_Collider.dae"
                                                 ]
                                               }
                                             ]
@@ -1464,7 +1470,7 @@ DEF Justina Robot {
                                         children [
                                           CadShape {
                                             url [
-                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm.dae"
+                                              "../../meshes/justina/arm//Arm.dae"
                                             ]
                                           }
                                         ]
@@ -1473,7 +1479,7 @@ DEF Justina Robot {
                                     name "l_arm_link"
                                     boundingObject DEF l_arm_link_collision Mesh {
                                       url [
-                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/arm/Arm_Collider.dae"
+                                        "../../meshes/justina/arm//Arm_Collider.dae"
                                       ]
                                     }
                                     physics Physics {
@@ -1493,7 +1499,7 @@ DEF Justina Robot {
                                   children [
                                     CadShape {
                                       url [
-                                        "../../meshes/justina_model_B/arm/ShoulderFrame.dae"
+                                        "../../meshes/justina/arm/ShoulderFrame.dae"
                                       ]
                                     }
                                   ]
@@ -1504,7 +1510,7 @@ DEF Justina Robot {
                                 children [
                                   Mesh {
                                     url [
-                                      "../../meshes/justina_model_B/arm/ShoulderFrame_Collider.dae"
+                                      "../../meshes/justina/arm/ShoulderFrame_Collider.dae"
                                     ]
                                   }
                                 ]
@@ -1526,7 +1532,7 @@ DEF Justina Robot {
                             children [
                               CadShape {
                                 url [
-                                  "../../meshes/justina_model_B/arm/ShoulderMotor.dae"
+                                  "../../meshes/justina/arm/ShoulderMotor.dae"
                                 ]
                               }
                             ]
@@ -1537,7 +1543,7 @@ DEF Justina Robot {
                           children [
                             Mesh {
                               url [
-                                "../../meshes/justina_model_B/arm/ShoulderMotor_Collider.dae"
+                                "../../meshes/justina/arm/ShoulderMotor_Collider.dae"
                               ]
                             }
                           ]
@@ -1591,8 +1597,8 @@ DEF Justina Robot {
                                     DEF head_tilt_joint RotationalMotor {
                                       name "head_tilt_joint"
                                       maxVelocity 3
-                                      minPosition -1.7
-                                      maxPosition 1.7
+                                      minPosition -0.51
+                                      maxPosition 0.51
                                       maxTorque 16
                                       sound ""
                                     }
@@ -1611,7 +1617,7 @@ DEF Justina Robot {
                                             children [
                                               CadShape {
                                                 url [
-                                                  "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/SingleKinect_LowPoly.dae"
+                                                  "../../meshes/justina/face/SingleKinect_LowPoly.dae"
                                                 ]
                                               }
                                             ]
@@ -1638,7 +1644,7 @@ DEF Justina Robot {
                                           children [
                                             Mesh {
                                               url [
-                                                "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/SingleKinect_LowPoly_Collider.dae"
+                                                "../../meshes/justina/face/SingleKinect_LowPoly_Collider.dae"
                                               ]
                                             }
                                           ]
@@ -1659,7 +1665,7 @@ DEF Justina Robot {
                                         children [
                                           CadShape {
                                             url [
-                                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/Face_Frame.dae"
+                                              "../../meshes/justina/face/Face_Frame.dae"
                                             ]
                                           }
                                         ]
@@ -1670,7 +1676,7 @@ DEF Justina Robot {
                                       children [
                                         Mesh {
                                           url [
-                                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/Face_Frame_Collider.dae"
+                                            "../../meshes/justina/face/Face_Frame_Collider.dae"
                                           ]
                                         }
                                       ]
@@ -1692,7 +1698,7 @@ DEF Justina Robot {
                                   children [
                                     CadShape {
                                       url [
-                                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/HeadTiltMotor.dae"
+                                        "../../meshes/justina/face/HeadTiltMotor.dae"
                                       ]
                                     }
                                   ]
@@ -1703,7 +1709,7 @@ DEF Justina Robot {
                                 children [
                                   Mesh {
                                     url [
-                                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/face/HeadTiltMotor_Collider.dae"
+                                      "../../meshes/justina/face/HeadTiltMotor_Collider.dae"
                                     ]
                                   }
                                 ]
@@ -1723,14 +1729,14 @@ DEF Justina Robot {
                           }
                           DEF neck_link_visual CadShape {
                             url [
-                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Neck.dae"
+                              "../../meshes/justina/Neck.dae"
                             ]
                           }
                         ]
                         name "neck_link"
                         boundingObject DEF neck_link_collision Mesh {
                           url [
-                            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Neck_Collider.dae"
+                            "../../meshes/justina/Neck_Collider.dae"
                           ]
                         }
                         physics Physics {
@@ -1749,7 +1755,7 @@ DEF Justina Robot {
                         children [
                           CadShape {
                             url [
-                              "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/ShoulderPads.dae"
+                              "../../meshes/justina/ShoulderPads.dae"
                             ]
                           }
                         ]
@@ -1758,7 +1764,7 @@ DEF Justina Robot {
                     name "spine_link"
                     boundingObject DEF spine_link_collision Mesh {
                       url [
-                        "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/ShoulderPads.dae"
+                        "../../meshes/justina/ShoulderPads.dae"
                       ]
                     }
                     physics Physics {
@@ -1767,18 +1773,22 @@ DEF Justina Robot {
                       centerOfMass [
                         0.01 0 0
                       ]
+                      inertiaMatrix [
+                        1 1 1
+                        0 0 0
+                      ]
                     }
                   }
                   DEF torso_link_visual CadShape {
                     url [
-                      "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Torso_ROBOTINO_B.dae"
+                      "../../meshes/justina/Torso_ROBOTINO_B.dae"
                     ]
                   }
                 ]
                 name "torso_link"
                 boundingObject DEF torso_link_collision Mesh {
                   url [
-                    "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Torso_Collider_ROBOTINO_B.dae"
+                    "../../meshes/justina/Torso_Collider_ROBOTINO_B.dae"
                   ]
                 }
                 physics Physics {
@@ -1794,14 +1804,14 @@ DEF Justina Robot {
         }
         DEF body_link_visual CadShape {
           url [
-            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Body_ROBOTINO_B.dae"
+            "../../meshes/justina/Body_ROBOTINO_B.dae"
           ]
         }
       ]
       name "body_link"
       boundingObject DEF body_link_collision Mesh {
         url [
-          "../../meshes/justina_model_B/Body_Collider_ROBOTINO_B.dae"
+          "../../meshes/justina/Body_Collider_ROBOTINO_B.dae"
         ]
       }
       physics Physics {
@@ -1836,7 +1846,7 @@ DEF Justina Robot {
         children [
           DEF wheel1_link_visual CadShape {
             url [
-              "../../meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"
+              "../../meshes/robotino/Robotino3_Wheel_Very_LowPoly.dae"
             ]
           }
         ]
@@ -1880,11 +1890,11 @@ DEF Justina Robot {
       ]
       endPoint DEF wheel2_link Solid {
         translation 0.09 -0.155885 0.06
-        rotation 0 0 -0.9999999999999999 2.618
+        rotation 0 0 -1 2.618
         children [
           DEF wheel2_link_visual CadShape {
             url [
-              "../../meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"
+              "../../meshes/robotino/Robotino3_Wheel_Very_LowPoly.dae"
             ]
           }
         ]
@@ -1925,7 +1935,7 @@ DEF Justina Robot {
         children [
           DEF wheel0_link_visual CadShape {
             url [
-              "../../meshes/robotino_low_poly/Robotino3_Wheel_Very_LowPoly.dae"
+              "../../meshes/robotino/Robotino3_Wheel_Very_LowPoly.dae"
             ]
           }
         ]
@@ -1950,7 +1960,7 @@ DEF Justina Robot {
       children [
         DEF base_link_visual CadShape {
           url [
-            "../../../../../../src/Hardware/justina_description/meshes/justina_model_B/Base_ROBOTINO_B.dae"
+            "../../meshes/justina/Base_ROBOTINO_B.dae"
           ]
         }
       ]
@@ -1961,7 +1971,7 @@ DEF Justina Robot {
     children [
       Mesh {
         url [
-          "../../meshes/justina_model_B/Base_Collider_ROBOTINO_B.dae"
+          "../../meshes/justina/Base_Collider_ROBOTINO_B.dae"
         ]
       }
     ]

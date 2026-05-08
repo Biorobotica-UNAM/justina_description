@@ -8,8 +8,6 @@
 
   <!-- ==================== LINKS ==================== -->
 
-  <link name="base_footprint"/>
-
   <!-- base_link (the robot itself) -->
   <link name="base_link">
     <inertial>
@@ -595,12 +593,6 @@
   </link>
 
   <!-- ==================== JOINTS ==================== -->
-  <joint name="base_footprint_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
-    
   <!-- Connect body_link to base_link -->
   <joint name="base_to_body" type="fixed">
     <parent link="base_link"/>

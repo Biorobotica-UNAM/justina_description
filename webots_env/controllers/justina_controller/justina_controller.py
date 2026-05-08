@@ -366,7 +366,7 @@ class JustinaController(Node):
         odom = Odometry()
         odom.header.stamp = stamp
         odom.header.frame_id = "odom"
-        odom.child_frame_id = "base_footprint"
+        odom.child_frame_id = "base_link"
         odom.pose.pose.position.x = x
         odom.pose.pose.position.y = y
         odom.pose.pose.orientation.z = qz
@@ -376,7 +376,7 @@ class JustinaController(Node):
         tf = TransformStamped()
         tf.header.stamp = stamp
         tf.header.frame_id = "odom"
-        tf.child_frame_id = "base_footprint"
+        tf.child_frame_id = "base_link"
         tf.transform.translation.x = x
         tf.transform.translation.y = y
         tf.transform.rotation.z = qz

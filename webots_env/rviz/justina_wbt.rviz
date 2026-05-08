@@ -86,8 +86,6 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        base_footprint:
-          Value: true
         base_link:
           Value: true
         beverage_area:
@@ -200,51 +198,50 @@ Visualization Manager:
           living_room:
             {}
           odom:
-            base_footprint:
-              base_link:
-                body_link:
-                  torso_link:
-                    spine_link:
-                      left_shoulder_link:
-                        lf_frame_link:
-                          l_arm_link:
-                            l_arm_twist_link:
-                              l_forearm_link:
-                                l_wrist_link:
-                                  l_hand_link:
-                                    left_griper_L_link:
-                                      {}
-                                    left_griper_R_link:
-                                      {}
-                      neck_link:
-                        head_link:
-                          head_frame_link:
-                            camera_link:
-                              camera_color_frame:
-                                camera_color_optical_frame:
-                                  {}
-                              camera_depth_frame:
-                                camera_depth_optical_frame:
-                                  {}
-                      right_shoulder_link:
-                        rf_frame_link:
-                          r_arm_link:
-                            r_arm_twist_link:
-                              r_forearm_link:
-                                r_wrist_link:
-                                  r_hand_link:
-                                    right_griper_L_link:
-                                      {}
-                                    right_griper_R_link:
-                                      {}
-                laser_link:
-                  {}
-                wheel0_link:
-                  {}
-                wheel1_link:
-                  {}
-                wheel2_link:
-                  {}
+            base_link:
+              body_link:
+                torso_link:
+                  spine_link:
+                    left_shoulder_link:
+                      lf_frame_link:
+                        l_arm_link:
+                          l_arm_twist_link:
+                            l_forearm_link:
+                              l_wrist_link:
+                                l_hand_link:
+                                  left_griper_L_link:
+                                    {}
+                                  left_griper_R_link:
+                                    {}
+                    neck_link:
+                      head_link:
+                        head_frame_link:
+                          camera_link:
+                            camera_color_frame:
+                              camera_color_optical_frame:
+                                {}
+                            camera_depth_frame:
+                              camera_depth_optical_frame:
+                                {}
+                    right_shoulder_link:
+                      rf_frame_link:
+                        r_arm_link:
+                          r_arm_twist_link:
+                            r_forearm_link:
+                              r_wrist_link:
+                                r_hand_link:
+                                  right_griper_L_link:
+                                    {}
+                                  right_griper_R_link:
+                                    {}
+              laser_link:
+                {}
+              wheel0_link:
+                {}
+              wheel1_link:
+                {}
+              wheel2_link:
+                {}
           seat_place_1:
             {}
           seat_place_2:
@@ -277,10 +274,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         base_link:
           Alpha: 1
           Show Axes: false

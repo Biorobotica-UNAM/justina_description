@@ -21,7 +21,7 @@
     <param name="robot_description" value="$(command 'cat $(var package_share)/urdf/justina.urdf')" />
     <param name="use_sim_time" value="true" />
     <remap from="joint_states" to="/hardware/joint_states"/>
-    <remap from="robot_description" to="/hardware/base/robot_description"/>
+    <remap from="robot_description" to="/hardware/robot_description"/>
   </node>
 
   <!-- ========== Static transform from map to odom ========== -->
@@ -66,3 +66,5 @@
   </node>
 
 </launch>
+
+

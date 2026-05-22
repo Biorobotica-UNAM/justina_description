@@ -1623,14 +1623,14 @@ DEF Justina Robot {
                                             ]
                                           }
                                           Camera {
-                                            translation 0 0 -0.0127
+                                            translation 0.01 0 -0.0127
                                             name "camera_color"
                                             fieldOfView 1
                                             width 640
                                             height 480
                                           }
                                           RangeFinder {
-                                            translation 0 0 -0.0127
+                                            translation 0.01 0 -0.0127
                                             name "camera_range"
                                             fieldOfView 1
                                             width 640

@@ -38,7 +38,6 @@ install(DIRECTORY
   webots_env/models
   webots_env/protos
   webots_env/rviz
-  webots_env/urdf
   webots_env/worlds
   webots_env/scripts
   DESTINATION share/${PROJECT_NAME}/webots_env

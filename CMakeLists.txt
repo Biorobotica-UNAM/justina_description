@@ -28,7 +28,7 @@ install(TARGETS depth_to_pointcloud
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY urdf meshes launch rviz
+install(DIRECTORY urdf meshes launch rviz scripts
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -45,6 +45,7 @@ install(DIRECTORY
 )
 
 install(PROGRAMS
+  scripts/simple_justina_sim.py
   webots_env/scripts/robot_teleop.py
   webots_env/scripts/set_initial_pose.py
   DESTINATION lib/${PROJECT_NAME}

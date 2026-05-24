@@ -3,8 +3,9 @@ import math
 
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
 from geometry_msgs.msg import PoseWithCovarianceStamped, TransformStamped, Twist
-from nav_msgs.msg import Odometry
+from nav_msgs.msg import OccupancyGrid, Odometry
 from sensor_msgs.msg import JointState, LaserScan
 from tf2_ros import TransformBroadcaster
 
@@ -14,7 +15,9 @@ class SimpleJustinaSim(Node):
 
     It integrates /hardware/base/cmd_vel, publishes odom -> base_link,
     publishes fake joint states so robot_state_publisher can build the URDF
-    tree, and provides an always-clear laser scan.
+    tree, and provides a simulated laser scan. When /navigation/map is
+    available, the laser is raycast against occupied map cells; otherwise it
+    publishes a clear scan.
     """
 
     def __init__(self):
@@ -24,18 +27,43 @@ class SimpleJustinaSim(Node):
         self.declare_parameter('initial_x', 6.5)
         self.declare_parameter('initial_y', 3.2)
         self.declare_parameter('initial_yaw', 0.0)
+        self.declare_parameter('map_topic', '/navigation/map')
+        self.declare_parameter('laser_beams', 361)
+        self.declare_parameter('laser_fov_deg', 180.0)
+        self.declare_parameter('laser_range_min', 0.06)
+        self.declare_parameter('laser_range_max', 6.0)
+        self.declare_parameter('laser_obstacle_threshold', 50)
+        self.declare_parameter('laser_unknown_is_obstacle', False)
+        self.declare_parameter('laser_publish_max_range', False)
+        self.declare_parameter('laser_x_offset', 0.06)
+        self.declare_parameter('laser_y_offset', 0.0)
+        self.declare_parameter('laser_yaw_offset', 0.0)
 
         self.x = float(self.get_parameter('initial_x').value)
         self.y = float(self.get_parameter('initial_y').value)
         self.yaw = float(self.get_parameter('initial_yaw').value)
         self.cmd = Twist()
         self.wheel_positions = [0.0, 0.0, 0.0]
+        self.map_msg = None
+        self.map_origin_yaw = 0.0
 
         self.create_subscription(Twist, '/hardware/base/cmd_vel', self.cmd_vel_callback, 10)
         self.create_subscription(PoseWithCovarianceStamped, '/initialpose',
                                  self.initial_pose_callback, 10)
         self.create_subscription(PoseWithCovarianceStamped, '/navigation/initialpose',
                                  self.initial_pose_callback, 10)
+        map_qos = QoSProfile(
+            history=HistoryPolicy.KEEP_LAST,
+            depth=1,
+            reliability=ReliabilityPolicy.RELIABLE,
+            durability=DurabilityPolicy.TRANSIENT_LOCAL,
+        )
+        self.create_subscription(
+            OccupancyGrid,
+            str(self.get_parameter('map_topic').value),
+            self.map_callback,
+            map_qos,
+        )
 
         self.odom_pub = self.create_publisher(Odometry, '/hardware/base/odom', 10)
         self.joint_pub = self.create_publisher(JointState, '/hardware/joint_states', 10)
@@ -49,6 +77,11 @@ class SimpleJustinaSim(Node):
 
     def cmd_vel_callback(self, msg):
         self.cmd = msg
+
+    def map_callback(self, msg):
+        self.map_msg = msg
+        orientation = msg.info.origin.orientation
+        self.map_origin_yaw = self.quaternion_to_yaw(orientation.z, orientation.w)
 
     def initial_pose_callback(self, msg):
         self.x = msg.pose.pose.position.x
@@ -137,17 +170,97 @@ class SimpleJustinaSim(Node):
         self.joint_pub.publish(js)
 
     def publish_laser(self, stamp):
+        range_min = float(self.get_parameter('laser_range_min').value)
+        range_max = float(self.get_parameter('laser_range_max').value)
+        beams = max(2, int(self.get_parameter('laser_beams').value))
+        fov = math.radians(float(self.get_parameter('laser_fov_deg').value))
+
         scan = LaserScan()
         scan.header.stamp = stamp
         scan.header.frame_id = 'laser_link'
-        scan.angle_min = -math.pi / 2.0
-        scan.angle_max = math.pi / 2.0
-        scan.angle_increment = math.radians(1.0)
+        scan.angle_min = -fov / 2.0
+        scan.angle_max = fov / 2.0
+        scan.angle_increment = fov / float(beams - 1)
         scan.scan_time = self.dt
-        scan.range_min = 0.06
-        scan.range_max = 4.0
-        scan.ranges = [scan.range_max] * 181
+        scan.range_min = range_min
+        scan.range_max = range_max
+        no_hit = range_max if self.bool_parameter('laser_publish_max_range') else math.inf
+        scan.ranges = [
+            self.cast_laser_ray(scan.angle_min + i * scan.angle_increment,
+                                range_min,
+                                range_max,
+                                no_hit)
+            for i in range(beams)
+        ]
         self.scan_pub.publish(scan)
+
+    def cast_laser_ray(self, relative_angle, range_min, range_max, no_hit):
+        if self.map_msg is None:
+            return no_hit
+
+        resolution = self.map_msg.info.resolution
+        step = max(resolution * 0.5, 0.02)
+        laser_x, laser_y, laser_yaw = self.laser_pose()
+        angle = laser_yaw + relative_angle
+        cos_angle = math.cos(angle)
+        sin_angle = math.sin(angle)
+        obstacle_threshold = int(self.get_parameter('laser_obstacle_threshold').value)
+        unknown_is_obstacle = self.bool_parameter('laser_unknown_is_obstacle')
+
+        distance = range_min
+        while distance <= range_max:
+            wx = laser_x + distance * cos_angle
+            wy = laser_y + distance * sin_angle
+            cell = self.world_to_map(wx, wy)
+            if cell is None:
+                return no_hit
+
+            mx, my = cell
+            value = self.map_msg.data[my * self.map_msg.info.width + mx]
+            if value < 0 and unknown_is_obstacle:
+                return distance
+            if value >= obstacle_threshold:
+                return distance
+            distance += step
+
+        return no_hit
+
+    def laser_pose(self):
+        x_offset = float(self.get_parameter('laser_x_offset').value)
+        y_offset = float(self.get_parameter('laser_y_offset').value)
+        yaw_offset = float(self.get_parameter('laser_yaw_offset').value)
+
+        cos_yaw = math.cos(self.yaw)
+        sin_yaw = math.sin(self.yaw)
+        laser_x = self.x + x_offset * cos_yaw - y_offset * sin_yaw
+        laser_y = self.y + x_offset * sin_yaw + y_offset * cos_yaw
+        laser_yaw = self.yaw + yaw_offset
+        return laser_x, laser_y, laser_yaw
+
+    def bool_parameter(self, name):
+        value = self.get_parameter(name).value
+        if isinstance(value, bool):
+            return value
+        return str(value).lower() in ('1', 'true', 'yes', 'on')
+
+    def world_to_map(self, wx, wy):
+        origin = self.map_msg.info.origin.position
+        resolution = self.map_msg.info.resolution
+        dx = wx - origin.x
+        dy = wy - origin.y
+
+        cos_origin = math.cos(self.map_origin_yaw)
+        sin_origin = math.sin(self.map_origin_yaw)
+        local_x = cos_origin * dx + sin_origin * dy
+        local_y = -sin_origin * dx + cos_origin * dy
+
+        mx = int(local_x / resolution)
+        my = int(local_y / resolution)
+        if mx < 0 or my < 0:
+            return None
+        if mx >= self.map_msg.info.width or my >= self.map_msg.info.height:
+            return None
+        return mx, my
 
 
 def main():

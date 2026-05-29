@@ -29,10 +29,13 @@
 
   <depend>webots_ros2_driver</depend>
   <depend>pluginlib</depend>
+  <depend>python3-usb</depend>
   <depend>rclpy</depend>
   <depend>geometry_msgs</depend>
+  <depend>head_interfaces</depend>
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
+  <depend>torso_interfaces</depend>
   
   <!-- Gazebo/Simulation dependencies -->
   <depend>ros_gz</depend>

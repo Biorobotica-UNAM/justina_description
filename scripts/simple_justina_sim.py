@@ -5,9 +5,12 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
 from geometry_msgs.msg import PoseWithCovarianceStamped, TransformStamped, Twist
+from head_interfaces.srv import MoveHead
 from nav_msgs.msg import OccupancyGrid, Odometry
 from sensor_msgs.msg import JointState, LaserScan
+from std_msgs.msg import Float64MultiArray
 from tf2_ros import TransformBroadcaster
+from torso_interfaces.srv import MoveTorso
 
 
 class SimpleJustinaSim(Node):
@@ -44,10 +47,17 @@ class SimpleJustinaSim(Node):
         self.yaw = float(self.get_parameter('initial_yaw').value)
         self.cmd = Twist()
         self.wheel_positions = [0.0, 0.0, 0.0]
+        self.torso_position = 0.301
+        self.head_pan = 0.0
+        self.head_tilt = 0.0
         self.map_msg = None
         self.map_origin_yaw = 0.0
 
         self.create_subscription(Twist, '/hardware/base/cmd_vel', self.cmd_vel_callback, 10)
+        self.create_subscription(Float64MultiArray, '/hardware/head/goal_pose',
+                                 self.head_goal_callback, 10)
+        self.create_subscription(Float64MultiArray, '/hardware/torso/goal_pose',
+                                 self.torso_goal_callback, 10)
         self.create_subscription(PoseWithCovarianceStamped, '/initialpose',
                                  self.initial_pose_callback, 10)
         self.create_subscription(PoseWithCovarianceStamped, '/navigation/initialpose',
@@ -68,6 +78,13 @@ class SimpleJustinaSim(Node):
         self.odom_pub = self.create_publisher(Odometry, '/hardware/base/odom', 10)
         self.joint_pub = self.create_publisher(JointState, '/hardware/joint_states', 10)
         self.scan_pub = self.create_publisher(LaserScan, '/hardware/base/scan', 10)
+        self.head_pose_pub = self.create_publisher(
+            Float64MultiArray, '/hardware/head/current_pose', 10)
+        self.torso_pose_pub = self.create_publisher(
+            Float64MultiArray, '/hardware/torso/current_pose', 10)
+        self.create_service(MoveHead, '/hardware/head/move_head', self.move_head_callback)
+        self.create_service(MoveTorso, '/hardware/torso/move_torso',
+                            self.move_torso_callback)
         self.tf_broadcaster = TransformBroadcaster(self)
 
         rate = float(self.get_parameter('rate').value)
@@ -77,6 +94,47 @@ class SimpleJustinaSim(Node):
 
     def cmd_vel_callback(self, msg):
         self.cmd = msg
+
+    def head_goal_callback(self, msg):
+        if len(msg.data) < 2:
+            self.get_logger().warn('Received head goal pose with less than 2 elements')
+            return
+        self.set_head_pose(msg.data[0], msg.data[1])
+
+    def torso_goal_callback(self, msg):
+        if len(msg.data) < 1:
+            self.get_logger().warn('Received torso goal pose with no position')
+            return
+        self.set_torso_position(msg.data[0])
+
+    def move_head_callback(self, request, response):
+        if len(request.positions) < 2:
+            response.success = False
+            response.message = 'MoveHead requires [pan, tilt]'
+            return response
+
+        self.set_head_pose(request.positions[0], request.positions[1])
+        response.success = True
+        response.message = (
+            f'Head target set to pan={self.head_pan:.3f}, tilt={self.head_tilt:.3f}')
+        return response
+
+    def move_torso_callback(self, request, response):
+        self.set_torso_position(request.position)
+        response.success = True
+        response.message = f'Torso target set to {self.torso_position:.3f}'
+        return response
+
+    def set_head_pose(self, pan, tilt):
+        self.head_pan = self.clamp(float(pan), -1.57, 1.57)
+        self.head_tilt = self.clamp(float(tilt), -0.9, 0.47)
+
+    def set_torso_position(self, position):
+        self.torso_position = self.clamp(float(position), 0.0, 0.3014)
+
+    @staticmethod
+    def clamp(value, minimum, maximum):
+        return max(minimum, min(maximum, value))
 
     def map_callback(self, msg):
         self.map_msg = msg
@@ -108,6 +166,8 @@ class SimpleJustinaSim(Node):
 
         self.publish_odometry(stamp, vx, vy, wz)
         self.publish_joint_states(stamp, vx, vy, wz)
+        self.publish_head_pose()
+        self.publish_torso_pose()
         self.publish_laser(stamp)
 
     @staticmethod
@@ -165,9 +225,20 @@ class SimpleJustinaSim(Node):
         for i in range(3):
             self.wheel_positions[i] += wheel_speed * self.dt
 
-        js.position = self.wheel_positions + [0.301, 0.0, 0.0]
+        js.position = self.wheel_positions + [
+            self.torso_position, self.head_pan, self.head_tilt]
         js.position.extend([0.0] * (len(js.name) - len(js.position)))
         self.joint_pub.publish(js)
+
+    def publish_head_pose(self):
+        msg = Float64MultiArray()
+        msg.data = [self.head_pan, self.head_tilt]
+        self.head_pose_pub.publish(msg)
+
+    def publish_torso_pose(self):
+        msg = Float64MultiArray()
+        msg.data = [self.torso_position]
+        self.torso_pose_pub.publish(msg)
 
     def publish_laser(self, stamp):
         range_min = float(self.get_parameter('laser_range_min').value)

@@ -41,6 +41,7 @@ class SimpleJustinaSim(Node):
         self.declare_parameter('laser_x_offset', 0.06)
         self.declare_parameter('laser_y_offset', 0.0)
         self.declare_parameter('laser_yaw_offset', 0.0)
+        self.declare_parameter('republish_initialpose_to_navigation', True)
 
         self.x = float(self.get_parameter('initial_x').value)
         self.y = float(self.get_parameter('initial_y').value)
@@ -52,6 +53,11 @@ class SimpleJustinaSim(Node):
         self.head_tilt = 0.0
         self.map_msg = None
         self.map_origin_yaw = 0.0
+        self.map_to_odom_x = 0.0
+        self.map_to_odom_y = 0.0
+        self.map_to_odom_yaw = 0.0
+        self.pending_navigation_initial_pose = None
+        self.initial_pose_republish_timer = None
 
         self.create_subscription(Twist, '/hardware/base/cmd_vel', self.cmd_vel_callback, 10)
         self.create_subscription(Float64MultiArray, '/hardware/head/goal_pose',
@@ -61,7 +67,7 @@ class SimpleJustinaSim(Node):
         self.create_subscription(PoseWithCovarianceStamped, '/initialpose',
                                  self.initial_pose_callback, 10)
         self.create_subscription(PoseWithCovarianceStamped, '/navigation/initialpose',
-                                 self.initial_pose_callback, 10)
+                                 self.navigation_initial_pose_callback, 10)
         map_qos = QoSProfile(
             history=HistoryPolicy.KEEP_LAST,
             depth=1,
@@ -75,6 +81,8 @@ class SimpleJustinaSim(Node):
             map_qos,
         )
 
+        self.navigation_initial_pose_pub = self.create_publisher(
+            PoseWithCovarianceStamped, '/navigation/initialpose', 10)
         self.odom_pub = self.create_publisher(Odometry, '/hardware/base/odom', 10)
         self.joint_pub = self.create_publisher(JointState, '/hardware/joint_states', 10)
         self.scan_pub = self.create_publisher(LaserScan, '/hardware/base/scan', 10)
@@ -146,9 +154,50 @@ class SimpleJustinaSim(Node):
         self.y = msg.pose.pose.position.y
         orientation = msg.pose.pose.orientation
         self.yaw = self.quaternion_to_yaw(orientation.z, orientation.w)
+        self.map_to_odom_x = 0.0
+        self.map_to_odom_y = 0.0
+        self.map_to_odom_yaw = 0.0
         self.cmd = Twist()
         self.get_logger().info(
             f'Reset pose to x={self.x:.2f}, y={self.y:.2f}, yaw={self.yaw:.2f}')
+        if bool(self.get_parameter('republish_initialpose_to_navigation').value):
+            self.pending_navigation_initial_pose = msg
+            if self.initial_pose_republish_timer is None:
+                self.initial_pose_republish_timer = self.create_timer(
+                    0.15, self.republish_initial_pose_to_navigation)
+
+    def navigation_initial_pose_callback(self, msg):
+        desired_x = msg.pose.pose.position.x
+        desired_y = msg.pose.pose.position.y
+        orientation = msg.pose.pose.orientation
+        desired_yaw = self.quaternion_to_yaw(orientation.z, orientation.w)
+
+        self.map_to_odom_yaw = self.normalize_angle(desired_yaw - self.yaw)
+        cos_yaw = math.cos(self.map_to_odom_yaw)
+        sin_yaw = math.sin(self.map_to_odom_yaw)
+        self.map_to_odom_x = desired_x - (self.x * cos_yaw - self.y * sin_yaw)
+        self.map_to_odom_y = desired_y - (self.x * sin_yaw + self.y * cos_yaw)
+        self.get_logger().info(
+            'Updated simulated laser map pose reference '
+            f'to x={desired_x:.2f}, y={desired_y:.2f}, yaw={desired_yaw:.2f}')
+
+    def republish_initial_pose_to_navigation(self):
+        if self.pending_navigation_initial_pose is None:
+            if self.initial_pose_republish_timer is not None:
+                self.initial_pose_republish_timer.cancel()
+                self.initial_pose_republish_timer = None
+            return
+
+        msg = PoseWithCovarianceStamped()
+        msg.header = self.pending_navigation_initial_pose.header
+        msg.header.stamp.sec = 0
+        msg.header.stamp.nanosec = 0
+        msg.pose = self.pending_navigation_initial_pose.pose
+        self.navigation_initial_pose_pub.publish(msg)
+        self.pending_navigation_initial_pose = None
+        if self.initial_pose_republish_timer is not None:
+            self.initial_pose_republish_timer.cancel()
+            self.initial_pose_republish_timer = None
 
     def timer_callback(self):
         stamp = self.get_clock().now().to_msg()
@@ -177,6 +226,10 @@ class SimpleJustinaSim(Node):
     @staticmethod
     def quaternion_to_yaw(qz, qw):
         return math.atan2(2.0 * qw * qz, 1.0 - 2.0 * qz * qz)
+
+    @staticmethod
+    def normalize_angle(angle):
+        return math.atan2(math.sin(angle), math.cos(angle))
 
     def publish_odometry(self, stamp, vx, vy, wz):
         qz, qw = self.yaw_to_quaternion(self.yaw)
@@ -303,9 +356,15 @@ class SimpleJustinaSim(Node):
 
         cos_yaw = math.cos(self.yaw)
         sin_yaw = math.sin(self.yaw)
-        laser_x = self.x + x_offset * cos_yaw - y_offset * sin_yaw
-        laser_y = self.y + x_offset * sin_yaw + y_offset * cos_yaw
-        laser_yaw = self.yaw + yaw_offset
+        odom_laser_x = self.x + x_offset * cos_yaw - y_offset * sin_yaw
+        odom_laser_y = self.y + x_offset * sin_yaw + y_offset * cos_yaw
+        odom_laser_yaw = self.yaw + yaw_offset
+
+        cos_map = math.cos(self.map_to_odom_yaw)
+        sin_map = math.sin(self.map_to_odom_yaw)
+        laser_x = self.map_to_odom_x + odom_laser_x * cos_map - odom_laser_y * sin_map
+        laser_y = self.map_to_odom_y + odom_laser_x * sin_map + odom_laser_y * cos_map
+        laser_yaw = self.normalize_angle(self.map_to_odom_yaw + odom_laser_yaw)
         return laser_x, laser_y, laser_yaw
 
     def bool_parameter(self, name):

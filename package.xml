@@ -4,7 +4,7 @@
   <name>justina_description</name>
   <version>0.0.0</version>
   <description>Robot description for Justina robot</description>
-  <maintainer email="joshuayz@comunidad.unam.mx">joshua</maintainer>
+  <maintainer email="mail@mail.com">daniel_v</maintainer>
   <license>Apache 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -32,9 +32,6 @@
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
-  
-  <!-- Gazebo/Simulation dependencies -->
-  <depend>ros_gz</depend>
   
   <!-- Test dependencies -->
   <test_depend>ament_lint_auto</test_depend>

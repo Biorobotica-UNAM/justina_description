@@ -88,8 +88,6 @@ Visualization Manager:
         All Enabled: false
         base_link:
           Value: true
-        beverage_area:
-          Value: true
         body_link:
           Value: true
         camera_color_frame:
@@ -102,15 +100,9 @@ Visualization Manager:
           Value: true
         camera_link:
           Value: true
-        door:
-          Value: true
-        entrance:
-          Value: true
         head_frame_link:
           Value: true
         head_link:
-          Value: true
-        kitchen:
           Value: true
         l_arm_link:
           Value: true
@@ -124,15 +116,15 @@ Visualization Manager:
           Value: true
         laser_link:
           Value: true
-        left_griper_L_link:
+        left_grab_object_link:
           Value: true
-        left_griper_R_link:
+        left_gripper_L_link:
+          Value: true
+        left_gripper_R_link:
           Value: true
         left_shoulder_link:
           Value: true
         lf_frame_link:
-          Value: true
-        living_room:
           Value: true
         map:
           Value: true
@@ -152,25 +144,15 @@ Visualization Manager:
           Value: true
         rf_frame_link:
           Value: true
-        right_griper_L_link:
+        right_grab_object_link:
           Value: true
-        right_griper_R_link:
+        right_gripper_L_link:
+          Value: true
+        right_gripper_R_link:
           Value: true
         right_shoulder_link:
           Value: true
-        seat_place_1:
-          Value: true
-        seat_place_2:
-          Value: true
-        seat_place_3:
-          Value: true
-        seat_place_4:
-          Value: true
-        seat_place_5:
-          Value: true
         spine_link:
-          Value: true
-        test:
           Value: true
         torso_link:
           Value: true
@@ -187,16 +169,6 @@ Visualization Manager:
       Show Names: true
       Tree:
         map:
-          beverage_area:
-            {}
-          door:
-            {}
-          entrance:
-            {}
-          kitchen:
-            {}
-          living_room:
-            {}
           odom:
             base_link:
               body_link:
@@ -209,9 +181,11 @@ Visualization Manager:
                             l_forearm_link:
                               l_wrist_link:
                                 l_hand_link:
-                                  left_griper_L_link:
+                                  left_grab_object_link:
                                     {}
-                                  left_griper_R_link:
+                                  left_gripper_L_link:
+                                    {}
+                                  left_gripper_R_link:
                                     {}
                     neck_link:
                       head_link:
@@ -230,9 +204,11 @@ Visualization Manager:
                             r_forearm_link:
                               r_wrist_link:
                                 r_hand_link:
-                                  right_griper_L_link:
+                                  right_grab_object_link:
                                     {}
-                                  right_griper_R_link:
+                                  right_gripper_L_link:
+                                    {}
+                                  right_gripper_R_link:
                                     {}
               laser_link:
                 {}
@@ -242,18 +218,6 @@ Visualization Manager:
                 {}
               wheel2_link:
                 {}
-          seat_place_1:
-            {}
-          seat_place_2:
-            {}
-          seat_place_3:
-            {}
-          seat_place_4:
-            {}
-          seat_place_5:
-            {}
-          test:
-            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -266,7 +230,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /hardware/base/robot_description
+        Value: /hardware/robot_description
       Enabled: true
       Links:
         All Links Enabled: true
@@ -345,12 +309,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        left_griper_L_link:
+        left_grab_object_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        left_gripper_L_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_griper_R_link:
+        left_gripper_R_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -400,12 +368,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        right_griper_L_link:
+        right_grab_object_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        right_gripper_L_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_griper_R_link:
+        right_gripper_R_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -610,25 +582,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 8.342912673950195
+      Distance: 12.938694953918457
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 6.812479496002197
-        Y: 2.853938341140747
-        Z: -1.5477174520492554
+        X: 1.5050567388534546
+        Y: 1.5430092811584473
+        Z: -2.006336212158203
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.1647981405258179
+      Pitch: 1.2047981023788452
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 4.685410976409912
+      Yaw: 4.69541072845459
     Saved: ~
 Window Geometry:
   Displays:

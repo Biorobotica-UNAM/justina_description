@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 3.6.23 commit date:2025-06-16, commit time:11:52, hash:e467db79ca8c</authoring_tool>
     </contributor>
-    <created>2026-03-10T23:37:51</created>
-    <modified>2026-03-10T23:37:51</modified>
+    <created>2026-06-01T17:55:34</created>
+    <modified>2026-06-01T17:55:34</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -16,7 +16,7 @@
     <geometry id="ArmTwist_Collider-mesh" name="ArmTwist_Collider">
       <mesh>
         <source id="ArmTwist_Collider-mesh-positions">
-          <float_array id="ArmTwist_Collider-mesh-positions-array" count="24">-0.01802539 -0.02179312 -0.1144999 -0.02499997 -0.03250002 -3.57628e-7 -0.01802539 0.02179306 -0.1144999 -0.02499997 0.03249996 -3.57628e-7 0.01802539 -0.02179312 -0.1144999 0.02499997 -0.03250002 -3.57628e-7 0.01802539 0.02179306 -0.1144999 0.02499997 0.03249996 -3.57628e-7</float_array>
+          <float_array id="ArmTwist_Collider-mesh-positions-array" count="24">-0.01802539 -0.02179312 -0.08450025 -0.02499997 -0.03250002 -3.57628e-7 -0.01802539 0.02179306 -0.08450025 -0.02499997 0.03249996 -3.57628e-7 0.01802539 -0.02179312 -0.08450025 0.02499997 -0.03250002 -3.57628e-7 0.01802539 0.02179306 -0.08450025 0.02499997 0.03249996 -3.57628e-7</float_array>
           <technique_common>
             <accessor source="#ArmTwist_Collider-mesh-positions-array" count="8" stride="3">
               <param name="X" type="float"/>
@@ -26,7 +26,7 @@
           </technique_common>
         </source>
         <source id="ArmTwist_Collider-mesh-normals">
-          <float_array id="ArmTwist_Collider-mesh-normals-array" count="30">-0.99815 0 -0.06080085 0 0.9956564 -0.09310394 0.99815 0 -0.06080061 0 -0.9956564 -0.09310406 0 0 -1 0 0 1 -0.9981499 0 -0.06080085 0 0.9956564 -0.09310394 0.9981499 0 -0.06080061 0 -0.9956564 -0.09310406</float_array>
+          <float_array id="ArmTwist_Collider-mesh-normals-array" count="30">-0.9966109 0 -0.08225977 0 0.9920679 -0.1257036 0.9966109 0 -0.08225941 0 -0.9920679 -0.1257037 0 0 -1 0 0 1 -0.9966109 0 -0.08225971 0 0.9920679 -0.1257036 0.9966109 0 -0.08225941 0 -0.9920678 -0.1257038</float_array>
           <technique_common>
             <accessor source="#ArmTwist_Collider-mesh-normals-array" count="10" stride="3">
               <param name="X" type="float"/>

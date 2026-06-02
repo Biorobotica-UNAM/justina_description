@@ -272,12 +272,13 @@ class TorsoHardware:
 
 class JustinaController(Node):
     def __init__(self, robot: Supervisor):
-        super().__init__('justina_controller')
-
-        self.set_parameters([
-            rclpy.parameter.Parameter('use_sim_time',
-                                       rclpy.Parameter.Type.BOOL, True)
-        ])
+        # Pass the parameter directly to the constructor
+        super().__init__(
+            'justina_controller',
+            parameter_overrides=[
+                rclpy.parameter.Parameter('use_sim_time', rclpy.Parameter.Type.BOOL, True)
+            ]
+        )
 
         self.robot = robot
         self.time_step = int(robot.getBasicTimeStep())
@@ -286,6 +287,7 @@ class JustinaController(Node):
         self.base = BaseHardware(robot, self.time_step)
         self.head = HeadHardware(robot, self.time_step)
         self.torso = TorsoHardware(robot, self.time_step)
+        self.set_initial_head_pose()
 
         self.create_subscription(Twist, '/hardware/base/cmd_vel', self.cmd_vel_callback, 10)
         self.create_subscription(Float64, '/head/pan_cmd', self.head_pan_callback, 10)
@@ -306,13 +308,52 @@ class JustinaController(Node):
         self.last_sim_time = None
         self.get_logger().info("Justina controller initialized")
 
+    def set_initial_head_pose(self):
+        """Set head pan=0.0, tilt=-0.4 rad with respect to joint limits."""
+        pan_target = 0.0
+        tilt_target = -0.5
+
+        # Read joint limits from Webots (if available)
+        if self.head.pan_joint:
+            pan_min = self.head.pan_joint.getMinPosition()
+            pan_max = self.head.pan_joint.getMaxPosition()
+            if pan_min is not None and pan_max is not None:
+                pan_target = max(pan_min, min(pan_max, pan_target))
+        if self.head.tilt_joint:
+            tilt_min = self.head.tilt_joint.getMinPosition()
+            tilt_max = self.head.tilt_joint.getMaxPosition()
+            if tilt_min is not None and tilt_max is not None:
+                tilt_target = max(tilt_min, min(tilt_max, tilt_target))
+
+        self.head.set_target_pan(pan_target)
+        self.head.set_target_tilt(tilt_target)
+        self.get_logger().info(f"Initial head pose set: pan={pan_target:.3f}, tilt={tilt_target:.3f}")
+
+
     def cmd_vel_callback(self, msg):
         self.base.set_target_velocity(msg.linear.x, msg.linear.y, msg.angular.z)
 
     def head_goal_callback(self, msg):
+        """Improved callback with logging and limit clamping."""
         if len(msg.data) >= 2:
-            self.head.set_target_pan(msg.data[0])
-            self.head.set_target_tilt(msg.data[1])
+            pan = msg.data[0]
+            tilt = msg.data[1]
+
+            # Clamp to joint limits (repeat the check for safety)
+            if self.head.pan_joint:
+                pan_min = self.head.pan_joint.getMinPosition()
+                pan_max = self.head.pan_joint.getMaxPosition()
+                if pan_min is not None and pan_max is not None:
+                    pan = max(pan_min, min(pan_max, pan))
+            if self.head.tilt_joint:
+                tilt_min = self.head.tilt_joint.getMinPosition()
+                tilt_max = self.head.tilt_joint.getMaxPosition()
+                if tilt_min is not None and tilt_max is not None:
+                    tilt = max(tilt_min, min(tilt_max, tilt))
+
+            self.head.set_target_pan(pan)
+            self.head.set_target_tilt(tilt)
+            self.get_logger().info(f"Head goal received: pan={pan:.3f}, tilt={tilt:.3f}")
         else:
             self.get_logger().warn("Received head goal pose with insufficient data")
 

@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 3.6.23 commit date:2025-06-16, commit time:11:52, hash:e467db79ca8c</authoring_tool>
     </contributor>
-    <created>2026-03-11T00:11:44</created>
-    <modified>2026-03-11T00:11:44</modified>
+    <created>2026-06-01T18:02:26</created>
+    <modified>2026-06-01T18:02:26</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -16,7 +16,7 @@
     <geometry id="Wrist_Collider-mesh" name="Wrist_Collider">
       <mesh>
         <source id="Wrist_Collider-mesh-positions">
-          <float_array id="Wrist_Collider-mesh-positions-array" count="24">-0.01802539 -0.0205 -0.1130003 -0.02499997 -0.02999997 -3.57628e-7 -0.01802539 0.02049994 -0.1130003 -0.02499997 0.03002864 -3.57628e-7 0.01802539 -0.0205 -0.1130003 0.02499997 -0.02999997 -3.57628e-7 0.01802539 0.02049994 -0.1130003 0.02499997 0.03002864 -3.57628e-7</float_array>
+          <float_array id="Wrist_Collider-mesh-positions-array" count="24">-0.01802539 -0.0205 -0.08300024 -0.02499997 -0.02999997 -3.57628e-7 -0.01802539 0.02049994 -0.08300024 -0.02499997 0.03002864 -3.57628e-7 0.01802539 -0.0205 -0.08300024 0.02499997 -0.02999997 -3.57628e-7 0.01802539 0.02049994 -0.08300024 0.02499997 0.03002864 -3.57628e-7</float_array>
           <technique_common>
             <accessor source="#Wrist_Collider-mesh-positions-array" count="8" stride="3">
               <param name="X" type="float"/>
@@ -26,7 +26,7 @@
           </technique_common>
         </source>
         <source id="Wrist_Collider-mesh-normals">
-          <float_array id="Wrist_Collider-mesh-normals-array" count="30">-0.9981007 0 -0.06160461 0 0.9964635 -0.08402651 0.9981007 0 -0.06160461 0 -0.9964848 -0.08377528 0 0 -1 0 0 1 -0.9981006 0 -0.06160461 0 0.9964636 -0.08402657 0.9981006 0 -0.06160461 0 -0.9964848 -0.08377528</float_array>
+          <float_array id="Wrist_Collider-mesh-normals-array" count="30">-0.996488 0 -0.08373594 0 0.9934746 -0.1140545 0.996488 0 -0.08373594 0 -0.9935134 -0.1137155 0 0 -1 0 0 1 -0.996488 0 -0.08373594 0 0.9934745 -0.1140546 0.996488 0 -0.08373594 0 -0.9935134 -0.1137155</float_array>
           <technique_common>
             <accessor source="#Wrist_Collider-mesh-normals-array" count="10" stride="3">
               <param name="X" type="float"/>

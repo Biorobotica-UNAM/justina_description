@@ -713,10 +713,10 @@
   </joint>
 
   <joint name="right_pinch_joint" type="fixed">
-    <parent link="r_hand_link"/>
+    <parent link="right_grab_object_link"/>
     <child link="right_pinch_object_link"/>
-    <origin xyz="-0.005904 0 -0.267347" rpy="0 0 0"/>
-  </joint>  
+    <origin xyz="0 0 -0.029601" rpy="0 0 0"/>
+  </joint>
 
   <!-- fixed joint for left_shoulder_link relative to spine_link -->
   <joint name="left_shoulder_fixed" type="fixed">
@@ -805,10 +805,10 @@
   </joint>
 
   <joint name="left_pinch_joint" type="fixed">
-    <parent link="l_hand_link"/>
+    <parent link="left_grab_object_link"/>
     <child link="left_pinch_object_link"/>
-    <origin xyz="-0.005904 0 -0.267347" rpy="0 0 0"/>
-  </joint>  
+    <origin xyz="0 0 -0.029601" rpy="0 0 0"/>
+  </joint>
 
   <!-- fixed joint for neck_link relative to spine_link -->
   <joint name="neck_fixed" type="fixed">

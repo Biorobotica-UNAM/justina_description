@@ -692,7 +692,7 @@
     <parent link="r_hand_link"/>
     <child link="right_gripper_L_link"/>
     <origin xyz="-0.005904 0.01614 -0.13759" rpy="0 0 -1.5708"/>
-    <axis xyz="-1 0 0"/>
+    <axis xyz="0 1 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
   </joint>
@@ -701,7 +701,7 @@
     <parent link="r_hand_link"/>
     <child link="right_gripper_R_link"/>
     <origin xyz="-0.005904 -0.01614 -0.13759" rpy="0 0 1.5708"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="0 1 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
   </joint>
@@ -784,7 +784,7 @@
     <parent link="l_hand_link"/>
     <child link="left_gripper_L_link"/>
     <origin xyz="-0.005904 0.01614 -0.13759" rpy="0 0 -1.5708"/>
-    <axis xyz="-1 0 0"/>
+    <axis xyz="0 1 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
   </joint>
@@ -793,7 +793,7 @@
     <parent link="l_hand_link"/>
     <child link="left_gripper_R_link"/>
     <origin xyz="-0.005904 -0.01614 -0.13759" rpy="0 0 1.5708"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="0 1 0"/>
     <limit lower="-1.7" upper="1.7" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
   </joint>

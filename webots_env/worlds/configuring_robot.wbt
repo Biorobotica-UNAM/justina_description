@@ -19,8 +19,8 @@ WorldInfo {
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation 0.11032424071922413 -0.007462478993110449 -0.9938676337002851 3.0943690201409355
-  position 3.9314996210506603 1.197008685045236 1.533165835342864
+  orientation 0.01849882343278408 -0.009675708107460396 -0.9997820633539201 3.59790421337959
+  position 0.898818059121353 0.4463770858701358 1.13494959223276
   follow "robot:body_link"
 }
 TexturedBackground {
@@ -1611,7 +1611,7 @@ DEF Justina Robot {
                                     rotation 0 -1 0 0
                                     children [
                                       DEF camera_link Solid {
-                                        translation 0 0 0.108729
+                                        translation 0 0 0.088981
                                         children [
                                           DEF camera_link_visual Pose {
                                             children [
@@ -1623,14 +1623,14 @@ DEF Justina Robot {
                                             ]
                                           }
                                           Camera {
-                                            translation 0.01 0 -0.0127
+                                            translation 0.04 0 0.005
                                             name "camera_color"
                                             fieldOfView 1
                                             width 640
                                             height 480
                                           }
                                           RangeFinder {
-                                            translation 0.01 0 -0.0127
+                                            translation 0.04 0 0.005
                                             name "camera_range"
                                             fieldOfView 1
                                             width 640

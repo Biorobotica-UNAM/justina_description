@@ -709,7 +709,7 @@
   <joint name="right_grab_joint" type="fixed">
     <parent link="r_hand_link"/>
     <child link="right_grab_object_link"/>
-    <origin xyz="-0.005904 0 -0.247746" rpy="0 0 0"/>
+    <origin xyz="-0.005904 0 -0.267746" rpy="0 0 0"/>
   </joint>
 
   <joint name="right_pinch_joint" type="fixed">
@@ -801,7 +801,7 @@
   <joint name="left_grab_joint" type="fixed">
     <parent link="l_hand_link"/>
     <child link="left_grab_object_link"/>
-    <origin xyz="-0.005904 0 -0.247746" rpy="0 0 0"/>
+    <origin xyz="-0.005904 0 -0.267746" rpy="0 0 0"/>
   </joint>
 
   <joint name="left_pinch_joint" type="fixed">

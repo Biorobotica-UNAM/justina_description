@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import math
+import time
 
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
 from geometry_msgs.msg import PoseWithCovarianceStamped, TransformStamped, Twist
+from arms_interfaces.srv import MoveArms
 from head_interfaces.srv import MoveHead
 from nav_msgs.msg import OccupancyGrid, Odometry
 from sensor_msgs.msg import JointState, LaserScan
@@ -42,6 +44,11 @@ class SimpleJustinaSim(Node):
         self.declare_parameter('laser_y_offset', 0.0)
         self.declare_parameter('laser_yaw_offset', 0.0)
         self.declare_parameter('republish_initialpose_to_navigation', True)
+        self.declare_parameter('arm_motion_min_duration_sec', 0.08)
+        self.declare_parameter('arm_motion_max_duration_sec', 1.5)
+        self.declare_parameter('arm_motion_reference_speed', 50.0)
+        self.declare_parameter('arm_motion_reference_joint_velocity', 0.8)
+        self.declare_parameter('arm_motion_steps', 16)
 
         self.x = float(self.get_parameter('initial_x').value)
         self.y = float(self.get_parameter('initial_y').value)
@@ -51,6 +58,8 @@ class SimpleJustinaSim(Node):
         self.torso_position = 0.301
         self.head_pan = 0.0
         self.head_tilt = 0.0
+        self.left_arm_positions = [0.0] * 6
+        self.right_arm_positions = [0.0] * 6
         self.map_msg = None
         self.map_origin_yaw = 0.0
         self.map_to_odom_x = 0.0
@@ -64,6 +73,10 @@ class SimpleJustinaSim(Node):
                                  self.head_goal_callback, 10)
         self.create_subscription(Float64MultiArray, '/hardware/torso/goal_pose',
                                  self.torso_goal_callback, 10)
+        self.create_subscription(Float64MultiArray, '/hardware/arms/left_arm/goal_pose',
+                                 self.left_arm_goal_callback, 10)
+        self.create_subscription(Float64MultiArray, '/hardware/arms/right_arm/goal_pose',
+                                 self.right_arm_goal_callback, 10)
         self.create_subscription(PoseWithCovarianceStamped, '/initialpose',
                                  self.initial_pose_callback, 10)
         self.create_subscription(PoseWithCovarianceStamped, '/navigation/initialpose',
@@ -90,9 +103,17 @@ class SimpleJustinaSim(Node):
             Float64MultiArray, '/hardware/head/current_pose', 10)
         self.torso_pose_pub = self.create_publisher(
             Float64MultiArray, '/hardware/torso/current_pose', 10)
+        self.left_arm_pose_pub = self.create_publisher(
+            Float64MultiArray, '/hardware/arms/left_arm/current_pose', 10)
+        self.right_arm_pose_pub = self.create_publisher(
+            Float64MultiArray, '/hardware/arms/right_arm/current_pose', 10)
         self.create_service(MoveHead, '/hardware/head/move_head', self.move_head_callback)
         self.create_service(MoveTorso, '/hardware/torso/move_torso',
                             self.move_torso_callback)
+        self.create_service(MoveArms, '/hardware/arms/move_left_arm',
+                            self.move_left_arm_callback)
+        self.create_service(MoveArms, '/hardware/arms/move_right_arm',
+                            self.move_right_arm_callback)
         self.tf_broadcaster = TransformBroadcaster(self)
 
         rate = float(self.get_parameter('rate').value)
@@ -115,6 +136,12 @@ class SimpleJustinaSim(Node):
             return
         self.set_torso_position(msg.data[0])
 
+    def left_arm_goal_callback(self, msg):
+        self.set_arm_pose('left', msg.data)
+
+    def right_arm_goal_callback(self, msg):
+        self.set_arm_pose('right', msg.data)
+
     def move_head_callback(self, request, response):
         if len(request.positions) < 2:
             response.success = False
@@ -133,12 +160,90 @@ class SimpleJustinaSim(Node):
         response.message = f'Torso target set to {self.torso_position:.3f}'
         return response
 
+    def move_left_arm_callback(self, request, response):
+        response.success, response.message = self.move_arm_pose(
+            'left', request.positions, request.speed)
+        return response
+
+    def move_right_arm_callback(self, request, response):
+        response.success, response.message = self.move_arm_pose(
+            'right', request.positions, request.speed)
+        return response
+
     def set_head_pose(self, pan, tilt):
         self.head_pan = self.clamp(float(pan), -1.57, 1.57)
         self.head_tilt = self.clamp(float(tilt), -0.9, 0.47)
 
     def set_torso_position(self, position):
         self.torso_position = self.clamp(float(position), 0.0, 0.3014)
+
+    def set_arm_pose(self, arm, positions):
+        if len(positions) != 6:
+            return False, f'{arm} arm requires 6 joint positions'
+
+        clamped = [self.clamp(float(position), -1.57, 1.57)
+                   for position in positions]
+        if arm == 'left':
+            self.left_arm_positions = clamped
+        else:
+            self.right_arm_positions = clamped
+        return True, f'{arm} arm target accepted'
+
+    def move_arm_pose(self, arm, positions, speed):
+        if len(positions) != 6:
+            return False, f'{arm} arm requires 6 joint positions'
+
+        goal = [self.clamp(float(position), -1.57, 1.57)
+                for position in positions]
+        start = list(self.left_arm_positions if arm == 'left'
+                     else self.right_arm_positions)
+
+        max_delta = max(abs(target - current)
+                        for target, current in zip(goal, start))
+        duration = self.arm_motion_duration(max_delta, speed)
+        steps = max(1, int(self.get_parameter('arm_motion_steps').value))
+        sleep_sec = duration / float(steps)
+
+        for step in range(1, steps + 1):
+            ratio = step / float(steps)
+            interpolated = [
+                current + (target - current) * ratio
+                for target, current in zip(goal, start)
+            ]
+            if arm == 'left':
+                self.left_arm_positions = interpolated
+            else:
+                self.right_arm_positions = interpolated
+
+            self.publish_motion_state()
+            if step < steps and sleep_sec > 0.0:
+                time.sleep(sleep_sec)
+
+        return True, f'{arm} arm target reached in {duration:.2f}s'
+
+    def arm_motion_duration(self, max_delta, speed):
+        min_duration = max(
+            0.0, float(self.get_parameter('arm_motion_min_duration_sec').value))
+        max_duration = max(
+            min_duration,
+            float(self.get_parameter('arm_motion_max_duration_sec').value))
+        reference_speed = max(
+            1.0, float(self.get_parameter('arm_motion_reference_speed').value))
+        reference_velocity = max(
+            0.01,
+            float(self.get_parameter('arm_motion_reference_joint_velocity').value))
+        requested_speed = max(1.0, float(speed))
+
+        velocity = reference_velocity * (requested_speed / reference_speed)
+        duration = max_delta / velocity if velocity > 0.0 else max_duration
+        return self.clamp(duration, min_duration, max_duration)
+
+    def publish_motion_state(self):
+        stamp = self.get_clock().now().to_msg()
+        self.publish_joint_states(stamp, 0.0, 0.0, 0.0)
+        self.publish_head_pose()
+        self.publish_torso_pose()
+        self.publish_arm_poses()
 
     @staticmethod
     def clamp(value, minimum, maximum):
@@ -217,6 +322,7 @@ class SimpleJustinaSim(Node):
         self.publish_joint_states(stamp, vx, vy, wz)
         self.publish_head_pose()
         self.publish_torso_pose()
+        self.publish_arm_poses()
         self.publish_laser(stamp)
 
     @staticmethod
@@ -280,7 +386,10 @@ class SimpleJustinaSim(Node):
 
         js.position = self.wheel_positions + [
             self.torso_position, self.head_pan, self.head_tilt]
-        js.position.extend([0.0] * (len(js.name) - len(js.position)))
+        js.position.extend(self.left_arm_positions)
+        js.position.extend([0.0, 0.0])
+        js.position.extend(self.right_arm_positions)
+        js.position.extend([0.0, 0.0])
         self.joint_pub.publish(js)
 
     def publish_head_pose(self):
@@ -292,6 +401,15 @@ class SimpleJustinaSim(Node):
         msg = Float64MultiArray()
         msg.data = [self.torso_position]
         self.torso_pose_pub.publish(msg)
+
+    def publish_arm_poses(self):
+        left = Float64MultiArray()
+        left.data = list(self.left_arm_positions)
+        self.left_arm_pose_pub.publish(left)
+
+        right = Float64MultiArray()
+        right.data = list(self.right_arm_positions)
+        self.right_arm_pose_pub.publish(right)
 
     def publish_laser(self, stamp):
         range_min = float(self.get_parameter('laser_range_min').value)

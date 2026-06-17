@@ -19,8 +19,8 @@ WorldInfo {
   ]
 }
 DEF MAIN_VIEW Viewpoint {
-  orientation 0.01849882343278408 -0.009675708107460396 -0.9997820633539201 3.59790421337959
-  position 0.898818059121353 0.4463770858701358 1.13494959223276
+  orientation -0.0029790246462877545 -0.02583175183913953 -0.999661865837183 2.909110022026079
+  position 1.5085492119287043 1.5023071552291003 0.32816275916602017
   follow "robot:body_link"
 }
 TexturedBackground {
@@ -532,7 +532,7 @@ DEF BioRoboticsLab_Mesh Group {
   ]
 }
 DEF Justina Robot {
-  translation 0 1 0.06
+  translation 0 1 0.0607112
   children [
     DEF laser_link Solid {
       translation 0.06 0 0.1975
@@ -766,13 +766,13 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF right_gripper_L_link Solid {
                                                                   translation -0.005904 0.01614 -0.13759
-                                                                  rotation 0 0 -1 1.5707996938995745
+                                                                  rotation -1 0 0 0
                                                                   children [
                                                                     DEF right_gripper_L_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../meshes/justina/arm//Gripper.dae"
+                                                                            "../../meshes/justina/arm/Gripper_L.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -783,7 +783,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm/Gripper_L.dae"
                                                                         ]
                                                                       }
                                                                     ]
@@ -820,13 +820,13 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF right_gripper_R_link Solid {
                                                                   translation -0.005904 -0.01614 -0.13759
-                                                                  rotation 0 0 1 1.5707996938995745
+                                                                  rotation 1 0 0 0
                                                                   children [
                                                                     DEF right_gripper_R_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../meshes/justina/arm//Gripper.dae"
+                                                                            "../../meshes/justina/arm/Gripper_R.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -837,7 +837,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm/Gripper_R.dae"
                                                                         ]
                                                                       }
                                                                     ]
@@ -1242,13 +1242,13 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF left_gripper_L_link Solid {
                                                                   translation -0.005904 0.01614 -0.13759
-                                                                  rotation 0 0 -1 1.5707996938995745
+                                                                  rotation 0 0 -1 0
                                                                   children [
                                                                     DEF left_gripper_L_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../meshes/justina/arm//Gripper.dae"
+                                                                            "../../meshes/justina/arm/Gripper_L.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -1259,7 +1259,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm/Gripper_L.dae"
                                                                         ]
                                                                       }
                                                                     ]
@@ -1296,13 +1296,12 @@ DEF Justina Robot {
                                                                 ]
                                                                 endPoint DEF left_gripper_R_link Solid {
                                                                   translation -0.005904 -0.01614 -0.13759
-                                                                  rotation 0 0 1 1.5707996938995745
                                                                   children [
                                                                     DEF left_gripper_R_link_visual Pose {
                                                                       children [
                                                                         CadShape {
                                                                           url [
-                                                                            "../../meshes/justina/arm//Gripper.dae"
+                                                                            "../../meshes/justina/arm/Gripper_R.dae"
                                                                           ]
                                                                         }
                                                                       ]
@@ -1313,7 +1312,7 @@ DEF Justina Robot {
                                                                     children [
                                                                       Mesh {
                                                                         url [
-                                                                          "../../meshes/justina/arm//Gripper_Collider.dae"
+                                                                          "../../meshes/justina/arm/Gripper_R.dae"
                                                                         ]
                                                                       }
                                                                     ]

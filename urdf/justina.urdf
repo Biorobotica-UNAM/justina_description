@@ -251,12 +251,12 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_L.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_L.dae"/>
       </geometry>
     </collision>
   </link>
@@ -270,12 +270,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_R.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_R.dae"/>
       </geometry>
     </collision>
   </link>
@@ -426,12 +426,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_L.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_L.dae"/>
       </geometry>
     </collision>
   </link>
@@ -445,12 +445,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_R.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/arm/Gripper_R.dae"/>
       </geometry>
     </collision>
   </link>
@@ -691,7 +691,7 @@
   <joint name="right_gripper_L_joint" type="revolute">
     <parent link="r_hand_link"/>
     <child link="right_gripper_L_link"/>
-    <origin xyz="-0.005904 0.01614 -0.13759" rpy="0 0 -1.5708"/>
+    <origin xyz="-0.005904 0.01614 -0.13759" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-1.57" upper="1.57" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
@@ -700,7 +700,7 @@
   <joint name="right_gripper_R_joint" type="revolute">
     <parent link="r_hand_link"/>
     <child link="right_gripper_R_link"/>
-    <origin xyz="-0.005904 -0.01614 -0.13759" rpy="0 0 1.5708"/>
+    <origin xyz="-0.005904 -0.01614 -0.13759" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-1.57" upper="1.57" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
@@ -783,7 +783,7 @@
   <joint name="left_gripper_L_joint" type="revolute">
     <parent link="l_hand_link"/>
     <child link="left_gripper_L_link"/>
-    <origin xyz="-0.005904 0.01614 -0.13759" rpy="0 0 -1.5708"/>
+    <origin xyz="-0.005904 0.01614 -0.13759" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-1.57" upper="1.57" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>
@@ -792,7 +792,7 @@
   <joint name="left_gripper_R_joint" type="revolute">
     <parent link="l_hand_link"/>
     <child link="left_gripper_R_link"/>
-    <origin xyz="-0.005904 -0.01614 -0.13759" rpy="0 0 1.5708"/>
+    <origin xyz="-0.005904 -0.01614 -0.13759" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-1.57" upper="1.57" effort="16" velocity="3"/>
     <dynamics damping="0.1"/>

@@ -27,6 +27,8 @@
     <!-- Joint States Parser -->
     <include file="$(find-pkg-share joint_states_parser)/launch/joint_states_parser.launch.xml"/>
 
+     <include file="$(find-pkg-share openni2_camera)/launch/camera_with_cloud.launch.py"/>
+
   </group>
 
   <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen"

@@ -6,10 +6,12 @@
   <group>
     <push-ros-namespace namespace="hardware"/>
 
-    <set_remap from="/hardware/head/joint_states"                to="/hardware/joint_states"/>
-    <set_remap from="/hardware/arms/left_arm/joint_states"       to="/hardware/joint_states"/>
-    <set_remap from="/hardware/arms/right_arm/joint_states"      to="/hardware/joint_states"/>
-    <set_remap from="/hardware/torso/joint_states"               to="/hardware/joint_states"/>
+    <set_remap from="/hardware/head/joint_states"                		to="/hardware/joint_states"/>
+    <set_remap from="/hardware/arms/left_arm/joint_states"       		to="/hardware/joint_states"/>
+    <set_remap from="/hardware/arms/right_arm/joint_states"      		to="/hardware/joint_states"/>
+    <set_remap from="/hardware/grippers/left_gripper/joint_states"      to="/hardware/joint_states"/>
+    <set_remap from="/hardware/grippers/right_gripper/joint_states"     to="/hardware/joint_states"/>
+    <set_remap from="/hardware/torso/joint_states"               		to="/hardware/joint_states"/>
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher" output="screen">
       <param name="robot_description" value="$(var urdf_file)"/>
@@ -23,6 +25,9 @@
 
     <!-- Torso -->
     <include file="$(find-pkg-share torso)/launch/torso.launch.xml"/>
+
+    <!-- Grippers -->
+    <include file="$(find-pkg-share grippers)/launch/grippers.launch.xml"/>
 
     <!-- Joint States Parser -->
     <include file="$(find-pkg-share joint_states_parser)/launch/joint_states_parser.launch.xml"/>

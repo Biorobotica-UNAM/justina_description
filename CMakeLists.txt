@@ -44,6 +44,8 @@ install(DIRECTORY
 )
 
 install(PROGRAMS
+  scripts/kinect_tilt_motor_node.py
+  scripts/simple_justina_sim.py
   webots_env/scripts/robot_teleop.py
   webots_env/scripts/set_initial_pose.py
   DESTINATION lib/${PROJECT_NAME}

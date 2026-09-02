@@ -519,20 +519,20 @@
   <!-- camera_link -->
   <link name="camera_link">
     <inertial>
-      <origin xyz="0 0 -0.005" rpy="-1.5707 0 0"/>
+      <origin xyz="0 0 0" rpy="-1.5707 0 0"/>
       <mass value="0.5"/>
       <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/face/SingleKinect_LowPoly.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/Xtion.dae"/>
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://justina_description/meshes/justina/face/SingleKinect_LowPoly_Collider.dae"/>
+        <mesh filename="package://justina_description/meshes/justina/face/Xtion_Collider.dae"/>
       </geometry>
     </collision>
   </link>
@@ -836,11 +836,11 @@
     <dynamics damping="0.1"/>
   </joint>
 
-  <!-- camera fixed to head_frame_link -->
+   <!-- camera fixed to head_frame_link -->
   <joint name="camera_fixed_joint" type="fixed">
     <parent link="head_frame_link"/>
     <child link="camera_link"/>
-    <origin xyz="0 0 0.088981" rpy="0 0 0"/>
+    <origin xyz="0 0.0225 0.108" rpy="0 0 0"/>
   </joint>
 
   <!-- ================= CAMERA FRAMES ================= -->

@@ -29,8 +29,6 @@
 
   <depend>webots_ros2_driver</depend>
   <depend>pluginlib</depend>
-  <depend>python3-usb</depend>
-  <depend>rclpy</depend>
   <depend>geometry_msgs</depend>
   <depend>arms_interfaces</depend>
   <depend>head_interfaces</depend>
